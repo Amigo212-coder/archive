@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#2563eb">
     <title>الأرشيف الأكاديمي المطور والمكتبة الشاملة</title>
+    <script>
+        // تطبيق الوضع الليلي فوراً قبل رسم الصفحة لتفادي وميض بالوضع الخاطئ
+        (function() {
+            try {
+                var stored = localStorage.getItem('darkMode');
+                var isDark = stored === '1' || (stored === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+                if (isDark) {
+                    document.documentElement.classList.add('dark-mode');
+                    document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1220');
+                }
+            } catch(e) {}
+        })();
+    </script>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap');
@@ -45,11 +58,31 @@
             --highlight-text: #b45309;
            --primary-color: #2563eb;
             --glass-bg: rgba(255, 255, 255, 0.85);
+            --skeleton-a: #e2e8f0;
+            --skeleton-b: #f1f5f9;
+        }
+
+        /* الوضع الليلي: نفس المتغيرات بقيم داكنة، فيتلوّن كل الموقع تلقائياً */
+        html.dark-mode {
+            --bg-color: #0b1220;
+            --text-color: #cbd5e1;
+            --card-bg: #151f32;
+            --border-color: #2d3b52;
+            --header-color: #f1f5f9;
+            --input-bg: #1c2942;
+            --input-border: #3b4a63;
+            --text-muted: #94a3b8;
+            --highlight-bg: #7c4a03;
+            --highlight-text: #fde68a;
+            --primary-color: #3b82f6;
+            --glass-bg: rgba(11, 18, 32, 0.85);
+            --skeleton-a: #1e2942;
+            --skeleton-b: #263449;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-        html, body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: hidden; }
+        html, body { font-family: 'Cairo', sans-serif; background-color: var(--bg-color); color: var(--text-color); margin: 0; scroll-behavior: smooth; width: 100%; max-width: 100%; overflow-x: hidden; transition: background-color 0.3s ease, color 0.3s ease; }
         body {
             padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
         }
@@ -152,7 +185,7 @@
 
         .skeleton-card { background: var(--card-bg); padding: 18px; border-radius: 16px; border: 1px solid var(--border-color); height: 260px; width: 100%; }
         .skeleton-pulse { animation: skeleton-loading 1.2s linear infinite alternate; border-radius: 6px; }
-        @keyframes skeleton-loading { 0% { background-color: #e2e8f0; } 100% { background-color: #f1f5f9; } }
+        @keyframes skeleton-loading { 0% { background-color: var(--skeleton-a); } 100% { background-color: var(--skeleton-b); } }
         .sk-badge { height: 22px; width: 70px; margin-bottom: 20px; }
         .sk-title { height: 20px; width: 80%; margin-bottom: 12px; }
         .sk-sub { height: 14px; width: 50%; margin-bottom: 20px; }
@@ -359,6 +392,7 @@
             <div class="view-toggles">
                 <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')" title="عرض بطاقات"><i class="fa-solid fa-border-all"></i></button>
                 <button id="listViewBtn" class="view-btn" onclick="toggleView('list')" title="عرض قائمة"><i class="fa-solid fa-list-ul"></i></button>
+                <button id="darkModeBtn" class="view-btn" onclick="toggleDarkMode()" title="الوضع الليلي / النهاري"><i class="fa-solid fa-moon"></i></button>
             </div>
 
             <div class="action-btns-group">
@@ -371,7 +405,7 @@
         </div>
 
         <div class="search-row">
-            <select id="sortFilter" class="filter-select sort-select"><option value="date-desc">🔽 الأحدث أولاً</option><option value="date-asc">🔼 الأقدم أولاً</option><option value="alpha">🔠 أبجدياً (أ - ي)</option></select>
+            <select id="sortFilter" class="filter-select sort-select"><option value="date-desc">🔽 الأحدث أولاً</option><option value="date-asc">🔼 الأقدم أولاً</option><option value="alpha">🔠 أبجدياً (أ - ي)</option><option value="downloads-desc">🔥 الأكثر تحميلاً</option></select>
             <select id="subjectNameFilter" class="filter-select"><option value="الكل">📘 المادة (الكل)</option></select>
             <select id="yearFilter" class="filter-select"><option value="الكل">🎓 الفرقة</option><option value="الفرقة الأولى">الفرقة الأولى</option><option value="الفرقة الثانية">الفرقة الثانية</option><option value="الفرقة الثالثة">الفرقة الثالثة</option><option value="الفرقة الرابعة">الفرقة الرابعة</option></select>
             <select id="eduFilter" class="filter-select"><option value="الكل">🏫 التعليم</option><option value="عام">عام</option><option value="تعليم أساسي">تعليم أساسي</option></select>
@@ -445,7 +479,10 @@
                 2. قم بتسمية الملف بوضوح (مثال: ملخص جبر مجرد - فرقة ثانية - إعداد فلان).<br>
                 3. أرسل الملف عبر الإيميل المخصص، وسيتم مراجعته ورفعه باسمك على المنصة فوراً.
             </div>
-            <div class="tools-links" style="margin-top: 15px;"><a href="#" id="contactEmailBtn" class="tool-link" style="background: var(--primary-color); color: white; border: none;"><i class="fa-solid fa-envelope"></i> أرسل ملفك الآن عبر الجيميل</a></div>
+            <div class="tools-links" style="margin-top: 15px; flex-direction: column; align-items: center;">
+                <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link" style="background: #10b981; color: white; border: none; width: 100%; max-width: 320px; text-align: center; display: block;"><i class="fa-solid fa-file-circle-plus"></i> املأ نموذج رفع الملف (الأسهل)</a>
+                <a href="#" id="contactEmailBtn" class="tool-link" style="background: var(--input-bg); color: var(--header-color); border: 1px solid var(--border-color); width: 100%; max-width: 320px; text-align: center; display: block;"><i class="fa-solid fa-envelope"></i> أو أرسله عبر الجيميل</a>
+            </div>
         </div>
 
         <!-- 3. سياسة النشر (مفصلة) -->
@@ -552,6 +589,40 @@
         const ADMIN_EMAIL = 'blackp0778565@gmail.com'; 
         document.getElementById('contactEmailBtn').href = `mailto:${ADMIN_EMAIL}?subject=مشاركة ملخص جديد في الأرشيف الأكاديمي`;
 
+        // ضع هنا رابط نموذج Google Form بعد إنشائه (Insert > Embed > By URL لا يلزم، فقط رابط النموذج نفسه)
+        // الحقول المقترحة: العنوان، اسم المادة، الفرقة، نوع التعليم، التخصص، نوع المادة، الترم، رابط الملف، اسم المُعِد
+        // ملاحظة: هذا نموذج تجميع فقط — الردود تُخزَّن في جدول منفصل تراجعه أنت قبل نقلها للجدول المنشور فعلياً
+        const GOOGLE_FORM_URL = 'https://forms.gle/8x6k74GUi16YfFyY6'; // مثال: 'https://forms.gle/xxxxxxxxxxxxx'
+        const formBtn = document.getElementById('contactFormBtn');
+        if (formBtn) {
+            if (GOOGLE_FORM_URL) {
+                formBtn.href = GOOGLE_FORM_URL;
+            } else {
+                formBtn.style.display = 'none'; // يُخفى تلقائياً حتى تُضيف رابط النموذج أعلاه
+            }
+        }
+
+        // ضع هنا رابط "Web App" الخاص بسكربت عدّاد التحميلات بعد نشره من Google Apps Script
+        // (راجع شرح الإعداد الكامل — السكربت يزيد عمود "downloads" في نفس الجدول عند كل تحميل)
+        const COUNTER_SCRIPT_URL = ''; // مثال: 'https://script.google.com/macros/s/xxxxxxx/exec'
+
+        // إرسال "نبضة" صامتة عند كل تحميل لزيادة العدّاد، بدون انتظار الرد وبدون التأثير على تجربة المستخدم
+        function trackDownload(fileUrl) {
+            if (!COUNTER_SCRIPT_URL) return; // لم يُفعَّل العداد بعد
+            try {
+                fetch(`${COUNTER_SCRIPT_URL}?url=${encodeURIComponent(fileUrl)}`, { mode: 'no-cors' }).catch(() => {});
+            } catch(e) {}
+        }
+        // زر "إبلاغ عن رابط معطل": يفتح رسالة بريد جاهزة بالتفاصيل، وينسخها أيضاً احتياطاً
+        // لو لم يكن هناك تطبيق بريد مُعدّ على الجهاز
+        function reportBrokenLink(fileUrl, fileTitle) {
+            const subject = encodeURIComponent(`🚩 رابط معطل: ${fileTitle}`);
+            const body = encodeURIComponent(`السلام عليكم،\n\nوجدت أن هذا الملف لا يفتح أو رابطه معطل:\n\nالملف: ${fileTitle}\nالرابط: ${fileUrl}\n\nشكراً لمراجعته.`);
+            window.location.href = `mailto:${ADMIN_EMAIL}?subject=${subject}&body=${body}`;
+            copyToClipboard(`🚩 رابط معطل - ${fileTitle}\n${fileUrl}`);
+            showToast('📧 يتم فتح تطبيق البريد، وتم نسخ التفاصيل احتياطياً أيضاً');
+        }
+
         // دالة "debounce" عامة: تؤخر تنفيذ الدالة حتى يتوقف المستخدم عن الكتابة
         // (كانت مستخدمة في آخر السكربت بدون تعريف، فسببت توقف تفعيل خانة البحث بالكامل)
         function debounce(func, wait) {
@@ -629,6 +700,9 @@ function renderRecent() {
                     <button class="btn-icon" onclick="showQRCode('${file.url}', '${safeTitle}')" title="عرض رمز QR">
                         <i class="fa-solid fa-qrcode"></i>
                     </button>
+                    <button class="btn-icon" onclick="reportBrokenLink('${file.url}', '${safeTitle}')" title="إبلاغ عن رابط معطل">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    </button>
                 </div>
             `;
             container.appendChild(card);
@@ -653,6 +727,28 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             const container = document.getElementById('filesContainer');
             if(style === 'list') { container.classList.add('list-view'); } 
             else { container.classList.remove('list-view'); }
+        }
+
+        // الوضع الليلي: يتم تفعيله مبكراً في <head> لتفادي الوميض،
+        // وهنا فقط نُزامن شكل الزر (أيقونة شمس/قمر) ولون شريط المتصفح مع الحالة الفعلية
+        function applyDarkMode(isDark) {
+            document.documentElement.classList.toggle('dark-mode', isDark);
+            const btn = document.getElementById('darkModeBtn');
+            if (btn) btn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            const meta = document.querySelector('meta[name="theme-color"]');
+            if (meta) meta.setAttribute('content', isDark ? '#0b1220' : '#2563eb');
+        }
+
+        function toggleDarkMode() {
+            const isDark = !document.documentElement.classList.contains('dark-mode');
+            applyDarkMode(isDark);
+            try { localStorage.setItem('darkMode', isDark ? '1' : '0'); } catch(e) {}
+            showToast(isDark ? '🌙 تم تفعيل الوضع الليلي' : '☀️ تم تفعيل الوضع النهاري');
+        }
+
+        function initDarkMode() {
+            // الكلاس ربما يكون مُضافاً بالفعل من السكربت المبكر في <head>؛ هنا فقط نُطابق شكل الزر معه
+            applyDarkMode(document.documentElement.classList.contains('dark-mode'));
         }
 
       function getFileIcon(titleStr) {
@@ -1007,6 +1103,7 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            initDarkMode();
             setDynamicGreeting();
             typeWriter();
             toggleView(currentViewStyle);
@@ -1250,7 +1347,8 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
                         semester: columns[6] ? columns[6].trim() : "الكل",
                         date: columns[7] ? columns[7].trim() : "1999-01-01",
                         url: columns[8] ? columns[8].trim() : "#",
-                        author: columns[9] && columns[9].trim() !== '' ? columns[9].trim() : "غير محدد"
+                        author: columns[9] && columns[9].trim() !== '' ? columns[9].trim() : "غير محدد",
+                        downloads: columns[10] ? (parseInt(columns[10], 10) || 0) : 0
                     });
                 }
                 allFiles = parsedFiles;
@@ -1307,7 +1405,8 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
 
             if (selectedSort === 'date-desc') { currentFilteredFiles.sort((a, b) => new Date(b.date) - new Date(a.date));
             } else if (selectedSort === 'date-asc') { currentFilteredFiles.sort((a, b) => new Date(a.date) - new Date(b.date));
-            } else if (selectedSort === 'alpha') { currentFilteredFiles.sort((a, b) => a.title.localeCompare(b.title, 'ar')); }
+            } else if (selectedSort === 'alpha') { currentFilteredFiles.sort((a, b) => a.title.localeCompare(b.title, 'ar'));
+            } else if (selectedSort === 'downloads-desc') { currentFilteredFiles.sort((a, b) => (b.downloads || 0) - (a.downloads || 0)); }
 
             currentPage = 1;
             renderFiles();
@@ -1378,13 +1477,13 @@ function renderFiles(append = false) {
                             <div class="file-info"><strong>الفرقة:</strong> ${file.year} | ${file.semester}</div>
                             <div class="file-info"><strong>التخصص:</strong> ${file.major} (${file.eduType})</div>
                             <div class="file-info"><strong>✍️ إعداد:</strong> <span class="author-name">${displayAuthor}</span></div>
-                            <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}</div>
+                            <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}${file.downloads > 0 ? ` <span style="margin-right:6px;">· <i class="fa-solid fa-download"></i> ${file.downloads}</span>` : ''}</div>
                         </div>
 
                         <div class="action-area">
                             <div class="card-actions">
                                 <a href="${file.url}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${file.url}')"><i class="fa-solid fa-eye"></i> عرض</a>
-                                <a href="${downloadLink}" class="btn btn-down"><i class="fa-solid fa-download"></i> تحميل</a>
+                                <a href="${downloadLink}" class="btn btn-down" onclick="trackDownload('${file.url}')"><i class="fa-solid fa-download"></i> تحميل</a>
                             </div>
                             
                             <div class="icon-actions">
@@ -1392,6 +1491,7 @@ function renderFiles(append = false) {
                                 <button class="btn-icon" onclick="copyToClipboard('${shareText}')" title="نسخ الرابط"><i class="fa-solid fa-link"></i></button>
                                 <button class="btn-icon" onclick="nativeShare('${displayTitle}', '${shareText}', '${file.url}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
                                 <button class="btn-icon" onclick="showQRCode('${file.url}', '${safeTitleForQR}')" title="باركود للموبايل"><i class="fa-solid fa-qrcode"></i></button>
+                                <button class="btn-icon" onclick="reportBrokenLink('${file.url}', '${safeTitleForQR}')" title="إبلاغ عن رابط معطل"><i class="fa-solid fa-triangle-exclamation"></i></button>
                             </div>
                         </div>
                     </div>
