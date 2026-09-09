@@ -67,7 +67,7 @@
             --skeleton-a: #e2e8f0;
             --skeleton-b: #f1f5f9;
             --bg-gradient: linear-gradient(180deg, #f3f7ff 0%, #ffffff 320px, #ffffff 100%);
-            --card-glass-bg: rgba(255, 255, 255, 0.72);
+            --card-glass-bg: rgba(255, 255, 255, 0.92);
         }
 
         /* الوضع الليلي: نفس المتغيرات بقيم داكنة، فيتلوّن كل الموقع تلقائياً */
@@ -87,7 +87,7 @@
             --skeleton-a: #1e2942;
             --skeleton-b: #263449;
             --bg-gradient: linear-gradient(180deg, #0d1730 0%, #0b1220 320px, #0b1220 100%);
-            --card-glass-bg: rgba(21, 31, 50, 0.72);
+            --card-glass-bg: rgba(21, 31, 50, 0.92);
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -116,6 +116,8 @@
         .action-btns-group { display: flex; gap: 8px; width: 100%; }
         .fav-toggle-btn, .reset-btn { flex: 1; padding: 0 15px; border-radius: 10px; border: 2px solid; background: transparent; font-family: 'Cairo', sans-serif; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; height: 45px; }
         .fav-toggle-btn { border-color: #ef4444; color: #ef4444; }
+        .filters-toggle-btn { flex: 1; padding: 0 15px; border-radius: 10px; border: 2px solid var(--primary-color); background: transparent; color: var(--primary-color); font-family: 'Cairo', sans-serif; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; height: 45px; }
+        .filters-toggle-btn.active { background: var(--primary-color); color: white; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3); }
         .fav-toggle-btn.active { background: #ef4444; color: white; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3); }
         .reset-btn { border-color: #94a3b8; color: #64748b; }
         .reset-btn:hover { background: #f1f5f9; color: #334155; border-color: #64748b; }
@@ -131,7 +133,7 @@
         .files-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: auto; width: 100%; }
         
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .file-card { background: var(--card-glass-bg); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); padding: 18px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.5s ease-out forwards; width: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.4s ease, border-color 0.4s ease; }
+        .file-card { background: var(--card-glass-bg); padding: 18px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.5s ease-out forwards; width: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.4s ease, border-color 0.4s ease; }
         .file-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); }
         html.dark-mode .file-card:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
 
@@ -459,6 +461,7 @@
             </div>
 
             <div class="action-btns-group">
+                <button id="filtersToggleBtn" class="filters-toggle-btn" onclick="toggleFiltersPanel()" title="إظهار/إخفاء الفلاتر"><i class="fa-solid fa-filter"></i> الفلاتر</button>
                 <button id="favToggleBtn" class="fav-toggle-btn" onclick="toggleFavView()">🤍 مكتبتي</button>
                 <button id="exportFavBtn" onclick="exportLibrary()" style="display: none; padding: 8px 15px; border-radius: 8px; border: none; background: #10b981; color: white; cursor: pointer; font-family: inherit; font-weight: bold; margin-right: 10px; transition: 0.3s;">
     <i class="fa-solid fa-share-nodes"></i> مشاركة مكتبتي
@@ -467,6 +470,7 @@
             </div>
         </div>
 
+        <div id="filtersPanel" style="display: none;">
         <div class="search-row">
             <select id="sortFilter" class="filter-select sort-select"><option value="date-desc">🔽 الأحدث أولاً</option><option value="date-asc">🔼 الأقدم أولاً</option><option value="alpha">🔠 أبجدياً (أ - ي)</option><option value="downloads-desc">🔥 الأكثر تحميلاً</option></select>
             <select id="subjectNameFilter" class="filter-select"><option value="الكل">📘 المادة (الكل)</option></select>
@@ -475,6 +479,7 @@
             <select id="majorFilter" class="filter-select"><option value="الكل">📚 التخصص</option><option value="لغة عربية">لغة عربية</option><option value="لغة إنجليزية">لغة إنجليزية</option><option value="رياضيات">رياضيات</option><option value="رياضيات باللغة الإنجليزية">رياضيات باللغة الإنجليزية</option><option value="كيمياء">كيمياء</option><option value="كيمياء باللغة الإنجليزية">كيمياء باللغة الإنجليزية</option><option value="فيزياء">فيزياء</option><option value="بيولوجي">بيولوجي</option><option value="بيولوجي باللغة الإنجليزية">بيولوجي باللغة الإنجليزية</option></select>
             <select id="typeFilter" class="filter-select"><option value="الكل">🏷️ نوع المادة</option><option value="مادة تخصص">مادة تخصص</option><option value="مادة تربوية">مادة تربوية</option></select>
             <select id="semesterFilter" class="filter-select"><option value="الكل">⏳ الترم</option><option value="الفصل الأول">الفصل الأول</option><option value="الفصل الثاني">الفصل الثاني</option></select>
+        </div>
         </div>
     </div>
 
@@ -647,15 +652,15 @@
     </div>
 
     <script>
-        const SHEET_ID = '1kQsJDvPSa364iWc6O8RtRvcsls3vFVoDD0Kt8bxx8x8'; 
-        const TSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTmw2_c9HHJn_JJ6dgeXbVd6EDEf7JhOrkd5Ht_QgFWKRZceWBqQgaLvGoJpkts1voeRITs_z8tVV7r/pub?output=tsv`;
+        const SHEET_ID = '11_V1kRj55brAU_Sz7G8sATPNS_tKHaT9G9NoTEiVudY'; 
+        const TSV_URL = `https://docs.google.com/spreadsheets/d/e/2PACX-1vTs1m8G5U5okSyDfec9lGQ0aqzhgwaBxygpdfm3uy4IJzz3wl1JIgfWtpMn34XC5XsZN6WH6k6pydf5/pub?output=tsv`;
         const ADMIN_EMAIL = 'blackp0778565@gmail.com'; 
         document.getElementById('contactEmailBtn').href = `mailto:${ADMIN_EMAIL}?subject=مشاركة ملخص جديد في الأرشيف الأكاديمي`;
 
         // ضع هنا رابط نموذج Google Form بعد إنشائه (Insert > Embed > By URL لا يلزم، فقط رابط النموذج نفسه)
         // الحقول المقترحة: العنوان، اسم المادة، الفرقة، نوع التعليم، التخصص، نوع المادة، الترم، رابط الملف، اسم المُعِد
         // ملاحظة: هذا نموذج تجميع فقط — الردود تُخزَّن في جدول منفصل تراجعه أنت قبل نقلها للجدول المنشور فعلياً
-        const GOOGLE_FORM_URL = 'https://forms.gle/YGCeyAPYqftkQ6aTA'; // مثال: 'https://forms.gle/xxxxxxxxxxxxx'
+        const GOOGLE_FORM_URL = ''; // مثال: 'https://forms.gle/xxxxxxxxxxxxx'
         const formBtn = document.getElementById('contactFormBtn');
         if (formBtn) {
             if (GOOGLE_FORM_URL) {
@@ -667,13 +672,14 @@
 
         // ضع هنا رابط "Web App" الخاص بسكربت عدّاد التحميلات بعد نشره من Google Apps Script
         // (راجع شرح الإعداد الكامل — السكربت يزيد عمود "downloads" في نفس الجدول عند كل تحميل)
-        const COUNTER_SCRIPT_URL = ''; // مثال: 'https://script.google.com/macros/s/xxxxxxx/exec'
+        const COUNTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAzzAwd-pXuBY1_5MxIAaanFU1uzvt48gvuGJAEdBwIMizgakpDI6fN93rTf_deKmi/exec'; // مثال: 'https://script.google.com/macros/s/xxxxxxx/exec'
 
         // إرسال "نبضة" صامتة عند كل تحميل لزيادة العدّاد، بدون انتظار الرد وبدون التأثير على تجربة المستخدم
-        function trackDownload(fileUrl) {
-            if (!COUNTER_SCRIPT_URL) return; // لم يُفعَّل العداد بعد
+        // نستخدم "id" الثابت للملف (مقاوم لإعادة ترتيب الصفوف) بدل الرابط نفسه
+        function trackDownload(fileId) {
+            if (!COUNTER_SCRIPT_URL || !fileId) return; // لم يُفعَّل العداد بعد، أو الملف بلا id
             try {
-                fetch(`${COUNTER_SCRIPT_URL}?url=${encodeURIComponent(fileUrl)}`, { mode: 'no-cors' }).catch(() => {});
+                fetch(`${COUNTER_SCRIPT_URL}?id=${encodeURIComponent(fileId)}`, { mode: 'no-cors' }).catch(() => {});
             } catch(e) {}
         }
         // زر "إبلاغ عن رابط معطل": يفتح رسالة بريد جاهزة بالتفاصيل، وينسخها أيضاً احتياطاً
@@ -1418,6 +1424,14 @@ async function shareViaNative() {
     }
 }
 
+        function toggleFiltersPanel() {
+            const panel = document.getElementById('filtersPanel');
+            const btn = document.getElementById('filtersToggleBtn');
+            const isHidden = !panel || panel.style.display === 'none' || panel.style.display === '';
+            if (panel) panel.style.display = isHidden ? 'block' : 'none';
+            if (btn) btn.classList.toggle('active', isHidden);
+        }
+
         function toggleFavView() {
             isFavViewActive = !isFavViewActive;
             const btn = document.getElementById('favToggleBtn');
@@ -1506,7 +1520,8 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
                         date: columns[7] ? columns[7].trim() : "1999-01-01",
                         url: columns[8] ? columns[8].trim() : "#",
                         author: columns[9] && columns[9].trim() !== '' ? columns[9].trim() : "غير محدد",
-                        downloads: columns[10] ? (parseInt(columns[10], 10) || 0) : 0
+                        downloads: columns[10] ? (parseInt(columns[10], 10) || 0) : 0,
+                        id: columns[11] ? columns[11].trim() : ''
                     });
                 }
                 allFiles = parsedFiles;
@@ -1537,3 +1552,154 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             const selectedSort = document.getElementById('sortFilter').value;
             const selectedSubjectName = document.getElementById('subjectNameFilter').value;
             const selectedYear = document.getElementById('yearFilter').value;
+            const selectedEdu = document.getElementById('eduFilter').value;
+            const selectedMajor = document.getElementById('majorFilter').value;
+            const selectedType = document.getElementById('typeFilter').value;
+            const selectedSemester = document.getElementById('semesterFilter').value;
+
+            try {
+                localStorage.setItem('savedYear', selectedYear);
+                localStorage.setItem('savedEdu', selectedEdu);
+                localStorage.setItem('savedMajor', selectedMajor);
+            } catch(e){}
+
+            currentFilteredFiles = allFiles.filter(file => {
+                const matchSearch = file.title.toLowerCase().includes(searchText) || file.subjectName.toLowerCase().includes(searchText) || file.author.toLowerCase().includes(searchText);
+                const matchSubjectName = selectedSubjectName === 'الكل' || file.subjectName === selectedSubjectName;
+                const matchYear = selectedYear === 'الكل' || file.year === selectedYear;
+                const matchEdu = selectedEdu === 'الكل' || file.eduType === selectedEdu;
+                const matchMajor = selectedMajor === 'الكل' || file.major === selectedMajor;
+                const matchType = selectedType === 'الكل' || file.subjectType === selectedType;
+                const matchSemester = selectedSemester === 'الكل' || file.semester === selectedSemester;
+                const matchFav = isFavViewActive ? favorites.includes(file.url) : true;
+                
+                return matchSearch && matchSubjectName && matchYear && matchEdu && matchMajor && matchType && matchSemester && matchFav;
+            });
+
+            if (selectedSort === 'date-desc') { currentFilteredFiles.sort((a, b) => new Date(b.date) - new Date(a.date));
+            } else if (selectedSort === 'date-asc') { currentFilteredFiles.sort((a, b) => new Date(a.date) - new Date(b.date));
+            } else if (selectedSort === 'alpha') { currentFilteredFiles.sort((a, b) => a.title.localeCompare(b.title, 'ar'));
+            } else if (selectedSort === 'downloads-desc') { currentFilteredFiles.sort((a, b) => (b.downloads || 0) - (a.downloads || 0)); }
+
+            currentPage = 1;
+            renderFiles();
+        }
+        
+        function loadMore() {
+            currentPage++;
+            renderFiles(true); 
+        }
+function renderFiles(append = false) {
+    renderRecent(); // <--- تمت الإضافة هنا لكي ترسم الملفات الحديثة كلما تم تحديث الموقع
+
+    const container = document.getElementById('filesContainer');
+    const loadMoreContainer = document.getElementById('loadMoreContainer');
+    const searchText = document.getElementById('searchInput').value;
+    const maxDownloads = Math.max(1, ...allFiles.map(f => f.downloads || 0));
+    // ... باقي كودك
+            if (!append) container.innerHTML = '';
+            
+            document.getElementById('fileCountPrefix').innerText = isFavViewActive ? '📚 تحتفظ بـ ' : '📊 النتائج: ';
+            document.getElementById('fileCountSuffix').innerText = ' ملف';
+            animateCounter(currentFilteredFiles.length);
+            
+            if(currentFilteredFiles.length === 0) {
+                loadMoreContainer.style.display = 'none';
+                if(isFavViewActive) {
+                    container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h14l4 6h30v28a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V20z"/><path d="M32 42c-6-4-10-7-10-11a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 4-4 7-10 11z"/></svg></span><div class="empty-title">مكتبتك فارغة</div><div class="empty-desc">اضغط على أيقونة القلب (🤍) في أي ملف لإضافته هنا لمراجعته سريعاً.</div></div>`;
+                } else {
+                    container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="27" r="16"/><line x1="39" y1="39" x2="54" y2="54"/><line x1="21" y1="27" x2="33" y2="27"/></svg></span><div class="empty-title">لا توجد نتائج مطابقة</div><div class="empty-desc">تأكد من كلمات البحث أو اضغط على (تصفير) لإعادة الضبط.</div></div>`;
+                }
+                return;
+            }
+            
+            const startIndex = append ? (currentPage - 1) * ITEMS_PER_PAGE : 0;
+            const endIndex = currentPage * ITEMS_PER_PAGE;
+            const filesToShow = currentFilteredFiles.slice(startIndex, endIndex);
+            
+            filesToShow.forEach((file, index) => {
+                const badgeClass = file.subjectType.includes('تربوي') ? 'card-badge badge-edu' : 'card-badge';
+                const badgeText = file.subjectType.includes('تربوي') ? 'تربوي' : 'تخصص';
+                const isNewFile = isNew(file.date);
+                const downloadLink = getDirectDownload(file.url);
+                const isFav = favorites.includes(file.url);
+                
+                const displayTitle = highlightMatch(file.title, searchText);
+                const displaySubject = highlightMatch(file.subjectName, searchText);
+                const displayAuthor = highlightMatch(file.author, searchText);
+
+                const authorCredit = file.author !== "غير محدد" ? ` (إعداد: ${file.author})` : '';
+                const shareText = `حمل مادة ${file.title}${authorCredit} من الأرشيف الأكاديمي: ${window.location.href}`;
+                
+                const animDelay = (index % ITEMS_PER_PAGE) * 0.05;
+
+              const iconHTML = getFileIcon(file.title + " " + file.subjectName);
+               const displayDate = formatSmartDate(file.date); 
+               const safeTitleForQR = file.title.replace(/'/g, "\\'"); 
+               const majorColor = getMajorColor(file.major);
+               
+                const card = `
+                    <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay: ${animDelay}s; border-right: 4px solid ${majorColor};">
+                        <div class="${badgeClass}">${badgeText}</div>
+                        ${isNewFile ? '<div class="badge-new">جديد 🔥</div>' : ''}
+                        
+                        <div class="content-area">
+                            <h3>${iconHTML} ${displayTitle}</h3>
+                            <div class="subject-name"><span style="color:${majorColor}; margin-left:4px;">${getMajorIcon(file.major)}</span>مادة: ${displaySubject}</div>
+                        </div>
+                        
+                        <div class="meta-area">
+                            <div class="file-info"><strong>الفرقة:</strong> ${file.year} | ${file.semester}</div>
+                            <div class="file-info"><strong>التخصص:</strong> ${file.major} (${file.eduType})</div>
+                            <div class="file-info"><strong>✍️ إعداد:</strong> <span class="author-name">${displayAuthor}</span></div>
+                            <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}${file.downloads > 0 ? ` <span class="download-count-pill"><i class="fa-solid fa-fire"></i> ${file.downloads}</span>` : ''}</div>
+                            ${file.downloads > 0 ? `<div class="popularity-bar"><div class="popularity-bar-fill" style="width:${Math.round((file.downloads / maxDownloads) * 100)}%"></div></div>` : ''}
+                        </div>
+
+                        <div class="action-area">
+                            <div class="card-actions">
+                                <a href="${file.url}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${file.url}')"><i class="fa-solid fa-eye"></i> عرض</a>
+                                <a href="${downloadLink}" class="btn btn-down" onclick="trackDownload('${file.id || file.url}')"><i class="fa-solid fa-download"></i> تحميل</a>
+                            </div>
+                            
+                            <div class="icon-actions">
+                              <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${file.url}', this)" title="إضافة لمكتبتي">${favorites.includes(file.url) ? '❤️' : '🤍'}</button>
+                                <button class="btn-icon" onclick="copyToClipboard('${shareText}')" title="نسخ الرابط"><i class="fa-solid fa-link"></i></button>
+                                <button class="btn-icon" onclick="nativeShare('${displayTitle}', '${shareText}', '${file.url}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
+                                <button class="btn-icon" onclick="showQRCode('${file.url}', '${safeTitleForQR}')" title="باركود للموبايل"><i class="fa-solid fa-qrcode"></i></button>
+                                <button class="btn-icon" onclick="reportBrokenLink('${file.url}', '${safeTitleForQR}')" title="إبلاغ عن رابط معطل"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', card);
+            });
+            
+            if (endIndex < currentFilteredFiles.length) { loadMoreContainer.style.display = 'block'; } 
+            else { loadMoreContainer.style.display = 'none'; }
+        }
+
+     // استخدام السماع للأحداث لضمان عدم حدوث أي تعارض مع أكواد أخرى
+        window.addEventListener('scroll', function() {
+            let btn = document.getElementById('scrollTopBtn');
+            if (btn) {
+                if (window.scrollY > 300) { 
+                    btn.style.display = "flex"; 
+                } else { 
+                    btn.style.display = "none"; 
+                }
+            }
+        });
+
+        // دالة الصعود لأعلى بنعومة
+        function scrollToTop() { 
+            window.scrollTo({ top: 0, behavior: 'smooth' }); 
+        }
+        document.querySelectorAll('.filter-select').forEach(element => {
+            element.addEventListener('change', filterAndSortData);
+        });
+        searchInput.addEventListener('input', debounce(filterAndSortData, 250));
+        renderRecent();
+    </script>
+</body>
+</html>
