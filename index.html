@@ -105,7 +105,11 @@
         .dynamic-greeting { color: #3b82f6; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; margin: 0; transition: opacity 0.5s; }
         
         .controls-container, .extra-box { position: relative; background: var(--card-bg); padding: 20px; border-radius: 16px; border: 2px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-top: 35px; width: 100%; transition: background-color 0.4s ease, border-color 0.4s ease; }
-        .section-tab { position: absolute; bottom: 100%; right: 20px; margin: 0; background: var(--border-color); color: var(--header-color); padding: 4px 18px; font-size: 14px; font-weight: 700; border-radius: 12px 12px 0 0; letter-spacing: 0.5px; font-family: 'El Messiri', sans-serif; }
+        .section-tab { position: absolute; bottom: 100%; right: 20px; margin: 0; background: var(--border-color); color: var(--header-color); padding: 4px 18px; font-size: 14px; font-weight: 700; border-radius: 12px 12px 0 0; letter-spacing: 0.5px; font-family: 'El Messiri', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
+        .toggle-chevron { font-size: 11px; transition: transform 0.3s ease; }
+        .extra-box.open .toggle-chevron { transform: rotate(180deg); }
+        .extra-box-content { display: none; padding-top: 6px; }
+        .extra-box.open .extra-box-content { display: block; }
 
         .controls-container { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; max-width: 1050px; margin: 0 auto 30px auto; }
         
@@ -176,6 +180,10 @@
         .btn-down { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
         
         .icon-actions { display: flex; gap: 8px; margin-top: 10px; justify-content: center; width: 100%; }
+        .more-menu-popup { display: none; position: fixed; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); z-index: 500; overflow: hidden; min-width: 190px; }
+        .more-menu-popup.show { display: block; }
+        .more-menu-popup button { display: flex; align-items: center; gap: 8px; width: 100%; padding: 12px 14px; background: transparent; border: none; text-align: right; font-family: 'Cairo', sans-serif; font-size: 13px; font-weight: 700; color: var(--text-color); cursor: pointer; }
+        .more-menu-popup button:hover { background: var(--input-bg); }
         .btn-icon { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color); width: 42px; height: 42px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 15px; }
         .fav-active { color: #ef4444 !important; border-color: #ef4444 !important; background: #fef2f2 !important; }
         
@@ -308,6 +316,8 @@
             .section-tab { right: 12px; padding: 4px 12px; font-size: 12px; }
             .file-card { padding: 14px; }
             .card-actions .btn { font-size: 12px; padding: 9px 4px; }
+            .files-grid.list-view .file-card > div.content-area { min-width: 100%; }
+            .files-grid.list-view .file-card > div.meta-area { min-width: 100%; border-right: none; padding-right: 0; border-top: 1px dashed var(--border-color); padding-top: 8px; }
         }
 /* نافذة تثبيت التطبيق */
         .install-prompt-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 3000; align-items: flex-end; justify-content: center; opacity: 0; transition: opacity 0.4s; padding: 15px; }
@@ -363,7 +373,7 @@
             .search-box, .fav-toggle-btn, .reset-btn, .btn, .btn-icon, .file-card { transition: none; }
             .file-card:hover { transform: none; }
             .file-card.is-new { animation: none; box-shadow: 0 0 0 2px rgba(239,68,68,0.25); }
-            #darkModeBtn.icon-anim i { animation: none; }
+            #darkModeMenuIcon.icon-anim { animation: none; }
         }
 
         /* تنسيق طباعة نظيف: يخفي الأزرار والنوافذ ويترك قائمة الملفات فقط */
@@ -388,11 +398,25 @@
 
         /* دوران أيقونة القمر/الشمس عند تبديل الوضع الليلي */
         @keyframes icon-spin { from { transform: rotate(-90deg) scale(0.4); opacity: 0.3; } to { transform: rotate(0deg) scale(1); opacity: 1; } }
-        #darkModeBtn.icon-anim i { display: inline-block; animation: icon-spin 0.4s ease; }
+        #darkModeMenuIcon.icon-anim { display: inline-block; animation: icon-spin 0.4s ease; }
     </style>
 </head>
 <body>
     <div id="customCursor"></div>
+    <div id="moreMenuPopup" class="more-menu-popup">
+        <button onclick="moreMenuAction('qr')"><i class="fa-solid fa-qrcode"></i> عرض رمز QR</button>
+        <button onclick="moreMenuAction('report')"><i class="fa-solid fa-triangle-exclamation"></i> إبلاغ عن رابط معطل</button>
+    </div>
+    <div id="settingsMenuPopup" class="more-menu-popup">
+        <div style="padding: 10px 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; border-bottom: 1px solid var(--border-color);">
+            <span style="font-size: 13px; font-weight: 700; color: var(--text-color);">حجم الخط</span>
+            <div style="display: flex; gap: 6px;">
+                <button class="btn-icon" style="width: 32px; height: 32px;" onclick="decreaseFontSize()" title="تصغير"><i class="fa-solid fa-minus"></i></button>
+                <button class="btn-icon" style="width: 32px; height: 32px;" onclick="increaseFontSize()" title="تكبير"><i class="fa-solid fa-plus"></i></button>
+            </div>
+        </div>
+        <button onclick="toggleDarkMode()"><i class="fa-solid fa-moon" id="darkModeMenuIcon"></i> <span id="darkModeMenuLabel">تفعيل الوضع الليلي</span></button>
+    </div>
     <div class="header">
         <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 12px; filter: drop-shadow(0 4px 6px rgba(59, 130, 246, 0.2));">
             <defs>
@@ -452,12 +476,9 @@
             <input type="text" id="searchInput" class="search-box" placeholder="جاري تفعيل البحث الذكي...">
             
             <div class="view-toggles">
-                <button class="view-btn" onclick="decreaseFontSize()" title="تصغير الخط"><i class="fa-solid fa-magnifying-glass-minus"></i></button>
-                <button class="view-btn" onclick="increaseFontSize()" title="تكبير الخط"><i class="fa-solid fa-magnifying-glass-plus"></i></button>
-                <span style="width: 1px; background: var(--border-color); margin: 4px 2px;"></span>
                 <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')" title="عرض بطاقات"><i class="fa-solid fa-border-all"></i></button>
                 <button id="listViewBtn" class="view-btn" onclick="toggleView('list')" title="عرض قائمة"><i class="fa-solid fa-list-ul"></i></button>
-                <button id="darkModeBtn" class="view-btn" onclick="toggleDarkMode()" title="الوضع الليلي / النهاري"><i class="fa-solid fa-moon"></i></button>
+                <button id="settingsToggleBtn" class="view-btn" onclick="toggleSettingsMenu(this)" title="إعدادات العرض"><i class="fa-solid fa-gear"></i></button>
             </div>
 
             <div class="action-btns-group">
@@ -466,7 +487,6 @@
                 <button id="exportFavBtn" onclick="exportLibrary()" style="display: none; padding: 8px 15px; border-radius: 8px; border: none; background: #10b981; color: white; cursor: pointer; font-family: inherit; font-weight: bold; margin-right: 10px; transition: 0.3s;">
     <i class="fa-solid fa-share-nodes"></i> مشاركة مكتبتي
 </button>
-                <button id="resetFiltersBtn" class="reset-btn" onclick="resetAllFilters()" title="إعادة ضبط">🔄 تصفير</button>
             </div>
         </div>
 
@@ -479,6 +499,9 @@
             <select id="majorFilter" class="filter-select"><option value="الكل">📚 التخصص</option><option value="لغة عربية">لغة عربية</option><option value="لغة إنجليزية">لغة إنجليزية</option><option value="رياضيات">رياضيات</option><option value="رياضيات باللغة الإنجليزية">رياضيات باللغة الإنجليزية</option><option value="كيمياء">كيمياء</option><option value="كيمياء باللغة الإنجليزية">كيمياء باللغة الإنجليزية</option><option value="فيزياء">فيزياء</option><option value="بيولوجي">بيولوجي</option><option value="بيولوجي باللغة الإنجليزية">بيولوجي باللغة الإنجليزية</option></select>
             <select id="typeFilter" class="filter-select"><option value="الكل">🏷️ نوع المادة</option><option value="مادة تخصص">مادة تخصص</option><option value="مادة تربوية">مادة تربوية</option></select>
             <select id="semesterFilter" class="filter-select"><option value="الكل">⏳ الترم</option><option value="الفصل الأول">الفصل الأول</option><option value="الفصل الثاني">الفصل الثاني</option></select>
+        </div>
+        <div style="text-align: center; margin-top: 10px;">
+            <button id="resetFiltersBtn" class="reset-btn" onclick="resetAllFilters()" title="إعادة ضبط" style="max-width: 200px;">🔄 تصفير الفلاتر</button>
         </div>
         </div>
     </div>
@@ -538,8 +561,9 @@
         </div>
         
         <!-- 2. كيف تساهم معنا (مطور وشامل) -->
-        <div class="extra-box">
-            <h3 class="section-tab">🤝 كيف تساهم معنا؟ (صدقة جارية)</h3>
+        <div class="extra-box open" id="contributeBox">
+            <h3 class="section-tab" style="cursor: default;">🤝 كيف تساهم معنا؟ (صدقة جارية)</h3>
+            <div class="extra-box-content">
             <div class="contact-text">
                 الأرشيف يُبنى بجهود الطلاب ولأجل الطلاب. إذا قمت بكتابة ملخص مميز، أو جمعت أسئلة سنوات سابقة، فلا تدعها حبيسة هاتفك! شاركها لتكون صدقة جارية لعلمك وتنقذ بها زميلاً ليلة الامتحان.<br><br>
                 <strong>خطوات المشاركة بسيطة:</strong><br>
@@ -551,21 +575,25 @@
                 <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link" style="background: #10b981; color: white; border: none; width: 100%; max-width: 320px; text-align: center; display: block;"><i class="fa-solid fa-file-circle-plus"></i> املأ نموذج رفع الملف (الأسهل)</a>
                 <a href="#" id="contactEmailBtn" class="tool-link" style="background: var(--input-bg); color: var(--header-color); border: 1px solid var(--border-color); width: 100%; max-width: 320px; text-align: center; display: block;"><i class="fa-solid fa-envelope"></i> أو أرسله عبر الجيميل</a>
             </div>
+            </div>
         </div>
 
         <!-- 3. سياسة النشر (مفصلة) -->
-        <div class="extra-box">
-            <h3 class="section-tab">🛡️ سياسة النشر وشروط الإضافة</h3>
+        <div class="extra-box open" id="policyBox">
+            <h3 class="section-tab" style="cursor: default;">🛡️ سياسة النشر وشروط الإضافة</h3>
+            <div class="extra-box-content">
             <div class="contact-text" style="margin-bottom: 8px;">للحفاظ على جودة المنصة وقانونيتها، نلتزم بالمعايير التالية:</div>
             <ul class="policy-list">
                 <li><strong>✅ ما يُسمح بإضافته بحُب:</strong><br> - الملخصات الشخصية المكتوبة بخط اليد أو المطبوعة.<br> - الخرائط الذهنية وتبسيط القوانين والنظريات.<br> - تجميعات أسئلة الامتحانات السابقة (الميدتيرم والفاينال).<br> - العروض التقديمية (PowerPoint) التي صممها الطلاب كأنشطة.</li>
                 <li style="margin-top: 10px;"><strong>❌ ما نعتذر عن نشره تماماً:</strong><br> - الكتب الجامعية الرسمية للدكاترة (حفاظاً على حقوق الملكية الفكرية).<br> - المذكرات التجارية الخاصة بالسناتر وأماكن الكورسات المدفوعة.<br> - الملفات غير الواضحة، المهتزة، أو التي تفتقد لاسم المادة والفرقة.</li>
             </ul>
+            </div>
         </div>
 
         <!-- 4. عن المنصة (رؤية وحلول واقعية) -->
-        <div class="extra-box about-box" style="text-align: right;">
-            <h3 class="section-tab">🌟 عن المنصة: الفكرة والواقع</h3>
+        <div class="extra-box about-box open" id="aboutBox" style="text-align: right;">
+            <h3 class="section-tab" style="cursor: default;">🌟 عن المنصة: الفكرة والواقع</h3>
+            <div class="extra-box-content">
             <p class="about-desc" style="text-align: right;">
                 بدأت الفكرة من معاناة حقيقية نعيشها كطلاب؛ حيث تتوه الملفات المهمة وسط آلاف الرسائل في جروبات الواتساب والتليجرام، وتضيع الملخصات قبل الامتحانات، وتنتهي صلاحية الروابط. لذلك، تم بناء "الأرشيف الأكاديمي الرقمي" ليكون الذاكرة الدائمة التي لا تنسى شيئاً.
             </p>
@@ -583,12 +611,13 @@
                     <p>لست مضطراً لتحميل كل شيء. يمكنك عرض (Preview) الملفات مباشرة من المنصة، أو إضافة الملف لـ "مكتبتك الخاصة" للرجوع إليه لاحقاً بدون تحميل.</p>
                 </div>
             </div>
+            </div>
         </div>
 
         <!-- 5. الأسئلة الشائعة (موسعة) -->
-        <div class="extra-box faq-box">
-            <h3 class="section-tab">❓ الأسئلة الشائعة (FAQ)</h3>
-            
+        <div class="extra-box faq-box open" id="faqBox">
+            <h3 class="section-tab" style="cursor: default;">❓ الأسئلة الشائعة (FAQ)</h3>
+            <div class="extra-box-content">
             <div class="faq-item">
                 <div class="faq-question" onclick="toggleFAQ(this)">
                     <span>هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟</span>
@@ -648,6 +677,7 @@
                     بكل تأكيد. جميع الملفات المرفوعة مجهزة بصيغة (PDF) القياسية. يمكنك الضغط على "تحميل"، وإرسال الملف لأي مركز تصوير لطباعته بجودة عالية.
                 </div>
             </div>
+            </div>
         </div>
     </div>
 
@@ -660,7 +690,7 @@
         // ضع هنا رابط نموذج Google Form بعد إنشائه (Insert > Embed > By URL لا يلزم، فقط رابط النموذج نفسه)
         // الحقول المقترحة: العنوان، اسم المادة، الفرقة، نوع التعليم، التخصص، نوع المادة، الترم، رابط الملف، اسم المُعِد
         // ملاحظة: هذا نموذج تجميع فقط — الردود تُخزَّن في جدول منفصل تراجعه أنت قبل نقلها للجدول المنشور فعلياً
-        const GOOGLE_FORM_URL = ''; // مثال: 'https://forms.gle/xxxxxxxxxxxxx'
+        const GOOGLE_FORM_URL = 'https://forms.gle/b6kN4xRxAVLEnfKE9';
         const formBtn = document.getElementById('contactFormBtn');
         if (formBtn) {
             if (GOOGLE_FORM_URL) {
@@ -672,7 +702,7 @@
 
         // ضع هنا رابط "Web App" الخاص بسكربت عدّاد التحميلات بعد نشره من Google Apps Script
         // (راجع شرح الإعداد الكامل — السكربت يزيد عمود "downloads" في نفس الجدول عند كل تحميل)
-        const COUNTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAzzAwd-pXuBY1_5MxIAaanFU1uzvt48gvuGJAEdBwIMizgakpDI6fN93rTf_deKmi/exec'; // مثال: 'https://script.google.com/macros/s/xxxxxxx/exec'
+        const COUNTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAzzAwd-pXuBY1_5MxIAaanFU1uzvt48gvuGJAEdBwIMizgakpDI6fN93rTf_deKmi/exec';
 
         // إرسال "نبضة" صامتة عند كل تحميل لزيادة العدّاد، بدون انتظار الرد وبدون التأثير على تجربة المستخدم
         // نستخدم "id" الثابت للملف (مقاوم لإعادة ترتيب الصفوف) بدل الرابط نفسه
@@ -691,6 +721,41 @@
             copyToClipboard(`🚩 رابط معطل - ${fileTitle}\n${fileUrl}`);
             showToast('📧 يتم فتح تطبيق البريد، وتم نسخ التفاصيل احتياطياً أيضاً');
         }
+
+        // ===== قائمة "المزيد ⋮" المصغّرة: تجمع QR والإبلاغ في زر واحد بدل أيقونتين مستقلتين =====
+        let moreMenuContext = null;
+        function toggleMoreMenu(btn, fileUrl, fileTitle) {
+            const popup = document.getElementById('moreMenuPopup');
+            if (!popup) return;
+            const wasOpenForSameFile = popup.classList.contains('show') && moreMenuContext && moreMenuContext.url === fileUrl;
+            closeMoreMenu();
+            if (wasOpenForSameFile) return; // كانت مفتوحة لنفس الملف، فقط أغلقناها بالضغط مرة أخرى
+            moreMenuContext = { url: fileUrl, title: fileTitle };
+            const rect = btn.getBoundingClientRect();
+            let left = rect.left;
+            const maxLeft = window.innerWidth - 200;
+            if (left > maxLeft) left = Math.max(6, maxLeft);
+            popup.style.top = (rect.bottom + 6) + 'px';
+            popup.style.left = left + 'px';
+            popup.classList.add('show');
+        }
+        function closeMoreMenu() {
+            const popup = document.getElementById('moreMenuPopup');
+            if (popup) popup.classList.remove('show');
+            moreMenuContext = null;
+        }
+        function moreMenuAction(action) {
+            if (!moreMenuContext) return;
+            const ctx = moreMenuContext;
+            closeMoreMenu();
+            if (action === 'qr') showQRCode(ctx.url, ctx.title);
+            else if (action === 'report') reportBrokenLink(ctx.url, ctx.title);
+        }
+        document.addEventListener('click', function(e) {
+            const popup = document.getElementById('moreMenuPopup');
+            if (!popup || !popup.classList.contains('show')) return;
+            if (!e.target.closest('#moreMenuPopup') && !e.target.closest('.more-menu-btn')) closeMoreMenu();
+        });
 
         // دالة "debounce" عامة: تؤخر تنفيذ الدالة حتى يتوقف المستخدم عن الكتابة
         // (كانت مستخدمة في آخر السكربت بدون تعريف، فسببت توقف تفعيل خانة البحث بالكامل)
@@ -745,7 +810,11 @@ function renderRecent() {
     recentViews.forEach(url => {
         const file = allFiles.find(f => f.url === url);
         if (file) {
-            const safeTitle = String(file.title).replace(/'/g, "\\'");
+            const safeTitle = escapeForOnclick(file.title);
+            const safeUrl = escapeForOnclick(file.url);
+            const hrefUrl = escapeHtml(file.url);
+            const displayTitleSafe = escapeHtml(file.title);
+            const displaySubjectSafe = escapeHtml(file.subjectName);
             const isEdu = file.subjectType && file.subjectType.includes('تربوي');
             const badgeClass = isEdu ? 'card-badge badge-edu' : 'card-badge';
             const badgeText = isEdu ? 'تربوي' : 'تخصص';
@@ -755,23 +824,20 @@ function renderRecent() {
             card.style.borderRight = `4px solid ${getMajorColor(file.major)}`;
             card.innerHTML = `
                 <div class="${badgeClass}">${badgeText}</div>
-                <h3 style="margin-top: 20px; font-size: 1rem;">${file.title}</h3>
-                <div class="subject-name"><span style="color:${getMajorColor(file.major)}; margin-left:4px;">${getMajorIcon(file.major)}</span>مادة: ${file.subjectName}</div>
+                <h3 style="margin-top: 20px; font-size: 1rem;">${displayTitleSafe}</h3>
+                <div class="subject-name"><span style="color:${getMajorColor(file.major)}; margin-left:4px;">${getMajorIcon(file.major)}</span>مادة: ${displaySubjectSafe}</div>
                 <div class="card-actions" style="margin-top: auto;">
-                    <a href="${file.url}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${file.url}')"><i class="fa-solid fa-eye"></i> عرض</a>
+                    <a href="${hrefUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${safeUrl}')"><i class="fa-solid fa-eye"></i> عرض</a>
                 </div>
                 <div class="icon-actions">
-                    <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${file.url}', this)" title="إضافة لمكتبتي">
+                    <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${safeUrl}', this)" title="إضافة لمكتبتي">
                         ${favorites.includes(file.url) ? '❤️' : '🤍'}
                     </button>
-                    <button class="btn-icon" onclick="nativeShare('${safeTitle}', 'إليك هذا الملف الأكاديمي:', '${file.url}')" title="مشاركة أو نسخ الرابط">
+                    <button class="btn-icon" onclick="nativeShare('${safeTitle}', 'إليك هذا الملف الأكاديمي:', '${safeUrl}')" title="مشاركة أو نسخ الرابط">
                         <i class="fa-solid fa-share-nodes"></i>
                     </button>
-                    <button class="btn-icon" onclick="showQRCode('${file.url}', '${safeTitle}')" title="عرض رمز QR">
-                        <i class="fa-solid fa-qrcode"></i>
-                    </button>
-                    <button class="btn-icon" onclick="reportBrokenLink('${file.url}', '${safeTitle}')" title="إبلاغ عن رابط معطل">
-                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${safeUrl}', '${safeTitle}')" title="مزيد من الخيارات">
+                        <i class="fa-solid fa-ellipsis-vertical"></i>
                     </button>
                 </div>
             `;
@@ -801,10 +867,14 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
 
         // الوضع الليلي: يتم تفعيله مبكراً في <head> لتفادي الوميض،
         // وهنا فقط نُزامن شكل الزر (أيقونة شمس/قمر) ولون شريط المتصفح مع الحالة الفعلية
+        // الوضع الليلي: يتم تفعيله مبكراً في <head> لتفادي الوميض،
+        // وهنا فقط نُزامن شكل الزر (أيقونة شمس/قمر ونص الوصف) ولون شريط المتصفح مع الحالة الفعلية
         function applyDarkMode(isDark) {
             document.documentElement.classList.toggle('dark-mode', isDark);
-            const btn = document.getElementById('darkModeBtn');
-            if (btn) btn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+            const icon = document.getElementById('darkModeMenuIcon');
+            if (icon) icon.className = isDark ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+            const label = document.getElementById('darkModeMenuLabel');
+            if (label) label.innerText = isDark ? 'تفعيل الوضع النهاري' : 'تفعيل الوضع الليلي';
             const meta = document.querySelector('meta[name="theme-color"]');
             if (meta) meta.setAttribute('content', isDark ? '#0b1220' : '#2563eb');
         }
@@ -814,11 +884,11 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             applyDarkMode(isDark);
             try { localStorage.setItem('darkMode', isDark ? '1' : '0'); } catch(e) {}
             showToast(isDark ? '🌙 تم تفعيل الوضع الليلي' : '☀️ تم تفعيل الوضع النهاري');
-            const btn = document.getElementById('darkModeBtn');
-            if (btn) {
-                btn.classList.remove('icon-anim');
-                void btn.offsetWidth; // إعادة تشغيل الأنيميشن حتى لو ضُغط الزر بسرعة عدة مرات
-                btn.classList.add('icon-anim');
+            const icon = document.getElementById('darkModeMenuIcon');
+            if (icon) {
+                icon.classList.remove('icon-anim');
+                void icon.offsetWidth; // إعادة تشغيل الأنيميشن حتى لو ضُغط الزر بسرعة عدة مرات
+                icon.classList.add('icon-anim');
             }
         }
 
@@ -1243,6 +1313,12 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             parent.classList.toggle('active');
         }
 
+        // طي/فتح صناديق أسفل الصفحة (المساهمة، السياسة، عن المنصة، الأسئلة الشائعة) لتقليل الزحام
+        function toggleExtraBox(boxId) {
+            const box = document.getElementById(boxId);
+            if (box) box.classList.toggle('open');
+        }
+
         function animateCounter(endValue) {
             const counterElement = document.getElementById('countNum');
             if(!counterElement) return;
@@ -1424,6 +1500,31 @@ async function shareViaNative() {
     }
 }
 
+        function toggleSettingsMenu(btn) {
+            const popup = document.getElementById('settingsMenuPopup');
+            if (!popup) return;
+            const wasOpen = popup.classList.contains('show');
+            closeMoreMenu();
+            closeSettingsMenu();
+            if (wasOpen) return; // كانت مفتوحة، فقط أغلقناها بالضغط مرة أخرى
+            const rect = btn.getBoundingClientRect();
+            let left = rect.left;
+            const maxLeft = window.innerWidth - 210;
+            if (left > maxLeft) left = Math.max(6, maxLeft);
+            popup.style.top = (rect.bottom + 6) + 'px';
+            popup.style.left = left + 'px';
+            popup.classList.add('show');
+        }
+        function closeSettingsMenu() {
+            const popup = document.getElementById('settingsMenuPopup');
+            if (popup) popup.classList.remove('show');
+        }
+        document.addEventListener('click', function(e) {
+            const popup = document.getElementById('settingsMenuPopup');
+            if (!popup || !popup.classList.contains('show')) return;
+            if (!e.target.closest('#settingsMenuPopup') && !e.target.closest('#settingsToggleBtn')) closeSettingsMenu();
+        });
+
         function toggleFiltersPanel() {
             const panel = document.getElementById('filtersPanel');
             const btn = document.getElementById('filtersToggleBtn');
@@ -1543,8 +1644,9 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
         function populateSubjectDropdown(files) {
             const subjectFilter = document.getElementById('subjectNameFilter');
             const uniqueSubjects = [...new Set(files.map(f => f.subjectName))].filter(s => s !== "غير محدد" && s !== "الكل" && s !== "");
-            subjectFilter.innerHTML = '<option value="الكل">📘 اسم المادة (الكل)</option>';
-            uniqueSubjects.forEach(subject => { subjectFilter.innerHTML += `<option value="${subject}">${subject}</option>`; });
+            let optionsHtml = '<option value="الكل">📘 اسم المادة (الكل)</option>';
+            uniqueSubjects.forEach(subject => { optionsHtml += `<option value="${escapeHtml(subject)}">${escapeHtml(subject)}</option>`; });
+            subjectFilter.innerHTML = optionsHtml;
         }
 
         function filterAndSortData() {
@@ -1589,6 +1691,29 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             currentPage++;
             renderFiles(true); 
         }
+// تحصين ضد XSS: بما أن البيانات الآن قد تأتي من مصدر عام (نموذج Google Forms)،
+// أي نص (عنوان، اسم مادة، مؤلف...) يجب تنظيفه قبل إدراجه في الصفحة أو داخل onclick
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+// تهريب لسياق كود جافاسكريبت داخل onclick="...('${x}')..." ثم تهريب النتيجة كسمة HTML
+// (المتصفح يفك ترميز HTML أولاً، فيصل لجافاسكريبت النص المُهرَّب بشكل صحيح)
+function escapeForOnclick(str) {
+    if (str === null || str === undefined) return '';
+    const jsEscaped = String(str)
+        .replace(/\\/g, '\\\\')
+        .replace(/'/g, "\\'")
+        .replace(/\n/g, '\\n')
+        .replace(/\r/g, '');
+    return escapeHtml(jsEscaped);
+}
+
 function renderFiles(append = false) {
     renderRecent(); // <--- تمت الإضافة هنا لكي ترسم الملفات الحديثة كلما تم تحديث الموقع
 
@@ -1624,9 +1749,9 @@ function renderFiles(append = false) {
                 const downloadLink = getDirectDownload(file.url);
                 const isFav = favorites.includes(file.url);
                 
-                const displayTitle = highlightMatch(file.title, searchText);
-                const displaySubject = highlightMatch(file.subjectName, searchText);
-                const displayAuthor = highlightMatch(file.author, searchText);
+                const displayTitle = highlightMatch(escapeHtml(file.title), searchText);
+                const displaySubject = highlightMatch(escapeHtml(file.subjectName), searchText);
+                const displayAuthor = highlightMatch(escapeHtml(file.author), searchText);
 
                 const authorCredit = file.author !== "غير محدد" ? ` (إعداد: ${file.author})` : '';
                 const shareText = `حمل مادة ${file.title}${authorCredit} من الأرشيف الأكاديمي: ${window.location.href}`;
@@ -1635,7 +1760,11 @@ function renderFiles(append = false) {
 
               const iconHTML = getFileIcon(file.title + " " + file.subjectName);
                const displayDate = formatSmartDate(file.date); 
-               const safeTitleForQR = file.title.replace(/'/g, "\\'"); 
+               const safeTitleForQR = escapeForOnclick(file.title);
+               const safeUrl = escapeForOnclick(file.url);
+               const safeShareText = escapeForOnclick(shareText);
+               const hrefUrl = escapeHtml(file.url);
+               const hrefDownloadLink = escapeHtml(downloadLink);
                const majorColor = getMajorColor(file.major);
                
                 const card = `
@@ -1649,8 +1778,7 @@ function renderFiles(append = false) {
                         </div>
                         
                         <div class="meta-area">
-                            <div class="file-info"><strong>الفرقة:</strong> ${file.year} | ${file.semester}</div>
-                            <div class="file-info"><strong>التخصص:</strong> ${file.major} (${file.eduType})</div>
+                            <div class="file-info">${escapeHtml(file.year)} · ${escapeHtml(file.semester)} · ${escapeHtml(file.major)} · ${escapeHtml(file.eduType)}</div>
                             <div class="file-info"><strong>✍️ إعداد:</strong> <span class="author-name">${displayAuthor}</span></div>
                             <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}${file.downloads > 0 ? ` <span class="download-count-pill"><i class="fa-solid fa-fire"></i> ${file.downloads}</span>` : ''}</div>
                             ${file.downloads > 0 ? `<div class="popularity-bar"><div class="popularity-bar-fill" style="width:${Math.round((file.downloads / maxDownloads) * 100)}%"></div></div>` : ''}
@@ -1658,16 +1786,14 @@ function renderFiles(append = false) {
 
                         <div class="action-area">
                             <div class="card-actions">
-                                <a href="${file.url}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${file.url}')"><i class="fa-solid fa-eye"></i> عرض</a>
-                                <a href="${downloadLink}" class="btn btn-down" onclick="trackDownload('${file.id || file.url}')"><i class="fa-solid fa-download"></i> تحميل</a>
+                                <a href="${hrefUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${safeUrl}')"><i class="fa-solid fa-eye"></i> عرض</a>
+                                <a href="${hrefDownloadLink}" class="btn btn-down" download target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}')"><i class="fa-solid fa-download"></i> تحميل</a>
                             </div>
                             
                             <div class="icon-actions">
-                              <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${file.url}', this)" title="إضافة لمكتبتي">${favorites.includes(file.url) ? '❤️' : '🤍'}</button>
-                                <button class="btn-icon" onclick="copyToClipboard('${shareText}')" title="نسخ الرابط"><i class="fa-solid fa-link"></i></button>
-                                <button class="btn-icon" onclick="nativeShare('${displayTitle}', '${shareText}', '${file.url}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
-                                <button class="btn-icon" onclick="showQRCode('${file.url}', '${safeTitleForQR}')" title="باركود للموبايل"><i class="fa-solid fa-qrcode"></i></button>
-                                <button class="btn-icon" onclick="reportBrokenLink('${file.url}', '${safeTitleForQR}')" title="إبلاغ عن رابط معطل"><i class="fa-solid fa-triangle-exclamation"></i></button>
+                              <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${safeUrl}', this)" title="إضافة لمكتبتي">${favorites.includes(file.url) ? '❤️' : '🤍'}</button>
+                                <button class="btn-icon" onclick="nativeShare('${safeTitleForQR}', '${safeShareText}', '${safeUrl}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
+                                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${safeUrl}', '${safeTitleForQR}')" title="مزيد من الخيارات"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                             </div>
                         </div>
                     </div>
