@@ -12,7 +12,6 @@
     <meta name="twitter:card" content="summary">
     <title>الأرشيف الأكاديمي المطور والمكتبة الشاملة</title>
     <script>
-        // تطبيق الوضع الليلي فوراً قبل رسم الصفحة لتفادي وميض بالوضع الخاطئ
         (function() {
             try {
                 var stored = localStorage.getItem('darkMode');
@@ -27,30 +26,27 @@
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;600;700&family=Cairo:wght@400;600;700;800&display=swap');
-       @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
-       /* تصميم شريط التمرير الأفقي لقسم شوهد مؤخراً */
-.recent-scroll-grid {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-    padding-bottom: 15px;
-    scroll-behavior: smooth;
-}
-.recent-scroll-grid .file-card {
-    min-width: 260px; /* عرض البطاقة */
-    flex: 0 0 auto;
-    animation: none;
-    opacity: 1;
-}
-/* تجميل شريط التمرير */
-.recent-scroll-grid::-webkit-scrollbar { height: 8px; }
-.recent-scroll-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
-.recent-scroll-grid::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-
-        </style>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-        <style>
+        .recent-scroll-grid {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding-bottom: 15px;
+            scroll-behavior: smooth;
+        }
+        .recent-scroll-grid .file-card {
+            min-width: 260px;
+            flex: 0 0 auto;
+            animation: none;
+            opacity: 1;
+        }
+        .recent-scroll-grid::-webkit-scrollbar { height: 8px; }
+        .recent-scroll-grid::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .recent-scroll-grid::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
         :root {
             --bg-color: #ffffff; 
             --text-color: #334155; 
@@ -62,7 +58,7 @@
             --text-muted: #64748b; 
             --highlight-bg: #fef08a; 
             --highlight-text: #b45309;
-           --primary-color: #2563eb;
+            --primary-color: #2563eb;
             --glass-bg: rgba(255, 255, 255, 0.85);
             --skeleton-a: #e2e8f0;
             --skeleton-b: #f1f5f9;
@@ -70,7 +66,6 @@
             --card-glass-bg: rgba(255, 255, 255, 0.92);
         }
 
-        /* الوضع الليلي: نفس المتغيرات بقيم داكنة، فيتلوّن كل الموقع تلقائياً */
         html.dark-mode {
             --bg-color: #0b1220;
             --text-color: #cbd5e1;
@@ -100,12 +95,47 @@
         body { -ms-overflow-style: none; scrollbar-width: none; }
         img, svg { max-width: 100%; height: auto; }
 
-        .header { text-align: center; margin-bottom: 30px; margin-top: 10px; width: 100%; padding: 0 5px; }
-        .header h1 { color: var(--header-color); font-weight: 800; font-size: clamp(20px, 6vw, 28px); margin-bottom: 8px; line-height: 1.3; font-family: 'El Messiri', sans-serif; }
+        .header { text-align: center; margin-bottom: 22px; margin-top: 10px; width: 100%; padding: 0 5px; }
+        .header h1 { 
+            color: var(--header-color); 
+            font-weight: 800; 
+            font-size: clamp(20px, 6vw, 28px); 
+            margin-bottom: 8px; 
+            line-height: 1.3; 
+            font-family: 'El Messiri', sans-serif;
+            background: linear-gradient(135deg, var(--header-color) 0%, #2563eb 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        html.dark-mode .header h1 {
+            background: linear-gradient(135deg, #f1f5f9 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
         .dynamic-greeting { color: #3b82f6; font-size: clamp(13px, 3.5vw, 15px); font-weight: 700; margin: 0; transition: opacity 0.5s; }
         
         .controls-container, .extra-box { position: relative; background: var(--card-bg); padding: 20px; border-radius: 16px; border: 2px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.03); margin-top: 35px; width: 100%; transition: background-color 0.4s ease, border-color 0.4s ease; }
-        .section-tab { position: absolute; bottom: 100%; right: 20px; margin: 0; background: var(--border-color); color: var(--header-color); padding: 4px 18px; font-size: 14px; font-weight: 700; border-radius: 12px 12px 0 0; letter-spacing: 0.5px; font-family: 'El Messiri', sans-serif; cursor: pointer; display: flex; align-items: center; gap: 6px; user-select: none; }
+        .section-tab { 
+            position: absolute; 
+            bottom: 100%; 
+            right: 20px; 
+            margin: 0; 
+            background: linear-gradient(180deg, var(--border-color), color-mix(in srgb, var(--border-color) 85%, var(--primary-color))); 
+            color: var(--header-color); 
+            padding: 4px 18px; 
+            font-size: 14px; 
+            font-weight: 700; 
+            border-radius: 12px 12px 0 0; 
+            letter-spacing: 0.5px; 
+            font-family: 'El Messiri', sans-serif; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            gap: 6px; 
+            user-select: none; 
+        }
         .toggle-chevron { font-size: 11px; transition: transform 0.3s ease; }
         .extra-box.open .toggle-chevron { transform: rotate(180deg); }
         .extra-box-content { display: none; padding-top: 6px; }
@@ -115,7 +145,7 @@
         
         .search-wrapper { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; }
         .search-box { flex: 1; padding: 12px 15px; font-size: 16px; font-family: 'Cairo', sans-serif; border-radius: 10px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--text-color); transition: 0.3s; min-width: 0; width: 100%; }
-        .search-box:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .search-box:focus { outline: none; border-color: #3b82f6; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
         
         .action-btns-group { display: flex; gap: 8px; width: 100%; }
         .fav-toggle-btn, .reset-btn { flex: 1; padding: 0 15px; border-radius: 10px; border: 2px solid; background: transparent; font-family: 'Cairo', sans-serif; font-weight: 800; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; height: 45px; }
@@ -128,6 +158,7 @@
 
         .filter-select { flex: 1 1 100%; min-width: 0; padding: 12px; font-size: 16px; font-family: 'Cairo', sans-serif; border-radius: 10px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--text-color); cursor: pointer; font-weight: 600; transition: 0.3s; width: 100%; }
         .filter-select:hover { border-color: #94a3b8; }
+        .filter-select:focus { outline: none; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
         .sort-select { border-color: #3b82f6; color: #2563eb; background-color: #eff6ff; }
         
         .file-counter { text-align: center; font-size: 15px; font-weight: 700; color: #64748b; margin-bottom: 20px; display: flex; justify-content: center; gap: 6px; width: 100%; }
@@ -136,25 +167,22 @@
         
         .files-grid { display: grid; grid-template-columns: 1fr; gap: 20px; max-width: 1200px; margin: auto; width: 100%; }
         
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .file-card { background: var(--card-glass-bg); padding: 18px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.5s ease-out forwards; width: 100%; transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.4s ease, border-color 0.4s ease; }
-        .file-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(14px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .file-card { background: var(--card-glass-bg); padding: 18px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; position: relative; overflow: hidden; opacity: 0; animation: fadeInUp 0.5s ease-out forwards; width: 100%; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04); transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.4s ease, border-color 0.4s ease; }
+        .file-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08); border-color: rgba(37, 99, 235, 0.3); }
         html.dark-mode .file-card:hover { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4); }
 
-        /* توهّج ناعم ونابض حول بطاقات الملفات الجديدة، بالإضافة إلى شارة "جديد" */
         .file-card.is-new { animation: fadeInUp 0.5s ease-out forwards, glow-pulse 2.5s ease-in-out infinite; }
         @keyframes glow-pulse {
             0%, 100% { box-shadow: 0 0 0 2px rgba(239,68,68,0.12), 0 0 16px rgba(239,68,68,0.12); }
             50% { box-shadow: 0 0 0 2px rgba(239,68,68,0.28), 0 0 26px rgba(239,68,68,0.28); }
         }
 
-        /* حالة تركيز واضحة عند التنقل بلوحة المفاتيح، لتجربة متناسقة على كل الأجهزة */
         a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
             outline: 2px solid var(--primary-color);
             outline-offset: 2px;
         }
 
-        /* استجابة لمسية بسيطة عند الضغط على الأزرار — بديل عن مؤشر فأرة مخصص */
         .btn, .btn-icon, .view-btn, .tool-filter-btn, .load-more-btn { cursor: pointer; }
         .btn:active, .btn-icon:active, .view-btn:active { transform: scale(0.94); }
         
@@ -176,8 +204,17 @@
 
         .card-actions { display: flex; gap: 8px; margin-top: auto; width: 100%; }
         .btn { flex: 1; text-align: center; padding: 10px 5px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 13px; font-family: 'Cairo', sans-serif; transition: all 0.3s ease; }
-        .btn-view { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; }
-        .btn-down { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; }
+        .btn-view { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; position: relative; overflow: hidden; }
+        .btn-down { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; position: relative; overflow: hidden; }
+        .btn-view::after, .btn-down::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,0.25) 50%, transparent 70%);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+        .btn-view:hover::after, .btn-down:hover::after { transform: translateX(100%); }
         
         .icon-actions { display: flex; gap: 8px; margin-top: 10px; justify-content: center; width: 100%; }
         .more-menu-popup { display: none; position: fixed; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; box-shadow: 0 8px 20px rgba(0,0,0,0.18); z-index: 500; overflow: hidden; min-width: 190px; }
@@ -187,11 +224,10 @@
         .btn-icon { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color); width: 42px; height: 42px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; border-radius: 8px; cursor: pointer; text-decoration: none; font-size: 15px; }
         .fav-active { color: #ef4444 !important; border-color: #ef4444 !important; background: #fef2f2 !important; }
         
-       /* ================= زر العودة للأعلى ================= */
         #scrollTopBtn { 
             position: fixed; 
             bottom: 30px; 
-            right: 30px; /* تم وضعه يميناً ليكون أقرب لإبهام اليد أثناء التصفح */
+            right: 30px; 
             background: linear-gradient(135deg, #3b82f6, #2563eb); 
             color: white; 
             border: none; 
@@ -208,7 +244,7 @@
             transition: all 0.3s ease; 
         }
         #scrollTopBtn:hover { 
-            transform: translateY(-5px) scale(1.05); /* حركة أنيقة عند التمرير عليه */
+            transform: translateY(-5px) scale(1.05); 
             box-shadow: 0 6px 20px rgba(59, 130, 246, 0.6); 
         }
         @media (max-width: 768px) {
@@ -242,7 +278,7 @@
         .tools-search-wrapper { position: relative; max-width: 500px; margin: 0 auto 20px auto; width: 100%; }
         .tools-search-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 16px; }
         .tools-search-box { width: 100%; padding: 12px 40px 12px 15px; font-size: 14px; font-family: 'Cairo', sans-serif; border-radius: 12px; border: 1px solid var(--input-border); background-color: var(--input-bg); color: var(--text-color); transition: 0.3s; }
-        .tools-search-box:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .tools-search-box:focus { border-color: var(--primary-color); outline: none; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12); }
         .tools-filters { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; width: 100%; }
         .tool-filter-btn { background: var(--input-bg); color: var(--text-muted); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; font-family: 'Cairo', sans-serif; }
         .tool-filter-btn.active { background: var(--primary-color); color: white; border-color: var(--primary-color); }
@@ -264,7 +300,6 @@
 
         .contact-text { color: var(--text-muted); line-height: 1.6; font-size: 13px; margin-bottom: 12px; font-weight: 600;}
         .policy-list { text-align: right; font-size: 13px; color: var(--text-muted); line-height: 1.6; padding-right: 15px; margin-bottom: 12px; font-weight: 600;}
-        /* تصميم الأسئلة الشائعة */
         .faq-box { width: 100%; text-align: right; }
         .faq-item { margin-bottom: 10px; border: 1px solid var(--border-color); border-radius: 12px; background: var(--input-bg); overflow: hidden; transition: background-color 0.4s ease, border-color 0.4s ease; }
         .faq-question { padding: 15px; cursor: pointer; font-weight: 800; color: var(--header-color); display: flex; justify-content: space-between; align-items: center; transition: 0.3s; font-size: 14px; }
@@ -276,8 +311,26 @@
         .tools-links { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 10px; width: 100%; }
         .tool-link { padding: 8px 15px; border-radius: 20px; text-decoration: none; font-size: 13px; font-weight: 700; font-family: 'Cairo', sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.06); }
 
-/* ================= إضافات التصميم الجديدة ================= */
-        .sticky-glass-bar { position: sticky; top: max(10px, env(safe-area-inset-top)); z-index: 100; background: var(--glass-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 15px; border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.06); margin: 0 auto 30px auto; width: 100%; max-width: 1050px; display: flex; flex-direction: column; gap: 15px; transition: background-color 0.4s ease; }
+        .sticky-glass-bar { 
+            position: sticky; 
+            top: max(10px, env(safe-area-inset-top)); 
+            z-index: 100; 
+            background: var(--glass-bg); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            padding: 15px; 
+            border-radius: 16px; 
+            border: 1px solid rgba(226, 232, 240, 0.6); 
+            box-shadow: 0 12px 35px rgba(15, 23, 42, 0.08), 0 2px 6px rgba(15, 23, 42, 0.04); 
+            margin: 0 auto 30px auto; 
+            width: 100%; 
+            max-width: 1050px; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 15px; 
+            transition: background-color 0.4s ease; 
+        }
+        html.dark-mode .sticky-glass-bar { border-color: rgba(45, 59, 82, 0.8); }
         
         .view-toggles { display: flex; gap: 5px; background: var(--input-bg); padding: 4px; border-radius: 10px; border: 1px solid var(--border-color); }
         .view-btn { background: transparent; border: none; color: var(--text-muted); width: 38px; height: 38px; border-radius: 8px; cursor: pointer; transition: 0.3s; font-size: 16px; display: flex; justify-content: center; align-items: center; }
@@ -285,7 +338,6 @@
         
         .file-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px;}
         
-        /* وضع القائمة (List View) */
         .files-grid.list-view { display: flex; flex-direction: column; gap: 12px; }
         .files-grid.list-view .file-card { flex-direction: row; flex-wrap: wrap; padding: 15px 20px; align-items: center; justify-content: space-between; gap: 15px; border-radius: 12px; }
         .files-grid.list-view .card-badge { display: none; }
@@ -299,7 +351,6 @@
         .files-grid.list-view .file-date { margin: 0; border: none; padding: 0; }
         .files-grid.list-view .card-actions, .files-grid.list-view .icon-actions { margin: 0; width: auto; justify-content: flex-end; }
 
-        /* نافذة الباركود */
         .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
         .modal-content { background: var(--card-bg); padding: 30px 20px; border-radius: 24px; text-align: center; max-width: 320px; width: 90%; box-shadow: 0 20px 40px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease; position: relative; }
         .modal-overlay.show { opacity: 1; }
@@ -310,7 +361,6 @@
         .modal-title { font-size: 15px; font-weight: 800; color: var(--header-color); margin-bottom: 5px; line-height: 1.4; font-family: 'El Messiri', sans-serif; }
         .modal-desc { font-size: 12px; color: var(--text-muted); font-weight: 600; }
 
-        /* شاشات صغيرة جداً (أقل من 360px) */
         @media (max-width: 359px) {
             .controls-container, .extra-box { padding: 15px; }
             .section-tab { right: 12px; padding: 4px 12px; font-size: 12px; }
@@ -319,7 +369,7 @@
             .files-grid.list-view .file-card > div.content-area { min-width: 100%; }
             .files-grid.list-view .file-card > div.meta-area { min-width: 100%; border-right: none; padding-right: 0; border-top: 1px dashed var(--border-color); padding-top: 8px; }
         }
-/* نافذة تثبيت التطبيق */
+
         .install-prompt-overlay { display: none; position: fixed; inset: 0; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(5px); z-index: 3000; align-items: flex-end; justify-content: center; opacity: 0; transition: opacity 0.4s; padding: 15px; }
         .install-prompt-overlay.show { display: flex; opacity: 1; }
         .install-prompt-box { background: var(--card-bg); padding: 25px 20px; border-radius: 20px; width: 100%; max-width: 400px; box-shadow: 0 -10px 40px rgba(0,0,0,0.2); transform: translateY(100%); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease; position: relative; text-align: center; border: 2px solid var(--primary-color);}
@@ -331,42 +381,32 @@
         .install-prompt-box h3 { margin: 0 0 8px 0; font-size: 18px; color: var(--header-color); font-weight: 800; font-family: 'El Messiri', sans-serif; }
         .install-prompt-box p { margin: 0 0 15px 0; font-size: 13px; color: var(--text-muted); line-height: 1.6; font-weight: 600; }
         .install-instructions { background: var(--input-bg); padding: 12px; border-radius: 12px; font-size: 13px; color: var(--text-color); border: 1px dashed var(--border-color); font-weight: 700; }
-        /* ================= التصميم المتجاوب (Responsive Design) ================= */
+
         .search-row { display: flex; flex-wrap: wrap; gap: 10px; width: 100%; align-items: center; }
-        
-        /* شاشات الهواتف (الوضع الافتراضي) */
         .filter-select { flex: 1 1 100%; }
 
         @media (min-width: 640px) {
-            /* شاشات التابلت */
             .files-grid, .tools-grid { grid-template-columns: repeat(2, 1fr); }
-            .filter-select { flex: 1 1 calc(50% - 10px); } /* عرض فلترين في كل صف */
+            .filter-select { flex: 1 1 calc(50% - 10px); }
             .search-wrapper, .action-btns-group { flex-wrap: nowrap; }
             .problems-grid { grid-template-columns: repeat(3, 1fr); }
         }
-        
         @media (min-width: 768px) {
-            /* الشاشات المتوسطة (أجهزة الايباد برو واللابتوب الصغير) */
             .extras-container { grid-template-columns: repeat(2, 1fr); }
-          .about-box, .tools-box, .faq-box { grid-column: 1 / -1; }
-            .filter-select { flex: 1 1 calc(33.333% - 10px); } /* عرض 3 فلاتر في كل صف */
+            .about-box, .tools-box, .faq-box { grid-column: 1 / -1; }
+            .filter-select { flex: 1 1 calc(33.333% - 10px); }
         }
-        
         @media (min-width: 1024px) {
-            /* شاشات اللابتوب والديسكتوب */
             .files-grid, .tools-grid { grid-template-columns: repeat(3, 1fr); }
-            .filter-select { flex: 1 1 calc(25% - 10px); } /* عرض 4 فلاتر في كل صف لعدم الزحام */
+            .filter-select { flex: 1 1 calc(25% - 10px); }
             html, body { padding: 20px; }
         }
-        
         @media (min-width: 1440px) {
-            /* الشاشات العملاقة */
             .files-grid, .extras-container, .sticky-glass-bar { max-width: 1300px; margin-left: auto; margin-right: auto; }
             .files-grid { grid-template-columns: repeat(4, 1fr); }
-            .filter-select { flex: 1 1 auto; } /* وضع الفلاتر في صف واحد براحة تامة */
+            .filter-select { flex: 1 1 auto; }
         }
 
-        /* احترام تفضيل تقليل الحركة لدى بعض المستخدمين */
         @media (prefers-reduced-motion: reduce) {
             html { scroll-behavior: auto; }
             .file-card, .skeleton-pulse { animation: none; opacity: 1; }
@@ -376,15 +416,14 @@
             #darkModeMenuIcon.icon-anim { animation: none; }
         }
 
-        /* تنسيق طباعة نظيف: يخفي الأزرار والنوافذ ويترك قائمة الملفات فقط */
         @media print {
             .sticky-glass-bar, #scrollTopBtn, .card-actions, .icon-actions, .load-more-btn,
             #recentSection, .extras-container, #installPrompt, #qrModal, #exportModal,
-            .card-badge, .badge-new, #toast { display: none !important; }
+            .card-badge, .badge-new, #toast, .hero-stats, .last-update-badge, #contributorsSection { display: none !important; }
             body { background: white; color: black; }
             .file-card { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; opacity: 1 !important; animation: none !important; }
         }
-        /* مؤشر فأرة مخصص — يعمل فقط على الأجهزة ذات الفأرة الحقيقية، ويُلغى تلقائياً مع تفضيل تقليل الحركة */
+        
         body.custom-cursor-active, body.custom-cursor-active * { cursor: none !important; }
         #customCursor {
             position: fixed; top: 0; left: 0; width: 10px; height: 10px; border-radius: 50%;
@@ -396,9 +435,245 @@
         #customCursor.hovering { width: 26px; height: 26px; background: rgba(37, 99, 235, 0.25); border: 2px solid var(--primary-color); }
         @media (prefers-reduced-motion: reduce) { #customCursor { display: none; } }
 
-        /* دوران أيقونة القمر/الشمس عند تبديل الوضع الليلي */
         @keyframes icon-spin { from { transform: rotate(-90deg) scale(0.4); opacity: 0.3; } to { transform: rotate(0deg) scale(1); opacity: 1; } }
         #darkModeMenuIcon.icon-anim { display: inline-block; animation: icon-spin 0.4s ease; }
+
+        /* ================= شريط الإحصائيات الأنيق (Compact Elegant Stats) ================= */
+        .hero-stats {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin: 22px auto 10px;
+            padding: 7px 10px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            box-shadow: 0 8px 28px rgba(37, 99, 235, 0.10), 0 1px 3px rgba(15, 23, 42, 0.04);
+            width: fit-content;
+            max-width: calc(100% - 20px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
+            animation: heroFadeIn 0.6s cubic-bezier(0.34, 1.4, 0.64, 1);
+        }
+        html.dark-mode .hero-stats {
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .hero-stats:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 32px rgba(37, 99, 235, 0.16), 0 2px 4px rgba(15, 23, 42, 0.05);
+        }
+        .hero-stats::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.06), transparent);
+            background-size: 200% 100%;
+            animation: shimmer 4s linear infinite;
+            pointer-events: none;
+            border-radius: inherit;
+        }
+        @keyframes shimmer {
+            from { background-position: 200% 0; }
+            to { background-position: -200% 0; }
+        }
+        @keyframes heroFadeIn {
+            from { opacity: 0; transform: translateY(-6px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .hero-stats .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            padding: 7px 14px;
+            border-radius: 40px;
+            position: relative;
+            z-index: 1;
+            transition: background-color 0.3s ease;
+        }
+        .hero-stats .stat-item:hover {
+            background: rgba(37, 99, 235, 0.06);
+        }
+        html.dark-mode .hero-stats .stat-item:hover {
+            background: rgba(59, 130, 246, 0.12);
+        }
+
+        .hero-stats .stat-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+        .hero-stats .stat-item:hover .stat-icon {
+            transform: scale(1.08) rotate(-4deg);
+        }
+        .hero-stats .stat-item:nth-child(1) .stat-icon {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            color: #2563eb;
+            box-shadow: 0 3px 8px rgba(37, 99, 235, 0.18);
+        }
+        .hero-stats .stat-item:nth-child(3) .stat-icon {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            color: #d97706;
+            box-shadow: 0 3px 8px rgba(217, 119, 6, 0.18);
+        }
+        html.dark-mode .hero-stats .stat-item:nth-child(1) .stat-icon {
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+            color: #93c5fd;
+        }
+        html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon {
+            background: linear-gradient(135deg, #78350f 0%, #92400e 100%);
+            color: #fcd34d;
+        }
+
+        .hero-stats .stat-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            line-height: 1.15;
+            gap: 1px;
+        }
+        .hero-stats .stat-number {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--header-color);
+            font-family: 'El Messiri', sans-serif;
+            letter-spacing: 0.2px;
+        }
+        .hero-stats .stat-label {
+            font-size: 10.5px;
+            color: var(--text-muted);
+            font-weight: 700;
+            letter-spacing: 0.2px;
+        }
+        .hero-stats .stat-divider {
+            width: 1px;
+            height: 26px;
+            background: var(--border-color);
+            margin: 0 2px;
+            flex-shrink: 0;
+            border-radius: 2px;
+        }
+
+        .last-update-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--text-muted);
+            font-size: 11.5px;
+            font-weight: 700;
+            margin: 0 auto 24px;
+            padding: 5px 14px;
+            background: var(--input-bg);
+            border: 1px dashed var(--border-color);
+            border-radius: 30px;
+            width: fit-content;
+            transition: all 0.3s ease;
+            letter-spacing: 0.2px;
+        }
+        .last-update-badge:hover {
+            border-style: solid;
+            border-color: #10b981;
+            color: #059669;
+            transform: translateY(-1px);
+        }
+        .last-update-badge i {
+            color: #10b981;
+            font-size: 8px;
+            animation: clockPulse 2s ease-in-out infinite;
+        }
+        @keyframes clockPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        @media (max-width: 480px) {
+            .hero-stats { gap: 2px; padding: 6px 7px; }
+            .hero-stats .stat-item { padding: 6px 10px; gap: 7px; }
+            .hero-stats .stat-icon { width: 26px; height: 26px; font-size: 11px; }
+            .hero-stats .stat-number { font-size: 14px; }
+            .hero-stats .stat-label { font-size: 9.5px; }
+            .hero-stats .stat-divider { height: 22px; }
+        }
+
+        /* ================= قسم أكثر المساهمين ================= */
+        .contributors-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        @media (min-width: 640px) {
+            .contributors-list { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (min-width: 1024px) {
+            .contributors-list { grid-template-columns: repeat(3, 1fr); }
+        }
+        .contributor-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--input-bg);
+            padding: 12px 15px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .contributor-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+            border-color: var(--primary-color);
+        }
+        .contributor-item.top-1 {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15), rgba(251, 191, 36, 0.05));
+            border-color: #fbbf24;
+        }
+        .contributor-item.top-2 {
+            background: linear-gradient(135deg, rgba(148, 163, 184, 0.15), rgba(148, 163, 184, 0.05));
+            border-color: #94a3b8;
+        }
+        .contributor-item.top-3 {
+            background: linear-gradient(135deg, rgba(217, 119, 6, 0.15), rgba(217, 119, 6, 0.05));
+            border-color: #d97706;
+        }
+        .contributor-rank {
+            font-size: 22px;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        .contributor-name {
+            flex: 1;
+            font-weight: 800;
+            color: var(--header-color);
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .contributor-count {
+            background: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 800;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .contributor-item.top-1 .contributor-count { background: #f59e0b; }
+        .contributor-item.top-2 .contributor-count { background: #64748b; }
+        .contributor-item.top-3 .contributor-count { background: #d97706; }
+
+        @supports (scrollbar-width: thin) {
+            html { scrollbar-width: thin; scrollbar-color: var(--border-color) transparent; }
+        }
     </style>
 </head>
 <body>
@@ -434,22 +709,41 @@
         <p class="dynamic-greeting" id="dynamicGreeting">مساحتك المخصصة لكل مواد التربوي والتخصص</p>
     </div>
 
+    <!-- شريط الإحصائيات الأنيق -->
+    <div class="hero-stats" id="heroStats">
+        <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
+            <div class="stat-info">
+                <span class="stat-number" id="statFilesCount">0</span>
+                <span class="stat-label">ملف متاح</span>
+            </div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+            <div class="stat-info">
+                <span class="stat-number" id="statStudentsCount">0</span>
+                <span class="stat-label">طالب استفاد</span>
+            </div>
+        </div>
+    </div>
+    <div class="last-update-badge" id="lastUpdateBadge">
+        <i class="fa-solid fa-circle"></i> جاري التحديث...
+    </div>
+
     <div id="toast"></div>
    <button id="scrollTopBtn" onclick="scrollToTop()" title="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
-<!-- نافذة تحويل الموقع لتطبيق (تظهر مرة واحدة فقط) -->
+
     <div id="installPrompt" class="install-prompt-overlay">
         <div class="install-prompt-box">
             <button class="close-install" onclick="closeInstallPrompt()"><i class="fa-solid fa-xmark"></i></button>
             <div class="install-icon"><i class="fa-solid fa-arrow-down-to-bracket"></i></div>
             <h3>أضف الأرشيف لهاتفك!</h3>
             <p>للوصول السريع لجميع المواد والملخصات بدون الحاجة للمتصفح، أضف المنصة كتطبيق على شاشتك الرئيسية.</p>
-            <div id="installInstructions" class="install-instructions">
-                <!-- سيتم ملؤها برمجياً حسب نوع الهاتف -->
-            </div>
+            <div id="installInstructions" class="install-instructions"></div>
         </div>
     </div>
 
-    <!-- نافذة الباركود -->
     <div id="qrModal" class="modal-overlay">
         <div class="modal-content">
             <button class="close-modal" onclick="closeQR()"><i class="fa-solid fa-xmark"></i></button>
@@ -459,7 +753,6 @@
         </div>
     </div>
 
-    <!-- نافذة مشاركة المكتبة الخاصة -->
     <div id="exportModal" class="modal-overlay">
         <div class="modal-content" style="max-width: 360px;">
             <button class="close-modal" onclick="closeExportModal()"><i class="fa-solid fa-xmark"></i></button>
@@ -470,7 +763,6 @@
         </div>
     </div>
 
-    <!-- الشريط الزجاجي اللاصق (بحث، فلاتر، تبديل العرض) -->
     <div class="sticky-glass-bar">
         <div class="search-row">
             <input type="text" id="searchInput" class="search-box" placeholder="جاري تفعيل البحث الذكي...">
@@ -485,8 +777,8 @@
                 <button id="filtersToggleBtn" class="filters-toggle-btn" onclick="toggleFiltersPanel()" title="إظهار/إخفاء الفلاتر"><i class="fa-solid fa-filter"></i> الفلاتر</button>
                 <button id="favToggleBtn" class="fav-toggle-btn" onclick="toggleFavView()">🤍 مكتبتي</button>
                 <button id="exportFavBtn" onclick="exportLibrary()" style="display: none; padding: 8px 15px; border-radius: 8px; border: none; background: #10b981; color: white; cursor: pointer; font-family: inherit; font-weight: bold; margin-right: 10px; transition: 0.3s;">
-    <i class="fa-solid fa-share-nodes"></i> مشاركة مكتبتي
-</button>
+                    <i class="fa-solid fa-share-nodes"></i> مشاركة مكتبتي
+                </button>
             </div>
         </div>
 
@@ -512,14 +804,12 @@
         <span id="fileCountSuffix"></span>
     </div>
     
-    <!-- بداية قسم شوهد مؤخراً -->
 <div id="recentSection" style="display: none; margin-bottom: 30px;">
     <h3 style="color: var(--primary-color); margin-bottom: 15px; font-weight: bold; padding-right: 15px;">
         <i class="fa-regular fa-eye"></i> شوهد مؤخراً
     </h3>
     <div id="recentContainer" class="recent-scroll-grid"></div>
 </div>
-<!-- نهاية قسم شوهد مؤخراً -->
 
     <div class="files-grid" id="filesContainer">
         <div class="skeleton-card"><div class="skeleton-pulse sk-badge"></div><div class="skeleton-pulse sk-title"></div><div class="skeleton-pulse sk-sub"></div><div class="skeleton-pulse sk-line"></div><div class="skeleton-pulse sk-line"></div><div class="sk-btns"><div class="skeleton-pulse sk-btn"></div><div class="skeleton-pulse sk-btn"></div></div></div>
@@ -529,8 +819,19 @@
         <button class="load-more-btn" onclick="loadMore()">⏬ عرض المزيد</button>
     </div>
 
+<div id="contributorsSection" style="display: none; max-width: 1200px; margin: 40px auto 0 auto; width: 100%;">
+    <div class="extra-box open">
+        <h3 class="section-tab" style="cursor: default;">🏆 أكثر المساهمين (شكراً لكم)</h3>
+        <div class="extra-box-content">
+            <p style="color: var(--text-muted); font-size: 13px; margin: 0 0 15px 0; font-weight: 600; line-height: 1.6;">
+                هؤلاء الطلاب أثروا الأرشيف بأكبر عدد من الملخصات والمذكرات — تكريماً لجهودهم التي تنقذ زملاءهم كل يوم 💙
+            </p>
+            <div id="contributorsList" class="contributors-list"></div>
+        </div>
+    </div>
+</div>
+
  <div class="extras-container">
-        <!-- 1. مكتبة الأدوات -->
         <div class="extra-box tools-box">
             <h3 class="section-tab">🛠️ مكتبة الأدوات المساعدة</h3>
             <div style="text-align: center; padding: 10px 0;">
@@ -560,7 +861,6 @@
             </div>
         </div>
         
-        <!-- 2. كيف تساهم معنا (مطور وشامل) -->
         <div class="extra-box open" id="contributeBox">
             <h3 class="section-tab" style="cursor: default;">🤝 كيف تساهم معنا؟ (صدقة جارية)</h3>
             <div class="extra-box-content">
@@ -578,7 +878,6 @@
             </div>
         </div>
 
-        <!-- 3. سياسة النشر (مفصلة) -->
         <div class="extra-box open" id="policyBox">
             <h3 class="section-tab" style="cursor: default;">🛡️ سياسة النشر وشروط الإضافة</h3>
             <div class="extra-box-content">
@@ -590,7 +889,6 @@
             </div>
         </div>
 
-        <!-- 4. عن المنصة (رؤية وحلول واقعية) -->
         <div class="extra-box about-box open" id="aboutBox" style="text-align: right;">
             <h3 class="section-tab" style="cursor: default;">🌟 عن المنصة: الفكرة والواقع</h3>
             <div class="extra-box-content">
@@ -614,7 +912,6 @@
             </div>
         </div>
 
-        <!-- 5. الأسئلة الشائعة (موسعة) -->
         <div class="extra-box faq-box open" id="faqBox">
             <h3 class="section-tab" style="cursor: default;">❓ الأسئلة الشائعة (FAQ)</h3>
             <div class="extra-box-content">
@@ -687,33 +984,25 @@
         const ADMIN_EMAIL = 'blackp0778565@gmail.com'; 
         document.getElementById('contactEmailBtn').href = `mailto:${ADMIN_EMAIL}?subject=مشاركة ملخص جديد في الأرشيف الأكاديمي`;
 
-        // ضع هنا رابط نموذج Google Form بعد إنشائه (Insert > Embed > By URL لا يلزم، فقط رابط النموذج نفسه)
-        // الحقول المقترحة: العنوان، اسم المادة، الفرقة، نوع التعليم، التخصص، نوع المادة، الترم، رابط الملف، اسم المُعِد
-        // ملاحظة: هذا نموذج تجميع فقط — الردود تُخزَّن في جدول منفصل تراجعه أنت قبل نقلها للجدول المنشور فعلياً
         const GOOGLE_FORM_URL = 'https://forms.gle/b6kN4xRxAVLEnfKE9';
         const formBtn = document.getElementById('contactFormBtn');
         if (formBtn) {
             if (GOOGLE_FORM_URL) {
                 formBtn.href = GOOGLE_FORM_URL;
             } else {
-                formBtn.style.display = 'none'; // يُخفى تلقائياً حتى تُضيف رابط النموذج أعلاه
+                formBtn.style.display = 'none';
             }
         }
 
-        // ضع هنا رابط "Web App" الخاص بسكربت عدّاد التحميلات بعد نشره من Google Apps Script
-        // (راجع شرح الإعداد الكامل — السكربت يزيد عمود "downloads" في نفس الجدول عند كل تحميل)
         const COUNTER_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAzzAwd-pXuBY1_5MxIAaanFU1uzvt48gvuGJAEdBwIMizgakpDI6fN93rTf_deKmi/exec';
 
-        // إرسال "نبضة" صامتة عند كل تحميل لزيادة العدّاد، بدون انتظار الرد وبدون التأثير على تجربة المستخدم
-        // نستخدم "id" الثابت للملف (مقاوم لإعادة ترتيب الصفوف) بدل الرابط نفسه
         function trackDownload(fileId) {
-            if (!COUNTER_SCRIPT_URL || !fileId) return; // لم يُفعَّل العداد بعد، أو الملف بلا id
+            if (!COUNTER_SCRIPT_URL || !fileId) return;
             try {
                 fetch(`${COUNTER_SCRIPT_URL}?id=${encodeURIComponent(fileId)}`, { mode: 'no-cors' }).catch(() => {});
             } catch(e) {}
         }
-        // زر "إبلاغ عن رابط معطل": يفتح رسالة بريد جاهزة بالتفاصيل، وينسخها أيضاً احتياطاً
-        // لو لم يكن هناك تطبيق بريد مُعدّ على الجهاز
+
         function reportBrokenLink(fileUrl, fileTitle) {
             const subject = encodeURIComponent(`🚩 رابط معطل: ${fileTitle}`);
             const body = encodeURIComponent(`السلام عليكم،\n\nوجدت أن هذا الملف لا يفتح أو رابطه معطل:\n\nالملف: ${fileTitle}\nالرابط: ${fileUrl}\n\nشكراً لمراجعته.`);
@@ -722,14 +1011,13 @@
             showToast('📧 يتم فتح تطبيق البريد، وتم نسخ التفاصيل احتياطياً أيضاً');
         }
 
-        // ===== قائمة "المزيد ⋮" المصغّرة: تجمع QR والإبلاغ في زر واحد بدل أيقونتين مستقلتين =====
         let moreMenuContext = null;
         function toggleMoreMenu(btn, fileUrl, fileTitle) {
             const popup = document.getElementById('moreMenuPopup');
             if (!popup) return;
             const wasOpenForSameFile = popup.classList.contains('show') && moreMenuContext && moreMenuContext.url === fileUrl;
             closeMoreMenu();
-            if (wasOpenForSameFile) return; // كانت مفتوحة لنفس الملف، فقط أغلقناها بالضغط مرة أخرى
+            if (wasOpenForSameFile) return;
             moreMenuContext = { url: fileUrl, title: fileTitle };
             const rect = btn.getBoundingClientRect();
             let left = rect.left;
@@ -757,8 +1045,6 @@
             if (!e.target.closest('#moreMenuPopup') && !e.target.closest('.more-menu-btn')) closeMoreMenu();
         });
 
-        // دالة "debounce" عامة: تؤخر تنفيذ الدالة حتى يتوقف المستخدم عن الكتابة
-        // (كانت مستخدمة في آخر السكربت بدون تعريف، فسببت توقف تفعيل خانة البحث بالكامل)
         function debounce(func, wait) {
             let timeoutId;
             return function(...args) {
@@ -770,34 +1056,27 @@
         let allFiles = [];
         let currentFilteredFiles = [];
         let favorites = [];
-      // --- أكواد قسم شوهد مؤخراً ---
-// 1. تحميل القائمة من ذاكرة المتصفح
+
 let recentViews = JSON.parse(localStorage.getItem('recentFilesData')) || [];
 
-// 2. دالة إضافة ملف جديد للقائمة
 function addToRecent(fileUrl) {
-    if(!fileUrl) return; // حماية من الأخطاء
-    // إزالة الملف إذا كان موجوداً لرفعه للأول
+    if(!fileUrl) return;
     recentViews = recentViews.filter(url => url !== fileUrl);
-    recentViews.unshift(fileUrl); // إضافة في البداية
-    // الاحتفاظ بآخر 4 ملفات فقط
+    recentViews.unshift(fileUrl);
     if (recentViews.length > 4) { recentViews.pop(); }
     localStorage.setItem('recentFilesData', JSON.stringify(recentViews));
-    renderRecent(); // تحديث الشكل
+    renderRecent();
 }
 
-// 3. دالة رسم البطاقات
 function renderRecent() {
     const section = document.getElementById('recentSection');
     const container = document.getElementById('recentContainer');
     
-    // حماية: إذا لم يجد القسم أو لم يتم تحميل الملفات الأساسية بعد، أوقف العمل بصمت
     if (!section || !container || typeof allFiles === 'undefined' || allFiles.length === 0) {
         if(section) section.style.display = 'none';
         return;
     }
 
-    // إذا كانت القائمة فارغة، أخفِ القسم
     if (recentViews.length === 0) {
         section.style.display = 'none';
         return;
@@ -806,7 +1085,6 @@ function renderRecent() {
     section.style.display = 'block';
     container.innerHTML = '';
 
-    // رسم البطاقات (بنفس تنسيق بطاقات الملفات الرئيسية لضمان اتساق التصميم)
     recentViews.forEach(url => {
         const file = allFiles.find(f => f.url === url);
         if (file) {
@@ -845,7 +1123,6 @@ function renderRecent() {
         }
     });
 }
-// --- نهاية أكواد شوهد مؤخراً ---
 
         let isFavViewActive = false; 
         let currentPage = 1;
@@ -865,10 +1142,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             else { container.classList.remove('list-view'); }
         }
 
-        // الوضع الليلي: يتم تفعيله مبكراً في <head> لتفادي الوميض،
-        // وهنا فقط نُزامن شكل الزر (أيقونة شمس/قمر) ولون شريط المتصفح مع الحالة الفعلية
-        // الوضع الليلي: يتم تفعيله مبكراً في <head> لتفادي الوميض،
-        // وهنا فقط نُزامن شكل الزر (أيقونة شمس/قمر ونص الوصف) ولون شريط المتصفح مع الحالة الفعلية
         function applyDarkMode(isDark) {
             document.documentElement.classList.toggle('dark-mode', isDark);
             const icon = document.getElementById('darkModeMenuIcon');
@@ -887,17 +1160,15 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             const icon = document.getElementById('darkModeMenuIcon');
             if (icon) {
                 icon.classList.remove('icon-anim');
-                void icon.offsetWidth; // إعادة تشغيل الأنيميشن حتى لو ضُغط الزر بسرعة عدة مرات
+                void icon.offsetWidth;
                 icon.classList.add('icon-anim');
             }
         }
 
         function initDarkMode() {
-            // الكلاس ربما يكون مُضافاً بالفعل من السكربت المبكر في <head>؛ هنا فقط نُطابق شكل الزر معه
             applyDarkMode(document.documentElement.classList.contains('dark-mode'));
         }
 
-        // ===== اختصار "/" للتركيز على مربع البحث من أي مكان في الصفحة =====
         document.addEventListener('keydown', function(e) {
             const tag = document.activeElement ? document.activeElement.tagName : '';
             if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
@@ -906,7 +1177,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             }
         });
 
-        // ===== تكبير/تصغير حجم الخط (يُحفظ لزياراتك القادمة) =====
         const FONT_SCALE_STEPS = [0.9, 1, 1.1, 1.2, 1.3];
         let fontScaleIndex = 1;
         function applyFontScale(index) {
@@ -922,12 +1192,11 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             applyFontScale(stored !== null ? parseInt(stored, 10) : 1);
         }
 
-        // ===== مؤشر فأرة مخصص (ديسكتوب فقط، ويحترم تفضيل تقليل الحركة) =====
         function initCustomCursor() {
             const hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
             const reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const cursor = document.getElementById('customCursor');
-            if (!hasFinePointer || reducedMotion || !cursor) return; // نتجاهله على اللمس أو حسب تفضيل المستخدم
+            if (!hasFinePointer || reducedMotion || !cursor) return;
 
             document.body.classList.add('custom-cursor-active');
             let shown = false;
@@ -949,7 +1218,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             document.addEventListener('mouseleave', function() { cursor.classList.remove('visible'); shown = false; });
         }
 
-      // ألوان مخصصة لكل تخصص، لتمييز سريع بالنظر عند تصفح البطاقات
       const MAJOR_COLORS = {
           'رياضيات': '#2563eb',
           'رياضيات باللغة الإنجليزية': '#2563eb',
@@ -963,7 +1231,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
       };
       function getMajorColor(major) { return MAJOR_COLORS[major] || '#64748b'; }
 
-      // أيقونات مرسومة مخصصة لكل تخصص (بدل الاعتماد فقط على الأيقونات العامة)
       const MAJOR_ICONS_SVG = {
           math: '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 4h12M5 4v8M11 4v8"/></svg>',
           arabic: '<svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3C6.5 2 4 2 2 2.5v9c2-.5 4.5-.5 6 .5M8 3c1.5-1 4-1 6-.5v9c-2-.5-4.5-.5-6 .5M8 3v9"/></svg>',
@@ -985,17 +1252,9 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
 
       function getFileIcon(titleStr) {
             const t = titleStr.toLowerCase();
-            
-            // 1. تحديد ملفات الوورد (فقط إذا كان مكتوباً صراحة)
             if(t.includes('word') || t.includes('doc')) return '<i class="fa-solid fa-file-word file-icon" style="color:#2563eb"></i>';
-            
-            // 2. العروض التقديمية البوربوينت
             if(t.includes('عرض') || t.includes('ppt') || t.includes('تقديم') || t.includes('بوربوينت')) return '<i class="fa-solid fa-file-powerpoint file-icon" style="color:#f59e0b"></i>';
-            
-            // 3. الصور والخرائط
             if(t.includes('صورة') || t.includes('خريطة') || t.includes('رسم')) return '<i class="fa-solid fa-file-image file-icon" style="color:#10b981"></i>';
-            
-            // 4. الافتراضي: بما أن أغلب ملفات الأرشيف (ملخصات ومذكرات) هي PDF، سنجعله الأساسي
             return '<i class="fa-solid fa-file-pdf file-icon" style="color:#ef4444"></i>';
         }
 
@@ -1020,9 +1279,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             setTimeout(() => modal.style.display = 'none', 300);
         }
 
-        // نافذة "أضف الأرشيف لهاتفك" (Add to Home Screen)
-        // كانت الواجهة (HTML/CSS) جاهزة بالكامل لكن الجافاسكريبت الخاص بها كان مفقوداً بالكامل،
-        // فلم تكن تظهر أبداً ولا يوجد لها زر إغلاق فعّال
         function closeInstallPrompt(remember = true) {
             const overlay = document.getElementById('installPrompt');
             overlay.classList.remove('show');
@@ -1034,7 +1290,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
 
         function initInstallPrompt() {
             try {
-                // لا تُظهر النافذة إذا أغلقها المستخدم من قبل، أو إذا كان قد ثبّت الموقع بالفعل
                 if (localStorage.getItem('installPromptDismissed') === 'true') return;
                 if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) return;
 
@@ -1042,7 +1297,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
                 const isIOS = /iPad|iPhone|iPod/.test(ua) && !window.MSStream;
                 const isAndroid = /android/i.test(ua);
 
-                // هذه الميزة مخصصة للهواتف فقط (لا فائدة منها على الديسكتوب)
                 if (!isIOS && !isAndroid) return;
 
                 const instructionsBox = document.getElementById('installInstructions');
@@ -1056,7 +1310,7 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
                 setTimeout(() => {
                     overlay.style.display = 'flex';
                     setTimeout(() => overlay.classList.add('show'), 10);
-                }, 3000); // تظهر بعد 3 ثوانٍ من فتح الصفحة حتى لا تزعج الزائر فوراً
+                }, 3000);
             } catch(e) { console.error('Install prompt error:', e); }
         }
 
@@ -1066,7 +1320,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             if (event.target == document.getElementById('exportModal')) closeExportModal();
         }
 
-        // دالة نسخ موحّدة (كانت معرّفة مرتين بمحتوى مختلف؛ التعريف الثاني كان يُلغي الأول بصمت)
         function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 navigator.clipboard.writeText(text).then(() => {
@@ -1076,7 +1329,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
                     showToast('❌ حدث خطأ أثناء النسخ');
                 });
             } else {
-                // حل بديل للمتصفحات القديمة أو الصفحات غير الآمنة (http)
                 let textArea = document.createElement("textarea");
                 textArea.value = text;
                 textArea.style.position = "fixed";
@@ -1095,7 +1347,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             }
         }
 
-        // دالة المشاركة الذكية (تعمل في كل الظروف)
         async function nativeShare(title, text, url) {
             const shareData = {
                 title: title,
@@ -1104,17 +1355,13 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             };
 
             try {
-                // إذا كان المتصفح يدعم المشاركة الأصلية (مثل الموبايل)
                 if (navigator.share) {
                     await navigator.share(shareData);
                 } else {
-                    // إذا كان كمبيوتر أو لا يدعم المشاركة، قم بالنسخ فوراً
                     copyToClipboard(text + " \n " + url);
                 }
             } catch (err) {
-                // إذا قام المستخدم بإلغاء قائمة المشاركة أو حدث خطأ
                 console.log('تم إلغاء المشاركة أو المتصفح لا يدعمها في هذا الوضع.');
-                // كحل أخير، قم بنسخ الرابط
                 copyToClipboard(text + " \n " + url);
             }
         }
@@ -1166,9 +1413,7 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             setTimeout(typeWriter, typeSpeed);
         }
 
-      // مصفوفة الـ 50 أداة
         const allToolsData = [
-            // 📐 الرياضيات والعلوم
             { cat: "math", title: "GeoGebra", desc: "أداة هندسية تفاعلية لا غنى عنها لتدريس وتعلم الرياضيات.", url: "https://www.geogebra.org/", icon: "fa-calculator" },
             { cat: "math", title: "Desmos", desc: "آلة حاسبة رسومية متطورة لرسم الدوال والمعادلات الرياضية.", url: "https://www.desmos.com/", icon: "fa-chart-line" },
             { cat: "math", title: "Wolfram Alpha", desc: "محرك المعرفة لحل أعقد المعادلات الفيزيائية والرياضية.", url: "https://www.wolframalpha.com/", icon: "fa-square-root-variable" },
@@ -1179,8 +1424,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             { cat: "math", title: "Khan Academy", desc: "منصة تعليمية تقدم شروحات مرئية رائعة في العلوم.", url: "https://ar.khanacademy.org/", icon: "fa-book" },
             { cat: "math", title: "Brilliant", desc: "تعلم الرياضيات والعلوم بطريقة تفاعلية وبصرية لحل المشكلات.", url: "https://brilliant.org/", icon: "fa-lightbulb" },
             { cat: "math", title: "ChemSpider", desc: "قاعدة بيانات مجانية ضخمة للتركيبات والخصائص الكيميائية.", url: "http://www.chemspider.com/", icon: "fa-flask" },
-
-            // 🧠 التربية وعلم النفس
             { cat: "edu", title: "Edutopia", desc: "مقالات واستراتيجيات حديثة في طرق التدريس وإدارة الفصول.", url: "https://www.edutopia.org/", icon: "fa-chalkboard-user" },
             { cat: "edu", title: "Simply Psychology", desc: "مرجع ممتاز ومبسط لنظريات علم النفس وتحليل السلوكيات.", url: "https://www.simplypsychology.org/", icon: "fa-brain" },
             { cat: "edu", title: "APA PsycNet", desc: "قاعدة بيانات الجمعية الأمريكية لعلم النفس للأبحاث المتخصصة.", url: "https://psycnet.apa.org/", icon: "fa-user-doctor" },
@@ -1188,8 +1431,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             { cat: "edu", title: "Kahoot!", desc: "تصميم مسابقات وأسئلة تفاعلية لجذب انتباه الطلاب.", url: "https://kahoot.com/", icon: "fa-gamepad" },
             { cat: "edu", title: "Coursera", desc: "دورات من جامعات عالمية في التربية وطرق التدريس الحديثة.", url: "https://www.coursera.org/", icon: "fa-certificate" },
             { cat: "edu", title: "TED-Ed", desc: "دروس فيديو رسومية قصيرة يمكن استخدامها كتمهيد للدروس.", url: "https://ed.ted.com/", icon: "fa-video" },
-
-            // 📚 البحث والمراجع
             { cat: "research", title: "Google Scholar", desc: "الباحث العلمي لإيجاد الأبحاث الأكاديمية الموثوقة.", url: "https://scholar.google.com/", icon: "fa-graduation-cap" },
             { cat: "research", title: "بنك المعرفة المصري", desc: "وصول مجاني لأضخم قواعد البيانات والمجلات العلمية العالمية.", url: "https://www.ekb.eg/", icon: "fa-book-open" },
             { cat: "research", title: "Zotero", desc: "أداة رائعة لتنظيم المراجع وإنشاء قوائم المصادر تلقائياً.", url: "https://www.zotero.org/", icon: "fa-bookmark" },
@@ -1198,8 +1439,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             { cat: "research", title: "ResearchGate", desc: "شبكة تواصل للباحثين لتبادل الأبحاث والرسائل العلمية.", url: "https://www.researchgate.net/", icon: "fa-network-wired" },
             { cat: "research", title: "Mendeley", desc: "مدير مراجع أكاديمي وشبكة تواصل علمية من Elsevier.", url: "https://www.mendeley.com/", icon: "fa-book-bookmark" },
             { cat: "research", title: "PubMed", desc: "قاعدة بيانات بحثية موثوقة (مفيدة للعلوم وعلم النفس الحيوي).", url: "https://pubmed.ncbi.nlm.nih.gov/", icon: "fa-microscope" },
-
-            // ✍️ الكتابة والتلخيص
             { cat: "writing", title: "DeepL", desc: "المترجم الأدق عالمياً المعتمد على الذكاء الاصطناعي.", url: "https://www.deepl.com/", icon: "fa-language" },
             { cat: "writing", title: "ChatPDF", desc: "ارفع المذكرات بصيغة PDF واسأل الذكاء الاصطناعي ليلخصها لك.", url: "https://www.chatpdf.com/", icon: "fa-file-pdf" },
             { cat: "writing", title: "QuillBot", desc: "إعادة صياغة النصوص الإنجليزية لتجنب النسخ الحرفي.", url: "https://quillbot.com/", icon: "fa-pen-nib" },
@@ -1207,8 +1446,6 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             { cat: "writing", title: "Hemingway Editor", desc: "أداة لتبسيط الجمل المعقدة لتصبح كتابتك الأكاديمية واضحة.", url: "https://hemingwayapp.com/", icon: "fa-feather" },
             { cat: "writing", title: "Reverso Context", desc: "مترجم سياقي يعطيك أمثلة لاستخدام المصطلحات في جمل.", url: "https://context.reverso.net/", icon: "fa-closed-captioning" },
             { cat: "writing", title: "ProWritingAid", desc: "مساعد كتابة متقدم للتدقيق الأكاديمي الشامل.", url: "https://prowritingaid.com/", icon: "fa-marker" },
-
-            // 🎨 التصميم والعروض
             { cat: "design", title: "Canva", desc: "تصميم العروض التقديمية واللوحات التعليمية بسهولة فائقة.", url: "https://www.canva.com/", icon: "fa-palette" },
             { cat: "design", title: "Affinity Resources", desc: "ملحقات، فرش، وأدوات تصميم متقدمة لمستخدمي Affinity.", url: "https://affinity.serif.com/", icon: "fa-bezier-curve" },
             { cat: "design", title: "Slidesgo", desc: "قوالب بوربوينت احترافية جاهزة ومجانية لتقديم التكليفات.", url: "https://slidesgo.com/", icon: "fa-images" },
@@ -1217,16 +1454,12 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             { cat: "design", title: "Flaticon", desc: "مكتبة أيقونات مجانية لتزيين عروضك التقديمية وملخصاتك.", url: "https://www.flaticon.com/", icon: "fa-icons" },
             { cat: "design", title: "Freepik", desc: "تحميل صور ورسومات (Vectors) عالية الجودة لمشاريعك.", url: "https://www.freepik.com/", icon: "fa-vector-square" },
             { cat: "design", title: "Color Hunt", desc: "لوحات ألوان متناسقة لاختيار ألوان تصاميمك المريحة.", url: "https://colorhunt.co/", icon: "fa-fill-drip" },
-
-            // ⏱️ الإنتاجية
             { cat: "productivity", title: "Notion", desc: "مساحة العمل المتكاملة لتدوين المحاضرات وترتيب الجداول.", url: "https://www.notion.so/", icon: "fa-list-check" },
             { cat: "productivity", title: "Trello", desc: "تنظيم مهام المشاريع الجامعية وتقسيمها بين أعضاء فريقك.", url: "https://trello.com/", icon: "fa-columns" },
             { cat: "productivity", title: "Pomofocus", desc: "مؤقت (بومودورو) لمذاكرة مركزة تتخللها فترات راحة.", url: "https://pomofocus.io/", icon: "fa-stopwatch" },
             { cat: "productivity", title: "Forest", desc: "تطبيق لمنع التشتت بالهاتف أثناء المذاكرة عبر زرع أشجار.", url: "https://www.forestapp.cc/", icon: "fa-tree" },
             { cat: "productivity", title: "Google Keep", desc: "تدوين الملاحظات السريعة ومزامنتها بين هاتفك وجهاز الكمبيوتر.", url: "https://keep.google.com/", icon: "fa-note-sticky" },
             { cat: "productivity", title: "Todoist", desc: "مدير مهام لتنظيم مواعيد التسليمات والتكليفات اليومية.", url: "https://todoist.com/", icon: "fa-clipboard-list" },
-
-            // 🛠️ أدوات عامة
             { cat: "utilities", title: "I Love PDF", desc: "دمج، تقسيم، ضغط، وتحويل ملفات الـ PDF مجاناً وبسهولة.", url: "https://www.ilovepdf.com/", icon: "fa-file-export" },
             { cat: "utilities", title: "Convertio", desc: "محول صيغ شامل للمستندات والصور والفيديوهات.", url: "https://convertio.co/", icon: "fa-right-left" },
             { cat: "utilities", title: "WeTransfer", desc: "إرسال الملفات الجامعية الضخمة للزملاء أو الأساتذة عبر رابط.", url: "https://wetransfer.com/", icon: "fa-share-nodes" },
@@ -1256,33 +1489,24 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
 
         function filterTools(category, btnElement) {
             currentToolsFilter = category;
-            
-            // تحديث الأزرار
             const buttons = document.querySelectorAll('.tool-filter-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             if(btnElement) btnElement.classList.add('active');
-
-            // تصفير البحث عند الضغط على تصنيف جديد
             document.getElementById('toolsSearchInput').value = '';
-
-            // تصفية المصفوفة ورسمها
             const filteredTools = category === 'all' ? allToolsData : allToolsData.filter(t => t.cat === category);
             renderToolsDOM(filteredTools);
         }
 
         function searchTools() {
             const query = document.getElementById('toolsSearchInput').value.toLowerCase();
-            
-            // البحث داخل التصنيف المختار حالياً (أو الكل)
             let baseArray = currentToolsFilter === 'all' ? allToolsData : allToolsData.filter(t => t.cat === currentToolsFilter);
-            
             const searchedTools = baseArray.filter(t => 
                 t.title.toLowerCase().includes(query) || 
                 t.desc.toLowerCase().includes(query)
             );
             renderToolsDOM(searchedTools);
         }
-// دالة إظهار وإخفاء مكتبة الأدوات
+
         function toggleToolsSection() {
             const wrapper = document.getElementById('toolsContentWrapper');
             const btn = document.getElementById('toggleToolsBtn');
@@ -1297,23 +1521,18 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
                 btn.innerHTML = '<i class="fa-solid fa-toolbox"></i> استكشف مكتبة الأدوات';
                 btn.style.background = 'transparent';
                 btn.style.color = 'var(--primary-color)';
-                // التمرير لأعلى الصندوق عند الإغلاق لراحة المستخدم
                 btn.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
 
-        // دالة تشغيل الأسئلة الشائعة
         function toggleFAQ(element) {
             const parent = element.parentElement;
-            // إغلاق أي سؤال مفتوح آخر (اختياري، يجعله أكثر أناقة)
             document.querySelectorAll('.faq-item').forEach(item => {
                 if(item !== parent) item.classList.remove('active');
             });
-            // فتح أو إغلاق السؤال الحالي
             parent.classList.toggle('active');
         }
 
-        // طي/فتح صناديق أسفل الصفحة (المساهمة، السياسة، عن المنصة، الأسئلة الشائعة) لتقليل الزحام
         function toggleExtraBox(boxId) {
             const box = document.getElementById(boxId);
             if (box) box.classList.toggle('open');
@@ -1347,8 +1566,8 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             setDynamicGreeting();
             typeWriter();
             toggleView(currentViewStyle);
-            renderToolsDOM(allToolsData); // رسم الـ 50 أداة عند فتح الصفحة
-            initInstallPrompt(); // تفعيل نافذة "أضف للشاشة الرئيسية"
+            renderToolsDOM(allToolsData);
+            initInstallPrompt();
           
             try {
                 if(localStorage.getItem('savedYear')) document.getElementById('yearFilter').value = localStorage.getItem('savedYear');
@@ -1376,7 +1595,7 @@ let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
             document.getElementById('favToggleBtn').innerHTML = '🤍 مكتبتي';
             try { localStorage.removeItem('savedYear'); localStorage.removeItem('savedEdu'); localStorage.removeItem('savedMajor'); } catch(e){}
             const resetExportBtn = document.getElementById('exportFavBtn');
-if (resetExportBtn) resetExportBtn.style.display = 'none';
+            if (resetExportBtn) resetExportBtn.style.display = 'none';
             filterAndSortData();
             showToast('🔄 تم إعادة الضبط');
         }
@@ -1391,7 +1610,6 @@ if (resetExportBtn) resetExportBtn.style.display = 'none';
             return fileId ? `https://drive.google.com/uc?export=download&id=${fileId}` : url;
         }
 
-        // تحليل التاريخ يدعم صيغتين: YYYY-MM-DD و DD-MM-YYYY (بنفس منطق formatSmartDate)
         function parseFileDate(dateStr) {
             if(!dateStr) return null;
             let parts = dateStr.split('-');
@@ -1408,10 +1626,8 @@ if (resetExportBtn) resetExportBtn.style.display = 'none';
         }
 
 function toggleFav(fileUrl, btn) {
-    // 1. قراءة الذاكرة فوراً لضمان عدم وجود بيانات قديمة
     let currentFavs = JSON.parse(localStorage.getItem('eduFavorites_v3')) || [];
     
-    // 2. فحص وإضافة/إزالة الرابط
     if(currentFavs.includes(fileUrl)) { 
         currentFavs = currentFavs.filter(fav => fav !== fileUrl); 
         btn.innerHTML = '🤍'; 
@@ -1424,15 +1640,12 @@ function toggleFav(fileUrl, btn) {
         showToast('❤️ تمت الإضافة للمكتبة');
     }
     
-    // 3. الحفظ النهائي والتحديث
     localStorage.setItem('eduFavorites_v3', JSON.stringify(currentFavs));
-    favorites = currentFavs; // تحديث المتغير العام للموقع
+    favorites = currentFavs;
     
     if(isFavViewActive) filterAndSortData();
 }
-// زر "مشاركة مكتبتي": كان يعتمد فقط على navigator.share التي قد لا تكون مدعومة
-// (خصوصاً على الكمبيوتر) أو قد ترفض بصمت دون أي رسالة للمستخدم، فيبدو الزر معطّلاً.
-// الحل: نافذة تعرض خيارات مشاركة واضحة تعمل دائماً على كل جهاز.
+
 function exportLibrary() {
     if (!favorites || favorites.length === 0) {
         showToast('مكتبتك فارغة! أضف ملفات أولاً ❤️');
@@ -1458,7 +1671,6 @@ function exportLibrary() {
         const encodedText = encodeURIComponent(exportText);
         let buttonsHTML = '';
 
-        // مشاركة أصلية عبر نظام الهاتف (أفضل خيار على الموبايل عند توفره)
         if (typeof navigator.share === 'function') {
             buttonsHTML += `
                 <button class="tool-link" style="display:flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:12px; border:none; background: var(--primary-color); color:white; cursor:pointer;" onclick="shareViaNative()">
@@ -1485,14 +1697,12 @@ function exportLibrary() {
     setTimeout(() => modal.classList.add('show'), 10);
 }
 
-// مشاركة أصلية عبر نظام الهاتف (Web Share API)، مع رجوع تلقائي للنسخ عند أي خطأ حقيقي
 async function shareViaNative() {
     const text = document.getElementById('exportTextPreview').value;
     try {
         await navigator.share({ title: 'مكتبتي الأكاديمية', text: text });
         closeExportModal();
     } catch (err) {
-        // إلغاء المستخدم للمشاركة ليس خطأً، لا داعي لإزعاجه برسالة
         if (err && err.name !== 'AbortError') {
             console.error('فشلت المشاركة الأصلية:', err);
             copyToClipboard(text);
@@ -1506,7 +1716,7 @@ async function shareViaNative() {
             const wasOpen = popup.classList.contains('show');
             closeMoreMenu();
             closeSettingsMenu();
-            if (wasOpen) return; // كانت مفتوحة، فقط أغلقناها بالضغط مرة أخرى
+            if (wasOpen) return;
             const rect = btn.getBoundingClientRect();
             let left = rect.left;
             const maxLeft = window.innerWidth - 210;
@@ -1544,7 +1754,7 @@ async function shareViaNative() {
                 showToast('🌐 عرض كل الملفات');
             }
             const exportBtn = document.getElementById('exportFavBtn');
-if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'none';
+            if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'none';
             filterAndSortData();
         }
 
@@ -1553,7 +1763,7 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
             return text.replace(regex, '<span class="highlight">$1</span>');
         }
-// دالة التواريخ الذكية والدقيقة
+
         function formatSmartDate(dateStr) {
             if (!dateStr || dateStr === "1999-01-01") return "غير محدد";
             
@@ -1575,27 +1785,25 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             else if (diffDays <= 30) { relative = `منذ ${Math.floor(diffDays/7)} أسبوع`; }
             else { relative = `منذ ${Math.floor(diffDays/30)} شهر`; }
             
-            // دمج النسبي مع الدقيق
             return `${relative} (${dateStr})`;
         }
-      // تم استخراج مفاتيح التخزين هنا لتعمل الدالتين بدون أخطاء
+        
         const CACHE_KEY = 'eduArchiveData';
         const CACHE_TIME_KEY = 'eduArchiveTime';
 
         async function fetchFiles() {
-            const CACHE_DURATION = 60 * 60 * 1000; // مدة التخزين: ساعة كاملة
+            const CACHE_DURATION = 60 * 60 * 1000;
             const cachedData = localStorage.getItem(CACHE_KEY);
             const cachedTime = localStorage.getItem(CACHE_TIME_KEY);
             const now = new Date().getTime();
 
-            // إذا وجدنا الكاش ولم تمر ساعة، استخدمه لعرض الملفات في ثانية الصفر!
             if (cachedData && cachedTime && (now - cachedTime < CACHE_DURATION)) {
                 allFiles = JSON.parse(cachedData);
                 populateSubjectDropdown(allFiles);
                 filterAndSortData();
-                fetchFilesSilently(); // تحديث صامت في الخلفية للبحث عن أي ملفات جديدة
+                fetchFilesSilently();
             } else {
-                await fetchFilesSilently(); // إذا لم يكن هناك كاش، اجلب البيانات مباشرة
+                await fetchFilesSilently();
             }
         }
 
@@ -1627,14 +1835,13 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
                 }
                 allFiles = parsedFiles;
                 
-                // حفظ النسخة الجديدة في هاتف الطالب
                 localStorage.setItem(CACHE_KEY, JSON.stringify(allFiles));
                 localStorage.setItem(CACHE_TIME_KEY, new Date().getTime().toString());
                 
                 populateSubjectDropdown(allFiles);
                 filterAndSortData();
             } catch (error) {
-                console.error("خطأ في الجلب:", error); // لمساعدتنا في اكتشاف أي أخطاء مستقبلاً
+                console.error("خطأ في الجلب:", error);
                 if(allFiles.length === 0) {
                     document.getElementById('fileCountContainer').innerHTML = '';
                     document.getElementById('filesContainer').innerHTML = '<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 42h24a8 8 0 0 0 1-15.9A12 12 0 0 0 22 22a9 9 0 0 0-8 12"/><line x1="12" y1="12" x2="52" y2="52"/></svg></span><div class="empty-title">تعذر الاتصال بقاعدة البيانات</div><div class="empty-desc">تأكد من اتصالك بالإنترنت.</div></div>';
@@ -1649,6 +1856,96 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             subjectFilter.innerHTML = optionsHtml;
         }
 
+        // ================= حساب وتحديث الإحصائيات البارزة =================
+        function updateHeroStats() {
+            const statFiles = document.getElementById('statFilesCount');
+            const statStudents = document.getElementById('statStudentsCount');
+            const badge = document.getElementById('lastUpdateBadge');
+            if (!statFiles || !allFiles || allFiles.length === 0) return;
+
+            const filesCount = allFiles.length;
+            const totalDownloads = allFiles.reduce((sum, f) => sum + (parseInt(f.downloads, 10) || 0), 0);
+            const studentsCount = totalDownloads > 0 ? totalDownloads : filesCount * 3;
+
+            animateStat(statFiles, filesCount);
+            animateStat(statStudents, studentsCount);
+
+            const dates = allFiles
+                .map(f => parseFileDate(f.date))
+                .filter(d => d && !isNaN(d.getTime()));
+
+            if (dates.length > 0) {
+                const latest = new Date(Math.max(...dates));
+                const now = new Date();
+                const diffDays = Math.floor((now - latest) / (1000 * 60 * 60 * 24));
+
+                let text = '';
+                if (diffDays <= 0) text = 'اليوم 🔥';
+                else if (diffDays === 1) text = 'منذ يوم';
+                else if (diffDays === 2) text = 'منذ يومين';
+                else if (diffDays < 7) text = `منذ ${diffDays} أيام`;
+                else if (diffDays < 30) text = `منذ ${Math.floor(diffDays / 7)} أسبوع`;
+                else if (diffDays < 365) text = `منذ ${Math.floor(diffDays / 30)} شهر`;
+                else text = `منذ ${Math.floor(diffDays / 365)} سنة`;
+
+                badge.innerHTML = `<i class="fa-solid fa-circle"></i> آخر تحديث: ${text}`;
+            } else {
+                badge.innerHTML = `<i class="fa-solid fa-circle"></i> آخر تحديث: غير محدد`;
+            }
+        }
+
+        function animateStat(el, target) {
+            const duration = 1200;
+            const startTime = performance.now();
+            const startVal = 0;
+
+            function frame(now) {
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                el.innerText = Math.floor(startVal + (target - startVal) * eased).toLocaleString('ar-EG');
+                if (progress < 1) requestAnimationFrame(frame);
+                else el.innerText = target.toLocaleString('ar-EG');
+            }
+            requestAnimationFrame(frame);
+        }
+
+        // ================= بناء قائمة أكثر المساهمين =================
+        function renderContributors() {
+            const section = document.getElementById('contributorsSection');
+            const list = document.getElementById('contributorsList');
+            if (!section || !list || !allFiles || allFiles.length === 0) return;
+
+            const counts = {};
+            allFiles.forEach(f => {
+                const author = (f.author || '').trim();
+                if (author && author !== 'غير محدد') {
+                    counts[author] = (counts[author] || 0) + 1;
+                }
+            });
+
+            const sorted = Object.entries(counts).sort((a, b) => b[1] - a[1]);
+            if (sorted.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+
+            const topContributors = sorted.slice(0, 6);
+            const medals = ['🥇', '🥈', '🥉', '4️⃣', '5️⃣', '6️⃣'];
+
+            list.innerHTML = topContributors.map(([name, count], i) => {
+                const topClass = i < 3 ? ` top-${i + 1}` : '';
+                return `
+                    <div class="contributor-item${topClass}">
+                        <span class="contributor-rank">${medals[i]}</span>
+                        <span class="contributor-name">${escapeHtml(name)}</span>
+                        <span class="contributor-count">${count} ${count === 1 ? 'ملف' : 'ملف'}</span>
+                    </div>
+                `;
+            }).join('');
+        }
+
         function filterAndSortData() {
             const searchText = document.getElementById('searchInput').value.toLowerCase();
             const selectedSort = document.getElementById('sortFilter').value;
@@ -1658,6 +1955,9 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             const selectedMajor = document.getElementById('majorFilter').value;
             const selectedType = document.getElementById('typeFilter').value;
             const selectedSemester = document.getElementById('semesterFilter').value;
+
+            updateHeroStats();
+            renderContributors();
 
             try {
                 localStorage.setItem('savedYear', selectedYear);
@@ -1691,8 +1991,7 @@ if (exportBtn) exportBtn.style.display = isFavViewActive ? 'inline-block' : 'non
             currentPage++;
             renderFiles(true); 
         }
-// تحصين ضد XSS: بما أن البيانات الآن قد تأتي من مصدر عام (نموذج Google Forms)،
-// أي نص (عنوان، اسم مادة، مؤلف...) يجب تنظيفه قبل إدراجه في الصفحة أو داخل onclick
+
 function escapeHtml(str) {
     if (str === null || str === undefined) return '';
     return String(str)
@@ -1702,8 +2001,7 @@ function escapeHtml(str) {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
 }
-// تهريب لسياق كود جافاسكريبت داخل onclick="...('${x}')..." ثم تهريب النتيجة كسمة HTML
-// (المتصفح يفك ترميز HTML أولاً، فيصل لجافاسكريبت النص المُهرَّب بشكل صحيح)
+
 function escapeForOnclick(str) {
     if (str === null || str === undefined) return '';
     const jsEscaped = String(str)
@@ -1715,97 +2013,96 @@ function escapeForOnclick(str) {
 }
 
 function renderFiles(append = false) {
-    renderRecent(); // <--- تمت الإضافة هنا لكي ترسم الملفات الحديثة كلما تم تحديث الموقع
+    renderRecent();
 
     const container = document.getElementById('filesContainer');
     const loadMoreContainer = document.getElementById('loadMoreContainer');
     const searchText = document.getElementById('searchInput').value;
     const maxDownloads = Math.max(1, ...allFiles.map(f => f.downloads || 0));
-    // ... باقي كودك
-            if (!append) container.innerHTML = '';
-            
-            document.getElementById('fileCountPrefix').innerText = isFavViewActive ? '📚 تحتفظ بـ ' : '📊 النتائج: ';
-            document.getElementById('fileCountSuffix').innerText = ' ملف';
-            animateCounter(currentFilteredFiles.length);
-            
-            if(currentFilteredFiles.length === 0) {
-                loadMoreContainer.style.display = 'none';
-                if(isFavViewActive) {
-                    container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h14l4 6h30v28a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V20z"/><path d="M32 42c-6-4-10-7-10-11a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 4-4 7-10 11z"/></svg></span><div class="empty-title">مكتبتك فارغة</div><div class="empty-desc">اضغط على أيقونة القلب (🤍) في أي ملف لإضافته هنا لمراجعته سريعاً.</div></div>`;
-                } else {
-                    container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="27" r="16"/><line x1="39" y1="39" x2="54" y2="54"/><line x1="21" y1="27" x2="33" y2="27"/></svg></span><div class="empty-title">لا توجد نتائج مطابقة</div><div class="empty-desc">تأكد من كلمات البحث أو اضغط على (تصفير) لإعادة الضبط.</div></div>`;
-                }
-                return;
-            }
-            
-            const startIndex = append ? (currentPage - 1) * ITEMS_PER_PAGE : 0;
-            const endIndex = currentPage * ITEMS_PER_PAGE;
-            const filesToShow = currentFilteredFiles.slice(startIndex, endIndex);
-            
-            filesToShow.forEach((file, index) => {
-                const badgeClass = file.subjectType.includes('تربوي') ? 'card-badge badge-edu' : 'card-badge';
-                const badgeText = file.subjectType.includes('تربوي') ? 'تربوي' : 'تخصص';
-                const isNewFile = isNew(file.date);
-                const downloadLink = getDirectDownload(file.url);
-                const isFav = favorites.includes(file.url);
-                
-                const displayTitle = highlightMatch(escapeHtml(file.title), searchText);
-                const displaySubject = highlightMatch(escapeHtml(file.subjectName), searchText);
-                const displayAuthor = highlightMatch(escapeHtml(file.author), searchText);
-
-                const authorCredit = file.author !== "غير محدد" ? ` (إعداد: ${file.author})` : '';
-                const shareText = `حمل مادة ${file.title}${authorCredit} من الأرشيف الأكاديمي: ${window.location.href}`;
-                
-                const animDelay = (index % ITEMS_PER_PAGE) * 0.05;
-
-              const iconHTML = getFileIcon(file.title + " " + file.subjectName);
-               const displayDate = formatSmartDate(file.date); 
-               const safeTitleForQR = escapeForOnclick(file.title);
-               const safeUrl = escapeForOnclick(file.url);
-               const safeShareText = escapeForOnclick(shareText);
-               const hrefUrl = escapeHtml(file.url);
-               const hrefDownloadLink = escapeHtml(downloadLink);
-               const majorColor = getMajorColor(file.major);
-               
-                const card = `
-                    <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay: ${animDelay}s; border-right: 4px solid ${majorColor};">
-                        <div class="${badgeClass}">${badgeText}</div>
-                        ${isNewFile ? '<div class="badge-new">جديد 🔥</div>' : ''}
-                        
-                        <div class="content-area">
-                            <h3>${iconHTML} ${displayTitle}</h3>
-                            <div class="subject-name"><span style="color:${majorColor}; margin-left:4px;">${getMajorIcon(file.major)}</span>مادة: ${displaySubject}</div>
-                        </div>
-                        
-                        <div class="meta-area">
-                            <div class="file-info">${escapeHtml(file.year)} · ${escapeHtml(file.semester)} · ${escapeHtml(file.major)} · ${escapeHtml(file.eduType)}</div>
-                            <div class="file-info"><strong>✍️ إعداد:</strong> <span class="author-name">${displayAuthor}</span></div>
-                            <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}${file.downloads > 0 ? ` <span class="download-count-pill"><i class="fa-solid fa-fire"></i> ${file.downloads}</span>` : ''}</div>
-                            ${file.downloads > 0 ? `<div class="popularity-bar"><div class="popularity-bar-fill" style="width:${Math.round((file.downloads / maxDownloads) * 100)}%"></div></div>` : ''}
-                        </div>
-
-                        <div class="action-area">
-                            <div class="card-actions">
-                                <a href="${hrefUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${safeUrl}')"><i class="fa-solid fa-eye"></i> عرض</a>
-                                <a href="${hrefDownloadLink}" class="btn btn-down" download target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}')"><i class="fa-solid fa-download"></i> تحميل</a>
-                            </div>
-                            
-                            <div class="icon-actions">
-                              <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${safeUrl}', this)" title="إضافة لمكتبتي">${favorites.includes(file.url) ? '❤️' : '🤍'}</button>
-                                <button class="btn-icon" onclick="nativeShare('${safeTitleForQR}', '${safeShareText}', '${safeUrl}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
-                                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${safeUrl}', '${safeTitleForQR}')" title="مزيد من الخيارات"><i class="fa-solid fa-ellipsis-vertical"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', card);
-            });
-            
-            if (endIndex < currentFilteredFiles.length) { loadMoreContainer.style.display = 'block'; } 
-            else { loadMoreContainer.style.display = 'none'; }
+    
+    if (!append) container.innerHTML = '';
+    
+    document.getElementById('fileCountPrefix').innerText = isFavViewActive ? '📚 تحتفظ بـ ' : '📊 النتائج: ';
+    document.getElementById('fileCountSuffix').innerText = ' ملف';
+    animateCounter(currentFilteredFiles.length);
+    
+    if(currentFilteredFiles.length === 0) {
+        loadMoreContainer.style.display = 'none';
+        if(isFavViewActive) {
+            container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 20h14l4 6h30v28a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V20z"/><path d="M32 42c-6-4-10-7-10-11a5 5 0 0 1 10-2 5 5 0 0 1 10 2c0 4-4 7-10 11z"/></svg></span><div class="empty-title">مكتبتك فارغة</div><div class="empty-desc">اضغط على أيقونة القلب (🤍) في أي ملف لإضافته هنا لمراجعته سريعاً.</div></div>`;
+        } else {
+            container.innerHTML = `<div class="empty-state"><span class="empty-illustration"><svg viewBox="0 0 64 64" width="56" height="56" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="27" cy="27" r="16"/><line x1="39" y1="39" x2="54" y2="54"/><line x1="21" y1="27" x2="33" y2="27"/></svg></span><div class="empty-title">لا توجد نتائج مطابقة</div><div class="empty-desc">تأكد من كلمات البحث أو اضغط على (تصفير) لإعادة الضبط.</div></div>`;
         }
+        return;
+    }
+    
+    const startIndex = append ? (currentPage - 1) * ITEMS_PER_PAGE : 0;
+    const endIndex = currentPage * ITEMS_PER_PAGE;
+    const filesToShow = currentFilteredFiles.slice(startIndex, endIndex);
+    
+    filesToShow.forEach((file, index) => {
+        const badgeClass = file.subjectType.includes('تربوي') ? 'card-badge badge-edu' : 'card-badge';
+        const badgeText = file.subjectType.includes('تربوي') ? 'تربوي' : 'تخصص';
+        const isNewFile = isNew(file.date);
+        const downloadLink = getDirectDownload(file.url);
+        const isFav = favorites.includes(file.url);
+        
+        const displayTitle = highlightMatch(escapeHtml(file.title), searchText);
+        const displaySubject = highlightMatch(escapeHtml(file.subjectName), searchText);
+        const displayAuthor = highlightMatch(escapeHtml(file.author), searchText);
 
-     // استخدام السماع للأحداث لضمان عدم حدوث أي تعارض مع أكواد أخرى
+        const authorCredit = file.author !== "غير محدد" ? ` (إعداد: ${file.author})` : '';
+        const shareText = `حمل مادة ${file.title}${authorCredit} من الأرشيف الأكاديمي: ${window.location.href}`;
+        
+        const animDelay = (index % ITEMS_PER_PAGE) * 0.05;
+
+        const iconHTML = getFileIcon(file.title + " " + file.subjectName);
+        const displayDate = formatSmartDate(file.date); 
+        const safeTitleForQR = escapeForOnclick(file.title);
+        const safeUrl = escapeForOnclick(file.url);
+        const safeShareText = escapeForOnclick(shareText);
+        const hrefUrl = escapeHtml(file.url);
+        const hrefDownloadLink = escapeHtml(downloadLink);
+        const majorColor = getMajorColor(file.major);
+        
+        const card = `
+            <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay: ${animDelay}s; border-right: 4px solid ${majorColor};">
+                <div class="${badgeClass}">${badgeText}</div>
+                ${isNewFile ? '<div class="badge-new">جديد 🔥</div>' : ''}
+                
+                <div class="content-area">
+                    <h3>${iconHTML} ${displayTitle}</h3>
+                    <div class="subject-name"><span style="color:${majorColor}; margin-left:4px;">${getMajorIcon(file.major)}</span>مادة: ${displaySubject}</div>
+                </div>
+                
+                <div class="meta-area">
+                    <div class="file-info">${escapeHtml(file.year)} · ${escapeHtml(file.semester)} · ${escapeHtml(file.major)} · ${escapeHtml(file.eduType)}</div>
+                    <div class="file-info"><strong>✍️ إعداد:</strong> <span class="author-name">${displayAuthor}</span></div>
+                    <div class="file-date"><i class="fa-regular fa-calendar"></i> الرفع: ${displayDate}${file.downloads > 0 ? ` <span class="download-count-pill"><i class="fa-solid fa-fire"></i> ${file.downloads}</span>` : ''}</div>
+                    ${file.downloads > 0 ? `<div class="popularity-bar"><div class="popularity-bar-fill" style="width:${Math.round((file.downloads / maxDownloads) * 100)}%"></div></div>` : ''}
+                </div>
+
+                <div class="action-area">
+                    <div class="card-actions">
+                        <a href="${hrefUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${safeUrl}')"><i class="fa-solid fa-eye"></i> عرض</a>
+                        <a href="${hrefDownloadLink}" class="btn btn-down" download target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}')"><i class="fa-solid fa-download"></i> تحميل</a>
+                    </div>
+                    
+                    <div class="icon-actions">
+                      <button class="btn-icon ${favorites.includes(file.url) ? 'fav-active' : ''}" onclick="toggleFav('${safeUrl}', this)" title="إضافة لمكتبتي">${favorites.includes(file.url) ? '❤️' : '🤍'}</button>
+                        <button class="btn-icon" onclick="nativeShare('${safeTitleForQR}', '${safeShareText}', '${safeUrl}')" title="مشاركة سريعة"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${safeUrl}', '${safeTitleForQR}')" title="مزيد من الخيارات"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', card);
+    });
+    
+    if (endIndex < currentFilteredFiles.length) { loadMoreContainer.style.display = 'block'; } 
+    else { loadMoreContainer.style.display = 'none'; }
+}
+
         window.addEventListener('scroll', function() {
             let btn = document.getElementById('scrollTopBtn');
             if (btn) {
@@ -1817,7 +2114,6 @@ function renderFiles(append = false) {
             }
         });
 
-        // دالة الصعود لأعلى بنعومة
         function scrollToTop() { 
             window.scrollTo({ top: 0, behavior: 'smooth' }); 
         }
