@@ -1817,13 +1817,11 @@ function animateStat(el, target, locale) {
     // ⚡ فحص 1: إذا كانت القيمة النهائية معروضة بالفعل، لا تفعل شيئًا
     if (el.innerText === finalValue) return;
     
-    // ⚡ فحص 2: إلغاء أي أنيميشن سابق يعمل على نفس العنصر
+    // ⚡ فحص 2: لو فيه أنيميشن شغال بالفعل لنفس الهدف، سيبه يكمل لوحده (متلغيهوش من غير بديل يكمل المهمة)
     const prevState = _statAnimationState.get(el);
-    if (prevState) {
-        prevState.cancelled = true;
-        // ⚡ إذا كان الهدف الجديد هو نفسه الهدف القديم، لا تعيد التشغيل
-        if (prevState.target === target) return;
-    }
+    if (prevState && !prevState.cancelled && prevState.target === target) return;
+    // ⚡ إلغاء أي أنيميشن سابق بيستهدف رقم مختلف
+    if (prevState) prevState.cancelled = true;
     
     // إنشاء حالة جديدة للأنيميشن الحالي
     const state = { cancelled: false, target: target };
