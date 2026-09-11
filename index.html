@@ -6,6 +6,16 @@
 <meta name="theme-color" content="#2563eb">
 <meta name="description" content="أرشيف أكاديمي رقمي مجاني لطلاب كلية التربية.">
 <title>الأرشيف الأكاديمي الرقمي</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%231e3a8a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Cpath d='M50 20 L15 40 L50 60 L85 40 Z' fill='url(%23g)'/%3E%3Cpath d='M15 55 L50 75 L85 55' fill='none' stroke='%23f59e0b' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 70 L50 90 L85 70' fill='none' stroke='%2310b981' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%231e3a8a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Cpath d='M50 20 L15 40 L50 60 L85 40 Z' fill='url(%23g2)'/%3E%3Cpath d='M15 55 L50 75 L85 55' fill='none' stroke='%23f59e0b' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 70 L50 90 L85 70' fill='none' stroke='%2310b981' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_EG">
+<meta property="og:title" content="الأرشيف الأكاديمي الرقمي">
+<meta property="og:description" content="أرشيف أكاديمي رقمي مجاني لطلاب كلية التربية.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="الأرشيف الأكاديمي الرقمي">
+<meta name="twitter:description" content="أرشيف أكاديمي رقمي مجاني لطلاب كلية التربية.">
+<meta name="robots" content="index, follow">
 <script>
 (function() {
     try {
@@ -24,6 +34,7 @@
         if (localStorage.getItem('set_shadows') === '0') document.documentElement.classList.add('no-shadows');
         if (localStorage.getItem('set_animations') === '0') document.documentElement.classList.add('no-anim');
         if (localStorage.getItem('set_hide_stats') === '1') document.documentElement.classList.add('hide-stats');
+        if (localStorage.getItem('set_hide_update') === '1') document.documentElement.classList.add('hide-update');
         if (localStorage.getItem('set_hide_recent') === '1') document.documentElement.classList.add('hide-recent');
         if (localStorage.getItem('set_hide_contributors') === '1') document.documentElement.classList.add('hide-contributors');
         if (localStorage.getItem('set_hide_tools') === '1') document.documentElement.classList.add('hide-tools');
@@ -113,6 +124,7 @@ html.no-shine .btn-view::after, html.no-shine .btn-down::after { display:none !i
 html.no-custom-cursor body.custom-cursor-active, html.no-custom-cursor body.custom-cursor-active * { cursor:auto !important; }
 html.no-custom-cursor #customCursor { display:none !important; }
 html.hide-stats .hero-stats, html.hide-stats .last-update-badge { display:none !important; }
+html.hide-update .last-update-badge { display:none !important; }
 html.hide-recent #recentSection { display:none !important; }
 html.hide-contributors #contributorsSection { display:none !important; }
 html.hide-tools .tools-box { display:none !important; }
@@ -269,8 +281,8 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
 
 @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
 
-.file-card { background:var(--card-glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); display:flex; flex-direction:column; position:relative; overflow:hidden; opacity:0; animation:fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; width:100%; box-shadow:none !important; transition:border-color 0.25s ease; }
-.file-card:hover { border-color: rgba(var(--primary-rgb), 0.4) !important; }
+.file-card { background:var(--card-glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); display:flex; flex-direction:column; position:relative; overflow:hidden; opacity:0; animation:fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; width:100%; box-shadow:none !important; transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+.file-card:hover { border-color: rgba(var(--primary-rgb), 0.4) !important; transform:translateY(-4px); box-shadow:var(--shadow-md) !important; }
 .file-card.is-new { border-color: rgba(239, 68, 68, 0.4) !important; }
 
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--primary-color); outline-offset:2px; }
@@ -345,7 +357,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .tool-filter-btn.active { background:var(--primary-color); color:white; border-color:var(--primary-color); }
 .tools-grid { display:grid; grid-template-columns:1fr; gap:14px; width:100%; }
 .tool-item-card { background:var(--input-bg); border:1.5px solid var(--border-color); border-radius:var(--radius-card); padding:16px; text-decoration:none; color:inherit; display:flex; flex-direction:column; width:100%; transition:all 0.25s ease; }
-.tool-item-card:hover { border-color:var(--primary-color); }
+.tool-item-card:hover { border-color:var(--primary-color); transform:translateY(-3px); box-shadow:var(--shadow-sm); }
+html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { transform:none; }
 .tool-icon { font-size:1.9rem; color:var(--primary-color); margin-bottom:10px; }
 .tool-title { font-size:1rem; font-weight:800; color:var(--header-color); margin-bottom:6px; }
 .tool-desc { font-size:0.85rem; color:var(--text-muted); line-height:1.55; margin-bottom:10px; flex-grow:1; font-weight:500; }
@@ -538,6 +551,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior:auto; }
     .file-card, .skeleton-pulse { animation:none; opacity:1; }
+    .file-card:hover, .tool-item-card:hover { transform:none !important; }
 }
 @media print {
     .sticky-glass-bar, #scrollTopBtn, .card-actions, .icon-actions, .load-more-btn,
@@ -568,7 +582,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
     <div class="settings-modal-box">
         <div class="settings-modal-header">
             <h2><i class="fa-solid fa-sliders"></i> <span data-i18n="settingsTitle">الإعدادات</span></h2>
-            <button class="settings-close-btn" onclick="closeSettingsModal()" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            <button class="settings-close-btn" onclick="closeSettingsModal()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="settings-modal-body">
 
@@ -684,7 +698,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </div>
 
 <div class="header">
-    <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" style="margin-bottom:12px; filter:drop-shadow(0 6px 12px rgba(59,130,246,0.2));">
+    <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-bottom:12px; filter:drop-shadow(0 6px 12px rgba(59,130,246,0.2));">
         <defs><linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" /><stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" /></linearGradient></defs>
         <path d="M50 20 L15 40 L50 60 L85 40 Z" fill="url(#gradBlue)" />
         <path d="M15 55 L50 75 L85 55" fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
@@ -719,11 +733,11 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </div>
 
 <div id="toast"></div>
-<button id="scrollTopBtn" onclick="scrollToTop()" title="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="scrollTopBtn" onclick="scrollToTop()" title="العودة للأعلى" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
 
 <div id="installPrompt" class="install-prompt-overlay">
     <div class="install-prompt-box">
-        <button class="close-install" onclick="closeInstallPrompt()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-install" onclick="closeInstallPrompt()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
         <div style="font-size:35px; color:var(--primary-color); margin-bottom:10px;"><i class="fa-solid fa-arrow-down-to-bracket"></i></div>
         <h3 data-i18n="installTitle">أضف الأرشيف لهاتفك!</h3>
         <p data-i18n="installDesc">للوصول السريع لجميع المواد والملخصات بدون الحاجة للمتصفح.</p>
@@ -733,7 +747,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 
 <div id="qrModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-modal" onclick="closeQR()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-modal" onclick="closeQR()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
         <h3 class="modal-title" id="qrTitle">—</h3>
         <p class="modal-desc" data-i18n="qrDesc">امسح الباركود بكاميرا الهاتف 📱</p>
         <div id="qrcode"></div>
@@ -742,7 +756,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 
 <div id="exportModal" class="modal-overlay">
     <div class="modal-content" style="max-width:380px;">
-        <button class="close-modal" onclick="closeExportModal()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-modal" onclick="closeExportModal()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
         <h3 class="modal-title" data-i18n="exportTitle">📚 شارك مكتبتك الخاصة</h3>
         <p class="modal-desc" style="margin-bottom:15px;" data-i18n="exportDesc">اختر الطريقة الأنسب</p>
         <div id="exportShareOptions" style="display:flex; flex-direction:column; gap:10px;"></div>
@@ -757,9 +771,9 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
         <div class="view-toggles">
-            <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')" title="عرض بطاقات"><i class="fa-solid fa-table-cells-large"></i></button>
-            <button id="listViewBtn" class="view-btn" onclick="toggleView('list')" title="عرض قائمة"><i class="fa-solid fa-list-ul"></i></button>
-            <button id="settingsToggleBtn" class="view-btn" onclick="openSettingsModal()" title="الإعدادات"><i class="fa-solid fa-sliders"></i></button>
+            <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')" title="عرض بطاقات" aria-label="عرض بطاقات"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button id="listViewBtn" class="view-btn" onclick="toggleView('list')" title="عرض قائمة" aria-label="عرض قائمة"><i class="fa-solid fa-list-ul"></i></button>
+            <button id="settingsToggleBtn" class="view-btn" onclick="openSettingsModal()" title="الإعدادات" aria-label="الإعدادات"><i class="fa-solid fa-sliders"></i></button>
         </div>
     </div>
 
@@ -1717,9 +1731,9 @@ function renderRecent() {
                 <a href="${escapeHtml(f.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
             </div>
             <div class="icon-actions">
-                <button class="btn-icon ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
-                <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
-                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                <button class="btn-icon ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)" aria-label="${favorites.includes(f.url) ? (currentLang==='ar'?'إزالة من المفضلة':'Remove from favorites') : (currentLang==='ar'?'إضافة للمفضلة':'Add to favorites')}">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
+                <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')" aria-label="${currentLang==='ar'?'مشاركة':'Share'}"><i class="fa-solid fa-share-nodes"></i></button>
+                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')" aria-label="${currentLang==='ar'?'خيارات إضافية':'More options'}"><i class="fa-solid fa-ellipsis-vertical"></i></button>
             </div>
         </div>`;
     });
@@ -1727,19 +1741,31 @@ function renderRecent() {
 }
 
 /* ✅ FIX: updateHeroStats جديد مع منطق موثوق */
+/* ============================================================
+   حل مشكلة العداد الذي يعود للصفر
+   - تخزين حالة الأنيميشن لكل عنصر
+   - إلغاء الأنيميشن السابق عند بدء جديد
+   - تخطي الأنيميشن لو القيمة المستهدفة هي نفسها
+   ============================================================ */
+
+// WeakMap لتخزين حالة الأنيميشن لكل عنصر
+const _statAnimationState = new WeakMap();
+
 function updateHeroStats() {
     const sF = document.getElementById('statFilesCount');
     const sS = document.getElementById('statStudentsCount');
     const badge = document.getElementById('lastUpdateBadge');
     
-    // حماية: لو العناصر غير موجودة، أوقف
     if (!sF || !sS) return;
     
-    // لو ما فيه ملفات، اعرض صفر
+    // لا توجد ملفات بعد
     if (!allFiles || !allFiles.length) {
+        // ضع القيمة مباشرة بدون أنيميشن (لتجنب الصعود للصفر)
         sF.innerText = '0';
         sS.innerText = '0';
-        if (badge) badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'لا توجد ملفات بعد' : 'No files yet'}`;
+        if (badge) {
+            badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'لا توجد ملفات بعد' : 'No files yet'}`;
+        }
         return;
     }
     
@@ -1753,13 +1779,11 @@ function updateHeroStats() {
     }
     
     // المعادلة: الطلاب المستفيدون = max(downloads, files × 5)
-    // (كل ملف يفيد على الأقل 5 طلاب كتقدير محافظ)
     const studentsCount = Math.max(totalDownloads, filesCount * 5);
     
-    // ✅ استخدام toLocaleString مع اللغة الحالية
     const locale = currentLang === 'ar' ? 'ar-EG' : 'en-US';
     
-    // ✅ استخدام animateStat مع fallback مباشر
+    // ✅ تم إصلاحه: أنيميشن مع إلغاء تلقائي للأنيميشن السابق
     animateStat(sF, filesCount, locale);
     animateStat(sS, studentsCount, locale);
     
@@ -1777,22 +1801,37 @@ function updateHeroStats() {
             else if (diff < 30) txt = currentLang === 'ar' ? `منذ ${Math.floor(diff/7)} أسبوع` : `${Math.floor(diff/7)} weeks ago`;
             else txt = currentLang === 'ar' ? `منذ ${Math.floor(diff/30)} شهر` : `${Math.floor(diff/30)} months ago`;
             badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${txt}`;
+        } else {
+            badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${currentLang === 'ar' ? 'غير محدد' : 'Unknown'}`;
         }
     }
 }
 
-/* ✅ FIX: animateStat مع fallback وحماية */
 function animateStat(el, target, locale) {
     if (!el) return;
     if (!locale) locale = currentLang === 'ar' ? 'ar-EG' : 'en-US';
     if (isNaN(target)) target = 0;
     
-    // ✅ إذا لم تكن الحركات مفعلة أو وضع الأداء مفعل، ضع القيمة مباشرة
+    const finalValue = target.toLocaleString(locale);
+    
+    // ⚡ فحص 1: إذا كانت القيمة النهائية معروضة بالفعل، لا تفعل شيئًا
+    if (el.innerText === finalValue) return;
+    
+    // ⚡ فحص 2: إلغاء أي أنيميشن سابق يعمل على نفس العنصر
+    const prevState = _statAnimationState.get(el);
+    if (prevState) {
+        prevState.cancelled = true;
+        // ⚡ إذا كان الهدف الجديد هو نفسه الهدف القديم، لا تعيد التشغيل
+        if (prevState.target === target) return;
+    }
+    
+    // إنشاء حالة جديدة للأنيميشن الحالي
+    const state = { cancelled: false, target: target };
+    _statAnimationState.set(el, state);
+    
+    // ⚡ فحص 3: لو الأنيميشن معطل أو المتصفح لا يدعمه، ضع القيمة مباشرة
     const noAnim = document.documentElement.classList.contains('no-anim') || 
                    document.documentElement.classList.contains('perf-mode');
-    
-    // القيمة النهائية المنسقة
-    const finalValue = target.toLocaleString(locale);
     
     if (noAnim || typeof requestAnimationFrame === 'undefined') {
         el.innerText = finalValue;
@@ -1801,30 +1840,34 @@ function animateStat(el, target, locale) {
     
     const duration = 900;
     const startTime = performance.now();
-    let completed = false;
     
-    // ⏱️ fallback: بعد 1.5 ثانية، تأكد أن القيمة النهائية وضعت
+    // ⏱️ Timer احتياطي: لو الأنيميشن فشل لأي سبب، اكتب القيمة النهائية بعد 2 ثانية
     const fallbackTimer = setTimeout(() => {
-        if (!completed) {
+        if (!state.cancelled && el.innerText !== finalValue) {
             el.innerText = finalValue;
-            completed = true;
         }
-    }, duration + 600);
+    }, 2000);
     
     function frame(now) {
-        if (completed) return;
+        // ⚡ إلغاء الأنيميشن إذا تم استدعاء واحد جديد
+        if (state.cancelled) {
+            clearTimeout(fallbackTimer);
+            return;
+        }
+        
         const progress = Math.min((now - startTime) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         const val = Math.floor(eased * target);
         el.innerText = val.toLocaleString(locale);
+        
         if (progress < 1) {
             requestAnimationFrame(frame);
         } else {
             el.innerText = finalValue;
-            completed = true;
             clearTimeout(fallbackTimer);
         }
     }
+    
     requestAnimationFrame(frame);
 }
 
@@ -1943,9 +1986,9 @@ function renderFiles(append = false) {
                         <a href="${escapeHtml(dl)}" class="btn btn-down" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
                     </div>
                     <div class="icon-actions">
-                        <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${isFav ? '❤️' : '🤍'}</button>
-                        <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
-                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)" aria-label="${isFav ? (currentLang==='ar'?'إزالة من المفضلة':'Remove from favorites') : (currentLang==='ar'?'إضافة للمفضلة':'Add to favorites')}">${isFav ? '❤️' : '🤍'}</button>
+                        <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')" aria-label="${currentLang==='ar'?'مشاركة':'Share'}"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')" aria-label="${currentLang==='ar'?'خيارات إضافية':'More options'}"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     </div>
                 </div>
             </div>`;
