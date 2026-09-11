@@ -172,7 +172,7 @@ html.dark-mode .header h1 {
 }
 .dynamic-greeting { color:var(--primary-color); font-size:clamp(12.5px,3.4vw,14px); font-weight:700; margin:0; opacity:0.9; }
 
-/* ============ META ROW (hero-stats + last-update-badge) ============ */
+/* ============ META ROW ============ */
 .meta-row {
     display: flex;
     justify-content: center;
@@ -503,7 +503,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     html, body { padding:20px; }
     .contributors-list { grid-template-columns:repeat(3,1fr); }
     
-    /* تكبير hero-stats على الشاشات الواسعة */
     .hero-stats { padding:8px 12px; gap:6px; }
     .hero-stats .stat-item { padding:9px 18px; gap:11px; }
     .hero-stats .stat-icon { width:36px; height:36px; font-size:14px; }
@@ -711,7 +710,6 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
     <p class="dynamic-greeting" id="dynamicGreeting" data-i18n="greeting">مساحتك المخصصة لكل مواد التربوي والتخصص</p>
 </div>
 
-<!-- ✅ META ROW جديد: تجميع hero-stats + last-update-badge -->
 <div class="meta-row">
     <div class="hero-stats" id="heroStats">
         <div class="stat-item">
@@ -1110,12 +1108,12 @@ function applyAllSettingsOnLoad() {
     });
 
     const shadowsEl = document.getElementById('sw_shadows');
-    const shadowsOff = localStorage.getItem('set_shadows') || '1' === '0';
+    const shadowsOff = (localStorage.getItem('set_shadows') || '1') === '0';
     if (shadowsEl) shadowsEl.classList.toggle('on', !shadowsOff);
     document.documentElement.classList.toggle('no-shadows', shadowsOff);
 
     const animEl = document.getElementById('sw_animations');
-    const animOff = localStorage.getItem('set_animations') || '1' === '0';
+    const animOff = (localStorage.getItem('set_animations') || '1') === '0';
     if (animEl) animEl.classList.toggle('on', !animOff);
     document.documentElement.classList.toggle('no-anim', animOff);
 
@@ -1774,16 +1772,9 @@ function renderRecent() {
     container.innerHTML = html;
 }
 
-/* ✅ FIX: updateHeroStats جديد مع منطق موثوق */
 /* ============================================================
-   حل مشكلة العداد الذي يعود للصفر
-   - تخزين حالة الأنيميشن لكل عنصر
-   - إلغاء الأنيميشن السابق عند بدء جديد
-   - تخطي الأنيميشن لو القيمة المستهدفة هي نفسها
+   الإحصائيات — نسخة بسيطة وموثوقة 100%
    ============================================================ */
-
-// WeakMap لتخزين حالة الأنيميشن لكل عنصر
-const _statAnimationState = new WeakMap();
 
 function updateHeroStats() {
     const sF = document.getElementById('statFilesCount');
@@ -1792,38 +1783,26 @@ function updateHeroStats() {
     
     if (!sF || !sS) return;
     
-    // لا توجد ملفات بعد
-    if (!allFiles || !allFiles.length) {
-        // ضع القيمة مباشرة بدون أنيميشن (لتجنب الصعود للصفر)
-        sF.innerText = '0';
-        sS.innerText = '0';
-        if (badge) {
-            badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'لا توجد ملفات بعد' : 'No files yet'}`;
-        }
-        return;
-    }
-    
-    const filesCount = allFiles.length;
+    const files = Array.isArray(allFiles) ? allFiles : [];
+    const filesCount = files.length;
     
     // حساب مجموع التحميلات
     let totalDownloads = 0;
-    for (let i = 0; i < allFiles.length; i++) {
-        const d = parseInt(allFiles[i].downloads, 10);
-        if (!isNaN(d)) totalDownloads += d;
+    for (let i = 0; i < files.length; i++) {
+        const d = parseInt(files[i].downloads, 10);
+        if (!isNaN(d) && d > 0) totalDownloads += d;
     }
     
-    // المعادلة: الطلاب المستفيدون = max(downloads, files × 5)
+    // الطلاب المستفيدون = max(التحميلات, عدد الملفات × 5)
     const studentsCount = Math.max(totalDownloads, filesCount * 5);
     
-    const locale = currentLang === 'ar' ? 'ar-EG' : 'en-US';
-    
-    // ✅ تم إصلاحه: أنيميشن مع إلغاء تلقائي للأنيميشن السابق
-    animateStat(sF, filesCount, locale);
-    animateStat(sS, studentsCount, locale);
+    // ضع القيم مباشرة — بدون أنيميشن — مضمون 100%
+    sF.textContent = String(filesCount);
+    sS.textContent = String(studentsCount);
     
     // شارة آخر تحديث
     if (badge) {
-        const dates = allFiles.map(f => parseFileDate(f.date)).filter(d => d && !isNaN(d));
+        const dates = files.map(f => parseFileDate(f.date)).filter(d => d && !isNaN(d));
         if (dates.length) {
             const latest = new Date(Math.max(...dates));
             const diff = Math.floor((Date.now() - latest) / 86400000);
@@ -1839,68 +1818,6 @@ function updateHeroStats() {
             badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${currentLang === 'ar' ? 'غير محدد' : 'Unknown'}`;
         }
     }
-}
-
-function animateStat(el, target, locale) {
-    if (!el) return;
-    if (!locale) locale = currentLang === 'ar' ? 'ar-EG' : 'en-US';
-    if (isNaN(target)) target = 0;
-    
-    const finalValue = target.toLocaleString(locale);
-    
-    // ⚡ فحص 1: إذا كانت القيمة النهائية معروضة بالفعل، لا تفعل شيئًا
-    if (el.innerText === finalValue) return;
-    
-    // ⚡ فحص 2: لو فيه أنيميشن شغال بالفعل لنفس الهدف، سيبه يكمل لوحده (متلغيهوش من غير بديل يكمل المهمة)
-    const prevState = _statAnimationState.get(el);
-    if (prevState && !prevState.cancelled && prevState.target === target) return;
-    // ⚡ إلغاء أي أنيميشن سابق بيستهدف رقم مختلف
-    if (prevState) prevState.cancelled = true;
-    
-    // إنشاء حالة جديدة للأنيميشن الحالي
-    const state = { cancelled: false, target: target };
-    _statAnimationState.set(el, state);
-    
-    // ⚡ فحص 3: لو الأنيميشن معطل أو المتصفح لا يدعمه، ضع القيمة مباشرة
-    const noAnim = document.documentElement.classList.contains('no-anim') || 
-                   document.documentElement.classList.contains('perf-mode');
-    
-    if (noAnim || typeof requestAnimationFrame === 'undefined') {
-        el.innerText = finalValue;
-        return;
-    }
-    
-    const duration = 900;
-    const startTime = performance.now();
-    
-    // ⏱️ Timer احتياطي: لو الأنيميشن فشل لأي سبب، اكتب القيمة النهائية بعد 2 ثانية
-    const fallbackTimer = setTimeout(() => {
-        if (!state.cancelled && el.innerText !== finalValue) {
-            el.innerText = finalValue;
-        }
-    }, 2000);
-    
-    function frame(now) {
-        // ⚡ إلغاء الأنيميشن إذا تم استدعاء واحد جديد
-        if (state.cancelled) {
-            clearTimeout(fallbackTimer);
-            return;
-        }
-        
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
-        const val = Math.floor(eased * target);
-        el.innerText = val.toLocaleString(locale);
-        
-        if (progress < 1) {
-            requestAnimationFrame(frame);
-        } else {
-            el.innerText = finalValue;
-            clearTimeout(fallbackTimer);
-        }
-    }
-    
-    requestAnimationFrame(frame);
 }
 
 function animateCounter(endValue) {
@@ -2074,7 +1991,6 @@ async function fetchFiles() {
     if (cd) {
         try { cached = normalizeFiles(JSON.parse(cd)); } catch(e) { cached = []; storageRemove(CACHE_KEY); storageRemove(CACHE_TIME_KEY); }
     }
-    const fresh = cached.length && ct && (Date.now() - ct < 3600000);
     if (cached.length) {
         allFiles = cached;
         populateSubjectDropdown(allFiles);
