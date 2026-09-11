@@ -20,7 +20,7 @@
 (function() {
     try {
         var mode = localStorage.getItem('darkMode');
-        var isDark = mode === '1' || (mode === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        var isDark = (mode === '1' || mode === 'on') || ((mode === null || mode === 'auto') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
         if (isDark) {
             document.documentElement.classList.add('dark-mode');
             document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1220');
@@ -31,8 +31,8 @@
         document.documentElement.setAttribute('data-radius', radius);
         var cpr = localStorage.getItem('set_cards_per_row') || 'auto';
         document.documentElement.setAttribute('data-cards', cpr);
-        if (localStorage.getItem('set_shadows') === '0') document.documentElement.classList.add('no-shadows');
-        if (localStorage.getItem('set_animations') === '0') document.documentElement.classList.add('no-anim');
+        if ((localStorage.getItem('set_shadows') || '1') === '0') document.documentElement.classList.add('no-shadows');
+        if ((localStorage.getItem('set_animations') || '1') === '0') document.documentElement.classList.add('no-anim');
         if (localStorage.getItem('set_hide_stats') === '1') document.documentElement.classList.add('hide-stats');
         if (localStorage.getItem('set_hide_update') === '1') document.documentElement.classList.add('hide-update');
         if (localStorage.getItem('set_hide_recent') === '1') document.documentElement.classList.add('hide-recent');
@@ -103,6 +103,9 @@ html.dark-mode {
 html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 html, body { font-family:'Cairo',sans-serif; background:var(--bg-gradient); background-attachment:fixed; color:var(--text-color); margin:0; scroll-behavior:smooth; width:100%; max-width:100%; overflow-x:hidden; transition:background-color 0.3s ease, color 0.3s ease; }
 body { padding:max(14px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
+button, input, select, textarea { font:inherit; }
+button:disabled, a[aria-disabled="true"] { opacity:.6; cursor:not-allowed !important; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration:.01ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:.01ms !important; } }
 body::-webkit-scrollbar { display:none; }
 body { -ms-overflow-style:none; scrollbar-width:none; }
 img, svg { max-width:100%; height:auto; }
@@ -938,7 +941,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
     <div class="extra-box faq-box open" id="faqBox">
         <h3 class="section-tab">❓ الأسئلة الشائعة (FAQ)</h3>
         <div class="extra-box-content">
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">لا، المنصة مزودة بنظام "تخزين ذكي". بمجرد فتحك للموقع، يتم حفظ هيكل البيانات محلياً.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">يمكنك رؤية آخر نسخة محفوظة من البيانات عند انقطاع الاتصال، لكن تحديث الملفات والروابط الجديدة يحتاج إلى الإنترنت.</div></div>
             <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>كيف أصل للمنصة بسرعة دون البحث عن الرابط؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">يمكنك تثبيت المنصة كتطبيق! في الأندرويد: النقاط الثلاث ثم "إضافة للشاشة الرئيسية".</div></div>
             <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>لم أجد المادة التي أبحث عنها، ماذا أفعل؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">تأكد أولاً من تصفير الفلاتر. إذا لم تجدها، فهذا يعني أن أحداً لم يقم برفع ملخص لها بعد.</div></div>
             <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل "مكتبتي الخاصة" تُحفظ إذا غيرت هاتفي؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">نظام المفضلة يعمل بـ Local Storage، فتُحفظ على متصفح جهازك الحالي فقط.</div></div>
@@ -1054,11 +1057,19 @@ const I18N = {
     }
 };
 
-let currentLang = localStorage.getItem('lang') || 'ar';
+function storageGet(key, fallback = null) { try { return localStorage.getItem(key) ?? fallback; } catch(e) { return fallback; } }
+function storageSet(key, value) { try { localStorage.setItem(key, value); return true; } catch(e) { return false; } }
+function storageRemove(key) { try { localStorage.removeItem(key); } catch(e) {} }
+function readJSON(key, fallback) { try { const raw = localStorage.getItem(key); if (!raw) return fallback; const parsed = JSON.parse(raw); return parsed ?? fallback; } catch(e) { return fallback; } }
+let currentLang = storageGet('lang', 'ar');
+if (!I18N[currentLang]) currentLang = 'ar';
 function t(key) { return (I18N[currentLang] && I18N[currentLang][key]) || (I18N.ar[key]) || key; }
 
 function applyAllSettingsOnLoad() {
-    const mode = localStorage.getItem('darkMode') || 'auto';
+    let mode = storageGet('darkMode', 'auto');
+    if (mode === '1') mode = 'on';
+    if (mode === '0') mode = 'off';
+    if (!['auto','on','off'].includes(mode)) mode = 'auto';
     const setDark = document.getElementById('setDarkMode');
     if (setDark) setDark.value = mode;
     if (mode === 'on') { document.documentElement.classList.add('dark-mode'); }
@@ -1093,18 +1104,18 @@ function applyAllSettingsOnLoad() {
     ];
     toggleKeys.forEach(item => {
         const el = document.getElementById(item.id);
-        const isOn = localStorage.getItem(item.key) === '1';
+        const isOn = storageGet(item.key, '0') === '1';
         if (el) el.classList.toggle('on', isOn);
         document.documentElement.classList.toggle(item.cls, isOn);
     });
 
     const shadowsEl = document.getElementById('sw_shadows');
-    const shadowsOff = localStorage.getItem('set_shadows') === '0';
+    const shadowsOff = localStorage.getItem('set_shadows') || '1' === '0';
     if (shadowsEl) shadowsEl.classList.toggle('on', !shadowsOff);
     document.documentElement.classList.toggle('no-shadows', shadowsOff);
 
     const animEl = document.getElementById('sw_animations');
-    const animOff = localStorage.getItem('set_animations') === '0';
+    const animOff = localStorage.getItem('set_animations') || '1' === '0';
     if (animEl) animEl.classList.toggle('on', !animOff);
     document.documentElement.classList.toggle('no-anim', animOff);
 
@@ -1116,12 +1127,12 @@ function applyAllSettingsOnLoad() {
 
 function applySetting(key, value) {
     if (key === 'darkMode') {
-        if (value === 'on') { document.documentElement.classList.add('dark-mode'); localStorage.setItem('darkMode', '1'); }
-        else if (value === 'off') { document.documentElement.classList.remove('dark-mode'); localStorage.setItem('darkMode', '0'); }
-        else { localStorage.removeItem('darkMode'); const h = new Date().getHours(); document.documentElement.classList.toggle('dark-mode', (h >= 19 || h < 6)); }
+        if (value === 'on') { document.documentElement.classList.add('dark-mode'); storageSet('darkMode', 'on'); }
+        else if (value === 'off') { document.documentElement.classList.remove('dark-mode'); storageSet('darkMode', 'off'); }
+        else { storageSet('darkMode', 'auto'); const h = new Date().getHours(); document.documentElement.classList.toggle('dark-mode', (h >= 19 || h < 6)); }
     } else if (key === 'cards') {
         document.documentElement.setAttribute('data-cards', value);
-        localStorage.setItem('set_cards_per_row', value);
+        storageSet('set_cards_per_row', value);
     }
 }
 
@@ -1134,33 +1145,33 @@ function toggleSetting(key, el) {
         'hide_badges':'hide-badges','hide_cursor':'no-custom-cursor','hide_shine':'no-shine'
     };
     if (key === 'hide_update') {
-        localStorage.setItem('set_hide_update', isOn ? '1' : '0');
+        storageSet('set_hide_update', isOn ? '1' : '0');
         document.querySelectorAll('.last-update-badge').forEach(el => el.style.display = isOn ? 'none' : '');
     } else if (key === 'shadows') {
-        localStorage.setItem('set_shadows', isOn ? '1' : '0');
+        storageSet('set_shadows', isOn ? '1' : '0');
         document.documentElement.classList.toggle('no-shadows', !isOn);
     } else if (key === 'animations') {
-        localStorage.setItem('set_animations', isOn ? '1' : '0');
+        storageSet('set_animations', isOn ? '1' : '0');
         document.documentElement.classList.toggle('no-anim', !isOn);
     } else if (key === 'perf') {
-        localStorage.setItem('set_perf', isOn ? '1' : '0');
+        storageSet('set_perf', isOn ? '1' : '0');
         document.documentElement.classList.toggle('perf-mode', isOn);
         showToast(isOn ? t('toastPerfOn') : t('toastPerfOff'));
     } else if (clsMap[key]) {
-        localStorage.setItem('set_' + key, isOn ? '1' : '0');
+        storageSet('set_' + key, isOn ? '1' : '0');
         document.documentElement.classList.toggle(clsMap[key], isOn);
     }
 }
 
 function setColor(color) {
     document.documentElement.setAttribute('data-color', color);
-    localStorage.setItem('set_color', color);
+    storageSet('set_color', color);
     document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.color === color));
     showToast(t('toastColorChanged'));
 }
 function setRadius(radius) {
     document.documentElement.setAttribute('data-radius', radius);
-    localStorage.setItem('set_radius', radius);
+    storageSet('set_radius', radius);
     document.querySelectorAll('.radius-btn').forEach(b => b.classList.toggle('active', b.dataset.radius === radius));
 }
 function openSettingsModal() {
@@ -1177,10 +1188,13 @@ function closeSettingsModal() {
     document.body.style.overflow = '';
     setTimeout(() => modal.style.display = 'none', 300);
 }
-function clearCache() {
-    try { localStorage.removeItem('eduArchiveData'); localStorage.removeItem('eduArchiveTime'); } catch(e) {}
+async function clearCache() {
+    const oldData = storageGet(CACHE_KEY);
+    const oldTime = storageGet(CACHE_TIME_KEY);
+    storageRemove(CACHE_KEY); storageRemove(CACHE_TIME_KEY);
     showToast(t('toastCacheCleared'));
-    setTimeout(() => { fetchFilesSilently().then(() => { renderFiles(); }); }, 500);
+    const ok = await fetchFilesSilently();
+    if (!ok && oldData) { storageSet(CACHE_KEY, oldData); if (oldTime) storageSet(CACHE_TIME_KEY, oldTime); try { allFiles = normalizeFiles(JSON.parse(oldData)); populateSubjectDropdown(allFiles); filterAndSortData(); } catch(e) {} showToast(currentLang === 'ar' ? '⚠️ فشل التحديث وتمت استعادة النسخة السابقة' : '⚠️ Refresh failed; previous data restored'); }
     closeSettingsModal();
 }
 function clearRecent() {
@@ -1241,7 +1255,7 @@ function closeSettingsMenu() { closeSettingsModal(); }
 
 function applyLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('lang', lang);
+    storageSet('lang', lang);
     document.documentElement.lang = lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1252,6 +1266,9 @@ function applyLanguage(lang) {
             else el.textContent = val;
         }
     });
+    document.title = I18N[lang].appTitle || document.title;
+    const searchEl = document.getElementById('searchInput');
+    if (searchEl) searchEl.placeholder = t('searchPlaceholder');
     setDynamicGreeting();
     if (allFiles && allFiles.length) { filterAndSortData(); renderRecent(); }
     renderToolsDOM(currentToolsFilter === 'all' ? allToolsData : allToolsData.filter(t => t.cat === currentToolsFilter));
@@ -1274,13 +1291,16 @@ document.getElementById('contactFormBtn').href = GOOGLE_FORM_URL;
 
 let allFiles = [];
 let currentFilteredFiles = [];
-let favorites = JSON.parse(localStorage.getItem('eduFavorites_v3') || '[]');
-let recentViews = JSON.parse(localStorage.getItem('recentFilesData') || '[]');
-let isRecentOpen = localStorage.getItem('recentOpen') === '1';
+let favorites = readJSON('eduFavorites_v3', []);
+if (!Array.isArray(favorites)) favorites = [];
+let recentViews = readJSON('recentFilesData', []);
+if (!Array.isArray(recentViews)) recentViews = [];
+let isRecentOpen = storageGet('recentOpen', '0') === '1';
 let isFavViewActive = false;
 let currentPage = 1;
 const ITEMS_PER_PAGE = 12;
-let currentViewStyle = localStorage.getItem('eduViewStyle') || 'grid';
+let currentViewStyle = storageGet('eduViewStyle', 'grid');
+if (!['grid','list'].includes(currentViewStyle)) currentViewStyle = 'grid';
 let currentToolsFilter = 'all';
 let moreMenuContext = null;
 let toastTimeout;
@@ -1335,6 +1355,7 @@ function debounce(fn, wait) {
 function applyFontScale(index) {
     const STEPS = [0.9, 1, 1.1, 1.2, 1.3];
     let i = Math.max(0, Math.min(STEPS.length - 1, index));
+    document.documentElement.style.setProperty('--font-scale', String(STEPS[i]));
     document.body.style.zoom = STEPS[i];
     try { localStorage.setItem('fontScaleIndex', String(i)); } catch(e) {}
 }
@@ -1602,7 +1623,7 @@ function toggleRecentSection() {
     isRecentOpen = !isRecentOpen;
     document.getElementById('recentBody').classList.toggle('open', isRecentOpen);
     document.getElementById('recentHeader').classList.toggle('open', isRecentOpen);
-    localStorage.setItem('recentOpen', isRecentOpen ? '1' : '0');
+    storageSet('recentOpen', isRecentOpen ? '1' : '0');
 }
 function resetAllFilters() {
     document.getElementById('searchInput').value = '';
@@ -1616,25 +1637,36 @@ function resetAllFilters() {
     showToast(t('toastReset'));
 }
 function getDirectDownload(url) {
-    if (!url) return '#';
-    let fileId = '';
-    const matchD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    const matchId = url.match(/id=([a-zA-Z0-9_-]+)/);
-    if (matchD) { fileId = matchD[1]; } 
-    else if (matchId) { fileId = matchId[1]; }
-    if (!fileId) return url;
-    return `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
+    if (!url || url === '#') return '#';
+    try {
+        const value = String(url).trim();
+        if (!/drive\.google\.com/i.test(value)) return value;
+        const matchD = value.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        const matchId = value.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+        const fileId = matchD?.[1] || matchId?.[1];
+        return fileId ? `https://drive.google.com/uc?export=download&id=${encodeURIComponent(fileId)}` : value;
+    } catch(e) { return url; }
 }
 function parseFileDate(d) {
     if (!d) return null;
-    const p = d.split('-');
-    if (p.length < 3) return null;
-    return p[0].length === 4 ? new Date(p[0], p[1]-1, p[2]) : new Date(p[2], p[1]-1, p[0]);
+    const raw = String(d).trim().replace(/\//g, '-');
+    const p = raw.split('-').map(Number);
+    if (p.length !== 3 || p.some(Number.isNaN)) return null;
+    let y, m, day;
+    if (String(p[0]).length === 4) [y,m,day] = p;
+    else [day,m,y] = p;
+    const f = new Date(y, m - 1, day);
+    if (f.getFullYear() !== y || f.getMonth() !== m - 1 || f.getDate() !== day) return null;
+    return f;
 }
 function isNew(d) {
     const f = parseFileDate(d);
     if (!f) return false;
-    return Math.ceil(Math.abs(new Date() - f) / 86400000) <= 7;
+    const now = new Date();
+    f.setHours(0,0,0,0);
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const diff = Math.floor((today - f) / 86400000);
+    return diff >= 0 && diff <= 7;
 }
 function formatSmartDate(d) {
     if (!d || d === '1999-01-01') return '—';
@@ -1642,7 +1674,8 @@ function formatSmartDate(d) {
     if (!f) return '—';
     const today = new Date(); today.setHours(0,0,0,0);
     f.setHours(0,0,0,0);
-    const diff = Math.ceil(Math.abs(today - f) / 86400000);
+    const diff = Math.floor((today - f) / 86400000);
+    if (diff < 0) return currentLang === 'en' ? 'Upcoming' : 'قادم';
     if (currentLang === 'en') {
         if (diff === 0) return 'Today 🔥';
         if (diff === 1) return 'Yesterday';
@@ -1657,10 +1690,11 @@ function formatSmartDate(d) {
     return `${Math.floor(diff/30)} شهور`;
 }
 function toggleFav(url, btn) {
-    let cur = JSON.parse(localStorage.getItem('eduFavorites_v3') || '[]');
+    let cur = readJSON('eduFavorites_v3', []);
+    if (!Array.isArray(cur)) cur = [];
     if (cur.includes(url)) { cur = cur.filter(u => u !== url); btn.innerHTML = '🤍'; btn.classList.remove('fav-active'); showToast(t('toastFavRemove')); }
     else { cur.push(url); btn.innerHTML = '❤️'; btn.classList.add('fav-active'); showToast(t('toastFavAdd')); }
-    localStorage.setItem('eduFavorites_v3', JSON.stringify(cur));
+    storageSet('eduFavorites_v3', JSON.stringify(cur));
     favorites = cur;
     if (isFavViewActive) filterAndSortData();
 }
@@ -1705,7 +1739,7 @@ function addToRecent(url) {
     recentViews = recentViews.filter(u => u !== url);
     recentViews.unshift(url);
     if (recentViews.length > 4) recentViews.pop();
-    localStorage.setItem('recentFilesData', JSON.stringify(recentViews));
+    storageSet('recentFilesData', JSON.stringify(recentViews));
     renderRecent();
 }
 function renderRecent() {
@@ -1902,7 +1936,7 @@ function renderContributors() {
     }).join('');
 }
 function filterAndSortData() {
-    const sText = document.getElementById('searchInput').value.toLowerCase();
+    const sText = String(document.getElementById('searchInput')?.value || '').trim().toLocaleLowerCase(currentLang === 'ar' ? 'ar-EG' : 'en-US');
     const sort = document.getElementById('sortFilter').value;
     const subj = document.getElementById('subjectNameFilter').value;
     const year = document.getElementById('yearFilter').value;
@@ -1918,7 +1952,11 @@ function filterAndSortData() {
         localStorage.setItem('savedMajor', major);
     } catch(e) {}
     currentFilteredFiles = allFiles.filter(f => {
-        const s = !sText || f.title.toLowerCase().includes(sText) || f.subjectName.toLowerCase().includes(sText) || f.author.toLowerCase().includes(sText);
+        const title = String(f.title || '');
+        const subjectName = String(f.subjectName || '');
+        const author = String(f.author || '');
+        const haystack = `${title} ${subjectName} ${author}`.toLocaleLowerCase(currentLang === 'ar' ? 'ar-EG' : 'en-US');
+        const s = !sText || haystack.includes(sText);
         const ms = subj === 'الكل' || f.subjectName === subj;
         const my = year === 'الكل' || f.year === year;
         const me = edu === 'الكل' || f.eduType === edu;
@@ -1928,8 +1966,8 @@ function filterAndSortData() {
         const mf = isFavViewActive ? favorites.includes(f.url) : true;
         return s && ms && my && me && mm && mt && mse && mf;
     });
-    if (sort === 'date-desc') currentFilteredFiles.sort((a,b) => new Date(b.date) - new Date(a.date));
-    else if (sort === 'date-asc') currentFilteredFiles.sort((a,b) => new Date(a.date) - new Date(b.date));
+    if (sort === 'date-desc') currentFilteredFiles.sort((a,b) => (parseFileDate(b.date)?.getTime() || 0) - (parseFileDate(a.date)?.getTime() || 0));
+    else if (sort === 'date-asc') currentFilteredFiles.sort((a,b) => (parseFileDate(a.date)?.getTime() || 0) - (parseFileDate(b.date)?.getTime() || 0));
     else if (sort === 'alpha') currentFilteredFiles.sort((a,b) => a.title.localeCompare(b.title, currentLang === 'ar' ? 'ar' : 'en'));
     else if (sort === 'downloads-desc') currentFilteredFiles.sort((a,b) => (b.downloads||0) - (a.downloads||0));
     currentPage = 1;
@@ -2030,53 +2068,81 @@ function hideSuggestions() {
 const CACHE_KEY = 'eduArchiveData';
 const CACHE_TIME_KEY = 'eduArchiveTime';
 async function fetchFiles() {
-    const cd = localStorage.getItem(CACHE_KEY);
-    const ct = localStorage.getItem(CACHE_TIME_KEY);
-    if (cd && ct && (Date.now() - ct < 3600000)) {
-        try { allFiles = JSON.parse(cd); } catch(e) { allFiles = []; }
+    const cd = storageGet(CACHE_KEY);
+    const ct = Number(storageGet(CACHE_TIME_KEY, '0')) || 0;
+    let cached = [];
+    if (cd) {
+        try { cached = normalizeFiles(JSON.parse(cd)); } catch(e) { cached = []; storageRemove(CACHE_KEY); storageRemove(CACHE_TIME_KEY); }
+    }
+    const fresh = cached.length && ct && (Date.now() - ct < 3600000);
+    if (cached.length) {
+        allFiles = cached;
         populateSubjectDropdown(allFiles);
         filterAndSortData();
-        fetchFilesSilently();
-    } else {
-        await fetchFilesSilently();
     }
+    const ok = await fetchFilesSilently();
+    if (!ok && cached.length) showToast(currentLang === 'ar' ? '⚠️ تعذر التحديث — تم عرض آخر نسخة محفوظة' : '⚠️ Refresh failed — showing saved data');
+    else if (!ok && !cached.length) {
+        document.getElementById('fileCountContainer').innerHTML = '';
+        document.getElementById('filesContainer').innerHTML = `<div class="empty-state"><div class="empty-title">${t('loadingFiles')}</div><div class="empty-desc">${currentLang === 'ar' ? 'تحقق من اتصال الإنترنت ثم أعد المحاولة.' : 'Check your internet connection and try again.'}</div><button class="load-more-btn" style="margin-top:18px" onclick="fetchFiles()">${currentLang === 'ar' ? 'إعادة المحاولة' : 'Retry'}</button></div>`;
+    }
+    return !!ok || !!cached.length;
+}
+function parseTSV(text) {
+    const rows = [];
+    let row = [], field = '', quoted = false;
+    for (let i = 0; i < text.length; i++) {
+        const ch = text[i], next = text[i + 1];
+        if (ch === '"') {
+            if (quoted && next === '"') { field += '"'; i++; }
+            else quoted = !quoted;
+        } else if (ch === '\t' && !quoted) {
+            row.push(field); field = '';
+        } else if ((ch === '\n' || ch === '\r') && !quoted) {
+            if (ch === '\r' && next === '\n') i++;
+            row.push(field); field = '';
+            if (row.some(v => String(v).trim() !== '')) rows.push(row);
+            row = [];
+        } else field += ch;
+    }
+    if (field !== '' || row.length) { row.push(field); if (row.some(v => String(v).trim() !== '')) rows.push(row); }
+    return rows;
+}
+function normalizeFile(raw) {
+    const get = (i, fallback) => String(raw?.[i] ?? fallback).replace(/^\uFEFF/, '').trim() || fallback;
+    return {
+        title: get(0, 'بدون اسم'), subjectName: get(1, 'غير محدد'), year: get(2, 'الكل'),
+        eduType: get(3, 'الكل'), major: get(4, 'الكل'), subjectType: get(5, 'الكل'),
+        semester: get(6, 'الكل'), date: get(7, '1999-01-01'), url: get(8, '#'),
+        author: get(9, 'غير محدد'), downloads: Math.max(0, Number.parseInt(get(10, '0'), 10) || 0), id: get(11, '')
+    };
+}
+function normalizeFiles(list) {
+    return Array.isArray(list) ? list.map(f => normalizeFile([
+        f?.title, f?.subjectName, f?.year, f?.eduType, f?.major, f?.subjectType,
+        f?.semester, f?.date, f?.url, f?.author, f?.downloads, f?.id
+    ])).filter(f => f.url !== '#') : [];
 }
 async function fetchFilesSilently() {
     try {
-        const resp = await fetch(TSV_URL);
-        if (!resp.ok) throw new Error('Network');
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 15000);
+        const resp = await fetch(TSV_URL, { cache: 'no-store', signal: controller.signal });
+        clearTimeout(timeout);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         const data = await resp.text();
-        const rows = data.split('\n');
-        const parsed = [];
-        for (let i = 1; i < rows.length; i++) {
-            if (!rows[i].trim()) continue;
-            const c = rows[i].split('\t');
-            parsed.push({
-                title: c[0]?.trim() || 'بدون اسم',
-                subjectName: c[1]?.trim() || 'غير محدد',
-                year: c[2]?.trim() || 'الكل',
-                eduType: c[3]?.trim() || 'الكل',
-                major: c[4]?.trim() || 'الكل',
-                subjectType: c[5]?.trim() || 'الكل',
-                semester: c[6]?.trim() || 'الكل',
-                date: c[7]?.trim() || '1999-01-01',
-                url: c[8]?.trim() || '#',
-                author: c[9]?.trim() || 'غير محدد',
-                downloads: parseInt(c[10], 10) || 0,
-                id: c[11]?.trim() || ''
-            });
-        }
+        const rows = parseTSV(data);
+        const parsed = rows.slice(1).map(normalizeFile).filter(f => f.url !== '#');
+        if (!parsed.length) throw new Error('Empty dataset');
         allFiles = parsed;
-        localStorage.setItem(CACHE_KEY, JSON.stringify(allFiles));
-        localStorage.setItem(CACHE_TIME_KEY, Date.now().toString());
+        storageSet(CACHE_KEY, JSON.stringify(allFiles));
+        storageSet(CACHE_TIME_KEY, String(Date.now()));
         populateSubjectDropdown(allFiles);
         filterAndSortData();
+        return true;
     } catch (e) {
-        console.error(e);
-        if (!allFiles.length) {
-            document.getElementById('fileCountContainer').innerHTML = '';
-            document.getElementById('filesContainer').innerHTML = `<div class="empty-state"><div class="empty-title">${t('loadingFiles')}</div></div>`;
-        }
+        console.warn('Archive refresh failed:', e);
+        return false;
     }
 }
 function populateSubjectDropdown(files) {
