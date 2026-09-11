@@ -96,6 +96,60 @@ body::-webkit-scrollbar { display:none; }
 body { -ms-overflow-style:none; scrollbar-width:none; }
 img, svg { max-width:100%; height:auto; }
 
+/* ================================================================
+   إصلاحات شاملة لمشاكل الموبايل — منع الوميض الأبيض
+   ================================================================ */
+
+/* 1. إلغاء تأجيل الرسم الذي يسبب الوميض الأبيض */
+.file-card {
+    content-visibility: visible !important;
+    contain-intrinsic-size: auto !important;
+}
+
+/* 2. إنشاء طبقة رسومية مستقرة للصفحة كاملة */
+html, body {
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-attachment: fixed;
+}
+
+/* 3. إصلاح الشريط اللاصق */
+.sticky-glass-bar {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    background-color: var(--glass-bg) !important;
+}
+
+/* 4. الوضع الليلي - خلفية داكنة ثابتة */
+html.dark-mode,
+html.dark-mode body {
+    background-color: #0a1020 !important;
+}
+
+/* 5. على الموبايل: إلغاء الأنيميشن الذي يسبب الوميض */
+@media (max-width: 768px) {
+    .file-card {
+        animation: none !important;
+        opacity: 1 !important;
+    }
+    .file-card:hover {
+        transform: none !important;
+    }
+    /* منع وميض الشريط اللاصق عند التمرير */
+    .sticky-glass-bar {
+        transition: none !important;
+    }
+}
+
+/* 6. منع الوميض في الحاويات الرئيسية */
+.files-grid, .extras-container, #recentSection, #contributorsSection {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/* ================================================================ */
+
 html.no-shadows *, html.no-shadows *::before, html.no-shadows *::after { box-shadow:none !important; }
 html.no-anim *, html.no-anim *::before, html.no-anim *::after { animation:none !important; transition:none !important; }
 html.no-shine .btn-view::after, html.no-shine .btn-down::after { display:none !important; }
@@ -681,7 +735,6 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
    إصلاحات شاملة: إزالة التوهجات + إصلاح الإعدادات + توافق الأجهزة
    ================================================================ */
 
-/* ========== 1. إزالة كل التوهجات الزرقاء والملونة ========== */
 .hero-stats {
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05) !important;
     animation: none !important;
@@ -727,7 +780,6 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
 .install-prompt-box { box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15) !important; }
 .settings-modal-box { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important; }
 
-/* ========== 2. إصلاح نافذة الإعدادات لتظهر كاملة ========== */
 .settings-modal-overlay {
     padding: 12px !important;
     align-items: center !important;
@@ -762,7 +814,6 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
     background: var(--primary-color) !important;
 }
 
-/* ========== 3. توافق شامل على كل الأجهزة ========== */
 @media (max-width: 640px) {
     .settings-modal-box {
         border-radius: 16px !important;
@@ -808,7 +859,6 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
     .settings-modal-box { max-width: 600px !important; }
 }
 
-/* ========== 4. تحسين الاتساق العام ========== */
 @media (min-width: 640px) and (max-width: 900px) {
     .files-grid, .tools-grid { grid-template-columns: repeat(2, 1fr) !important; }
     .contributors-list { grid-template-columns: repeat(2, 1fr) !important; }
@@ -1882,14 +1932,20 @@ function resetAllFilters() {
     filterAndSortData();
     showToast(t('toastReset'));
 }
+
+/* ✅ الحل النهائي لمشكلة 403: استخدام رابط عرض Google Drive الرسمي */
 function getDirectDownload(url) {
     if (!url) return '#';
-    let id = '';
-    const m1 = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    const m2 = url.match(/id=([a-zA-Z0-9_-]+)/);
-    if (m1) id = m1[1]; else if (m2) id = m2[1];
-    return id ? `https://drive.usercontent.google.com/download?id=${id}&export=download&confirm=t` : url;
+    let fileId = '';
+    const matchD = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    const matchId = url.match(/id=([a-zA-Z0-9_-]+)/);
+    if (matchD) { fileId = matchD[1]; } 
+    else if (matchId) { fileId = matchId[1]; }
+    if (!fileId) return url;
+    // استخدام رابط العرض الرسمي بدلاً من التحميل المباشر
+    return `https://drive.google.com/file/d/${fileId}/view?usp=sharing`;
 }
+
 function parseFileDate(d) {
     if (!d) return null;
     const p = d.split('-');
@@ -2135,6 +2191,7 @@ function renderFiles(append = false) {
         const sT = escapeForOnclick(file.title);
         const sU = escapeForOnclick(file.url);
         const majorColor = getMajorColor(file.major);
+        // ✅ تم إزالة خاصية download واستخدام رابط العرض بدلاً من التحميل المباشر
         const card = `
             <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay:${animDelay}s; border-inline-end:4px solid ${majorColor};">
                 <div class="${isEdu ? 'card-badge badge-edu' : 'card-badge'}">${isEdu ? (currentLang === 'ar' ? 'تربوي' : 'Edu') : (currentLang === 'ar' ? 'تخصص' : 'Spec')}</div>
@@ -2152,7 +2209,7 @@ function renderFiles(append = false) {
                 <div class="action-area">
                     <div class="card-actions">
                         <a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
-                        <a href="${escapeHtml(dl)}" class="btn btn-down" download target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
+                        <a href="${escapeHtml(dl)}" class="btn btn-down" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
                     </div>
                     <div class="icon-actions">
                         <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${isFav ? '❤️' : '🤍'}</button>
@@ -2271,7 +2328,7 @@ function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
 window.addEventListener('scroll', function() {
     const btn = document.getElementById('scrollTopBtn');
     if (btn) btn.style.display = window.scrollY > 300 ? 'flex' : 'none';
-});
+}, { passive: true });
 document.addEventListener('keydown', function(e) {
     if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
         e.preventDefault(); document.getElementById('searchInput').focus();
