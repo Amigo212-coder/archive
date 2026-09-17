@@ -29,6 +29,12 @@
         if (localStorage.getItem('set_hide_badges') === '1') document.documentElement.classList.add('hide-badges');
         if (localStorage.getItem('set_hide_cursor') === '1') document.documentElement.classList.add('no-custom-cursor');
         if (localStorage.getItem('set_hide_shine') === '1') document.documentElement.classList.add('no-shine');
+        if (localStorage.getItem('set_hide_ticker') === '1') document.documentElement.classList.add('hide-ticker');
+        if (localStorage.getItem('set_hide_waves') === '1') document.documentElement.classList.add('hide-waves');
+        if (localStorage.getItem('set_hide_topo') === '1') document.documentElement.classList.add('hide-topo');
+        if (localStorage.getItem('set_hide_tilt') === '1') document.documentElement.classList.add('no-tilt');
+        if (localStorage.getItem('set_hide_ripple') === '1') document.documentElement.classList.add('no-ripple');
+        if (localStorage.getItem('set_hide_typewriter') === '1') document.documentElement.classList.add('no-typewriter');
         if (localStorage.getItem('set_perf') === '1') document.documentElement.classList.add('perf-mode');
     } catch(e) {}
 })();
@@ -115,6 +121,12 @@ html.hide-tools .tools-box { display:none !important; }
 html.hide-about #aboutBox { display:none !important; }
 html.hide-faq #faqBox { display:none !important; }
 html.hide-badges .card-badge, html.hide-badges .badge-new { display:none !important; }
+html.hide-ticker .news-ticker { display:none !important; }
+html.hide-waves .wave-divider { display:none !important; }
+html.hide-topo .header-topo { display:none !important; }
+html.no-tilt .file-card { transform: none !important; }
+html.no-ripple .ripple { display:none !important; }
+html.no-typewriter .header h1 { animation:none !important; clip-path:none !important; border-right:none !important; white-space:normal !important; }
 
 /* ✅ إصلاح: البطاقات تظهر في وضع الأداء وإيقاف الأنيميشن */
 html.perf-mode .file-card,
@@ -123,7 +135,6 @@ html.no-anim .file-card {
     animation: none !important;
     transform: none !important;
 }
-
 html.perf-mode .sticky-glass-bar { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:var(--card-bg) !important; box-shadow:var(--shadow-sm) !important; }
 html.perf-mode *, html.perf-mode *::before, html.perf-mode *::after { box-shadow:none !important; animation:none !important; transition:none !important; }
 html.perf-mode .hero-stats::before { display:none !important; }
@@ -133,6 +144,14 @@ html.perf-mode body.custom-cursor-active, html.perf-mode body.custom-cursor-acti
 html.perf-mode .file-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:var(--card-bg) !important; }
 html.perf-mode .file-card:hover { transform:none !important; }
 html.perf-mode .hero-stats { animation:none !important; }
+
+/* ✅ وضع الأداء — إخفاء الإضافات الجمالية الثقيلة */
+html.perf-mode .news-ticker,
+html.perf-mode .header-topo,
+html.perf-mode .wave-divider,
+html.perf-mode .file-card.is-new::before { display:none !important; }
+html.perf-mode .file-card { backdrop-filter:none !important; }
+
 @media (min-width:640px) {
     html[data-cards="1"] .files-grid { grid-template-columns:1fr !important; }
     html[data-cards="2"] .files-grid { grid-template-columns:repeat(2,1fr) !important; }
@@ -143,8 +162,193 @@ html.perf-mode .hero-stats { animation:none !important; }
 .recent-scroll-grid .file-card { min-width:260px; flex:0 0 auto; animation:none !important; opacity:1 !important; }
 .recent-scroll-grid::-webkit-scrollbar { height:8px; }
 .recent-scroll-grid::-webkit-scrollbar-thumb { background:var(--border-color); border-radius:10px; }
-.header { text-align:center; margin-bottom:14px; margin-top:8px; width:100%; padding:0 5px; }
-.header h1 { color:var(--header-color); font-weight:900; font-size:clamp(20px,5.5vw,28px); margin-bottom:6px; line-height:1.3; font-family:'El Messiri',sans-serif; background:linear-gradient(135deg, var(--header-color) 0%, var(--primary-color) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.3px; }
+
+/* ==================== جماليات جديدة ==================== */
+
+/* 1. شريط الإعلانات المتحرك */
+.news-ticker {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light), var(--primary-color));
+    background-size: 200% 100%;
+    animation: ticker-bg 8s linear infinite;
+    color: white;
+    padding: 9px 0;
+    border-radius: 12px;
+    margin: 0 auto 14px auto;
+    font-size: 12.5px;
+    font-weight: 700;
+    box-shadow: 0 4px 15px rgba(var(--primary-rgb), 0.18);
+    width: 100%;
+    max-width: 1050px;
+}
+@keyframes ticker-bg { from { background-position: 0% 0; } to { background-position: 200% 0; } }
+.news-ticker::before, .news-ticker::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 40px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+.news-ticker::before { right: 0; background: linear-gradient(90deg, transparent, var(--primary-color)); }
+.news-ticker::after { left: 0; background: linear-gradient(-90deg, transparent, var(--primary-color)); }
+[dir="ltr"] .news-ticker::before { right: auto; left: 0; background: linear-gradient(-90deg, transparent, var(--primary-color)); }
+[dir="ltr"] .news-ticker::after { left: auto; right: 0; background: linear-gradient(90deg, transparent, var(--primary-color)); }
+.ticker-track {
+    display: inline-flex;
+    gap: 55px;
+    padding-inline-start: 100%;
+    white-space: nowrap;
+    animation: ticker-scroll 35s linear infinite;
+}
+.news-ticker:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker-scroll { from { transform: translateX(0); } to { transform: translateX(-200%); } }
+[dir="ltr"] .ticker-track { animation-direction: reverse; }
+.ticker-item { display: inline-flex; align-items: center; gap: 6px; }
+@media (max-width: 640px) { .news-ticker { font-size: 11.5px; padding: 7px 0; } .ticker-track { gap: 40px; } }
+
+/* 2. خلفية Hero طبوغرافية */
+.header { position: relative; }
+.header-topo {
+    position: absolute;
+    inset: -20px 0;
+    z-index: -1;
+    opacity: 0.08;
+    pointer-events: none;
+    overflow: hidden;
+    color: var(--primary-color);
+}
+.header-topo svg { width: 100%; height: 100%; }
+html.dark-mode .header-topo { opacity: 0.13; }
+
+/* 3. موجات SVG فاصلة */
+.wave-divider {
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin: 25px 0 -25px 0;
+    pointer-events: none;
+}
+.wave-divider svg { width: 100%; height: 100%; display: block; }
+.wave-divider path { fill: var(--primary-color); opacity: 0.09; }
+html.dark-mode .wave-divider path { opacity: 0.18; }
+
+/* 4. العنوان الرئيسي — آلة كاتبة (مرة واحدة) */
+.header h1 { overflow: hidden; }
+@media (min-width: 769px) {
+    .header h1.typewriter-once:not(.header h1.skip-anim) {
+        white-space: nowrap;
+        max-width: 100%;
+        animation: typewriter-clip 2.8s steps(45, end) 1 forwards,
+                   caret-blink 0.8s step-end 3;
+        border-inline-end: 3px solid var(--primary-color);
+    }
+}
+@keyframes typewriter-clip { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+[dir="ltr"] .header h1.typewriter-once { animation-name: typewriter-clip-ltr, caret-blink; }
+@keyframes typewriter-clip-ltr { from { clip-path: inset(0 0 0 100%); } to { clip-path: inset(0 0 0 0); } }
+@keyframes caret-blink { 50% { border-color: transparent; } }
+
+/* 5. حدود متدرجة متحركة للبطاقات الجديدة */
+@property --border-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+.file-card.is-new { position: relative; }
+.file-card.is-new::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(from var(--border-angle), #3b82f6, #8b5cf6, #ec4899, #f59e0b, #10b981, #3b82f6);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: rotate-border 5s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.9;
+}
+@keyframes rotate-border { to { --border-angle: 360deg; } }
+html.no-anim .file-card.is-new::before { animation: none; opacity: 0.6; }
+
+/* 6. توهج الأزرار عند المرور */
+.btn-view:hover { box-shadow: 0 8px 24px rgba(var(--primary-rgb), 0.4) !important; filter: brightness(1.06); }
+.btn-down:hover { box-shadow: 0 8px 24px rgba(16, 185, 129, 0.4) !important; filter: brightness(1.06); }
+.load-more-btn:hover { box-shadow: 0 8px 22px rgba(var(--primary-rgb), 0.35) !important; }
+
+/* 7. Ripple عند الضغط */
+.ripple-btn { position: relative; overflow: hidden; }
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.55);
+    transform: scale(0);
+    animation: ripple-effect 0.65s ease-out forwards;
+    pointer-events: none;
+    z-index: 0;
+}
+html.dark-mode .ripple { background: rgba(255,255,255,0.28); }
+.btn-icon .ripple, .filters-toggle-btn .ripple, .fav-toggle-btn .ripple, .reset-btn .ripple { background: rgba(var(--primary-rgb), 0.2); }
+@keyframes ripple-effect { to { transform: scale(4); opacity: 0; } }
+html.no-anim .ripple { display: none; }
+
+/* 8. حركات الأيقونات الدقيقة */
+.stat-icon i, .tool-icon, .btn-icon i, .icon-actions button i, .view-btn i, .section-tab i, .setting-action i {
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+}
+.stat-item:hover .stat-icon i { transform: translateY(-3px) scale(1.18); }
+.hero-stats .stat-item:nth-child(1):hover .stat-icon i { transform: rotate(-8deg) scale(1.15); }
+.hero-stats .stat-item:nth-child(3):hover .stat-icon i { transform: translateY(-3px) scale(1.15); }
+.tool-item-card:hover .tool-icon { transform: rotate(-10deg) scale(1.15); }
+.btn-icon:hover i { transform: scale(1.18); }
+.icon-actions .fav-active i { animation: heartbeat-icon 1.4s ease-in-out infinite; }
+@keyframes heartbeat-icon { 0%,100% { transform: scale(1); } 20% { transform: scale(1.22); } 40% { transform: scale(1); } 60% { transform: scale(1.15); } }
+.filters-toggle-btn.active i { animation: filter-pulse 1.8s ease-in-out infinite; }
+@keyframes filter-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+html.no-anim .stat-item:hover .stat-icon i,
+html.no-anim .tool-item-card:hover .tool-icon,
+html.no-anim .btn-icon:hover i,
+html.no-anim .icon-actions .fav-active i,
+html.no-anim .filters-toggle-btn.active i { animation: none; transform: none; }
+
+/* 9. شريط علوي ذكي (يتحول مع التمرير) */
+.header.header-scrolled h1 { font-size: clamp(17px, 4.3vw, 23px); }
+.header.header-scrolled { margin-bottom: 6px; }
+
+/* 10. ظلال ملونة حسب التخصص (تُطبَّق عبر JS) */
+.file-card[data-major-color] {
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease;
+}
+.file-card[data-major-color]:hover {
+    box-shadow: 0 8px 28px var(--card-shadow-color, var(--shadow-md)) !important;
+}
+
+/* تحسين شريط القراءة الموجود */
+#readingProgress { display: none; }
+.reading-progress-bar {
+    position: fixed;
+    top: 0;
+    inset-inline-start: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-color), var(--primary-light), var(--primary-color));
+    background-size: 200% 100%;
+    animation: progress-shine 2s linear infinite;
+    z-index: 9999;
+    transition: width 0.08s linear;
+    box-shadow: 0 0 8px rgba(var(--primary-rgb), 0.5);
+}
+@keyframes progress-shine { from { background-position: 0% 0; } to { background-position: 200% 0; } }
+
+/* ============ HEADER ============ */
+.header { text-align:center; margin-bottom:14px; margin-top:8px; width:100%; padding:0 5px; transition: margin 0.3s ease; }
+.header h1 { color:var(--header-color); font-weight:900; font-size:clamp(20px,5.5vw,28px); margin-bottom:6px; line-height:1.3; font-family:'El Messiri',sans-serif; background:linear-gradient(135deg, var(--header-color) 0%, var(--primary-color) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.3px; transition: font-size 0.3s ease; }
 html.dark-mode .header h1 { background:linear-gradient(135deg, #f1f5f9 0%, var(--primary-light) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .dynamic-greeting { color:var(--primary-color); font-size:clamp(12.5px,3.4vw,14px); font-weight:700; margin:0; opacity:0.9; }
 .meta-row { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px auto 20px; max-width: 1200px; }
@@ -203,7 +407,7 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
 .count-number.fav-color { color:#ef4444; }
 .files-grid { display:grid; grid-template-columns:1fr; gap:18px; max-width:1200px; margin:auto; width:100%; }
 @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-.file-card { background:var(--card-glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); display:flex; flex-direction:column; position:relative; overflow:hidden; opacity:0; animation:fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; width:100%; box-shadow:none !important; transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
+.file-card { background:var(--card-glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); display:flex; flex-direction:column; position:relative; overflow:hidden; opacity:0; animation:fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; width:100%; box-shadow:none !important; transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.3s ease; }
 .file-card:hover { border-color: rgba(var(--primary-rgb), 0.4) !important; transform:translateY(-4px); box-shadow:var(--shadow-md) !important; }
 .file-card.is-new { border-color: rgba(239, 68, 68, 0.4) !important; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--primary-color); outline-offset:2px; }
@@ -211,7 +415,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .btn:active, .btn-icon:active, .view-btn:active { transform:scale(0.94); }
 .card-badge { position:absolute; top:18px; left:-36px; background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; padding:5px 42px; font-size:10.5px; font-weight:800; transform:rotate(-45deg); letter-spacing:0.3px; box-shadow:none !important; }
 .badge-edu { background:linear-gradient(135deg, #fbbf24, #f59e0b); }
-.badge-new { position:absolute; top:14px; right:14px; background:linear-gradient(135deg, #f87171, #ef4444); color:white; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:800; box-shadow:none !important; }
+.badge-new { position:absolute; top:14px; right:14px; background:linear-gradient(135deg, #f87171, #ef4444); color:white; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:800; box-shadow:none !important; z-index:2; }
 .file-card h3 { margin:22px 0 8px 0; font-size:17px; color:var(--header-color); line-height:1.45; font-weight:800; word-break:break-word; }
 .subject-name { color:var(--primary-color); font-weight:800; font-size:13px; margin-bottom:14px; display:flex; align-items:center; gap:5px; }
 .file-info { font-size:12px; color:var(--text-muted); margin-bottom:8px; display:flex; align-items:center; border-bottom:1px dashed var(--border-soft); padding-bottom:7px; font-weight:500; word-break:break-word; }
@@ -223,13 +427,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .popularity-bar-fill { height:100%; background:linear-gradient(90deg, #f59e0b, #ef4444); border-radius:4px; transition:width 0.6s ease; }
 .highlight { background-color:var(--highlight-bg); color:var(--highlight-text); padding:0 3px; border-radius:4px; font-weight:800; }
 .card-actions { display:flex; gap:8px; margin-top:auto; width:100%; }
-.btn { flex:1; text-align:center; padding:11px 8px; border-radius:calc(var(--radius-input) - 2px); text-decoration:none; font-weight:800; font-size:13px; font-family:'Cairo',sans-serif; transition:filter 0.25s ease; border:none; display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer; box-shadow:none !important; }
+.btn { flex:1; text-align:center; padding:11px 8px; border-radius:calc(var(--radius-input) - 2px); text-decoration:none; font-weight:800; font-size:13px; font-family:'Cairo',sans-serif; transition:filter 0.25s ease, box-shadow 0.25s ease; border:none; display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer; position:relative; overflow:hidden; }
 .btn-view { background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; }
 .btn-down { background:linear-gradient(135deg, #10b981, #059669); color:white; }
-.btn-view:hover, .btn-down:hover { filter: brightness(1.08); }
 .btn-view::after, .btn-down::after { display:none; }
 .icon-actions { display:flex; gap:8px; margin-top:10px; justify-content:center; width:100%; }
-.btn-icon { background:var(--input-bg); color:var(--text-muted); border:1.5px solid var(--border-color); width:42px; height:42px; flex-shrink:0; display:flex; justify-content:center; align-items:center; border-radius:calc(var(--radius-input) - 2px); cursor:pointer; text-decoration:none; font-size:15px; transition:all 0.25s ease; }
+.btn-icon { background:var(--input-bg); color:var(--text-muted); border:1.5px solid var(--border-color); width:42px; height:42px; flex-shrink:0; display:flex; justify-content:center; align-items:center; border-radius:calc(var(--radius-input) - 2px); cursor:pointer; text-decoration:none; font-size:15px; transition:all 0.25s ease; position:relative; overflow:hidden; }
 .btn-icon:hover { color:var(--primary-color); border-color:var(--primary-color); background:rgba(var(--primary-rgb),0.06); }
 .fav-active { color:#ef4444 !important; border-color:#ef4444 !important; background:rgba(239,68,68,0.08) !important; }
 .more-menu-popup { display:none; position:fixed; background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-input); box-shadow:var(--shadow-lg); z-index:500; overflow:hidden; min-width:220px; }
@@ -239,7 +442,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 #scrollTopBtn { position:fixed; bottom:28px; right:28px; background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; border:none; width:50px; height:50px; border-radius:50%; cursor:pointer; font-size:19px; box-shadow:0 2px 6px rgba(15, 23, 42, 0.15) !important; display:none; justify-content:center; align-items:center; z-index:1000; transition:transform 0.25s ease; }
 #scrollTopBtn:hover { transform:translateY(-2px) !important; }
 @media (max-width:768px) { #scrollTopBtn { bottom:20px; right:20px; width:46px; height:46px; font-size:17px; } }
-.load-more-btn { display:block; margin:26px auto 10px auto; padding:12px 28px; background:transparent; color:var(--primary-color); border:2px solid var(--primary-color); border-radius:50px; font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; text-align:center; width:100%; max-width:260px; transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:8px; }
+.load-more-btn { display:block; margin:26px auto 10px auto; padding:12px 28px; background:transparent; color:var(--primary-color); border:2px solid var(--primary-color); border-radius:50px; font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; text-align:center; width:100%; max-width:260px; transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:8px; position:relative; overflow:hidden; }
 .load-more-btn:hover { background:var(--primary-color); color:white; }
 .empty-state { text-align:center; padding:50px 20px; background:var(--input-bg); border-radius:var(--radius-box); border:2px dashed var(--border-color); width:100%; }
 .empty-title { font-size:18px; color:var(--header-color); font-weight:800; margin-bottom:8px; font-family:'El Messiri',sans-serif; }
@@ -258,7 +461,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .extras-container { display:grid; grid-template-columns:1fr; gap:20px; max-width:1200px; margin:30px auto 0 auto; width:100%; }
 .tools-search-wrapper { position:relative; max-width:500px; margin:0 auto 20px auto; width:100%; }
 .tools-search-icon { position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:15px; }
+[dir="ltr"] .tools-search-icon { right: auto; left: 15px; }
 .tools-search-box { width:100%; padding:12px 42px 12px 15px; font-size:14px; font-family:'Cairo',sans-serif; border-radius:var(--radius-input); border:1.5px solid var(--input-border); background-color:var(--input-bg); color:var(--text-color); transition:0.25s; font-weight:600; }
+[dir="ltr"] .tools-search-box { padding: 12px 15px 12px 42px; }
 .tools-search-box:focus { border-color:var(--primary-color); outline:none; box-shadow:0 0 0 4px rgba(var(--primary-rgb),0.1); }
 .tools-filters { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-bottom:22px; width:100%; }
 .tool-filter-btn { background:var(--input-bg); color:var(--text-muted); border:1.5px solid var(--border-color); padding:7px 14px; border-radius:50px; font-size:12px; font-weight:700; cursor:pointer; transition:all 0.25s ease; font-family:'Cairo',sans-serif; }
@@ -275,12 +480,15 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .about-box { text-align:center; width:100%; }
 .about-desc { color:var(--text-muted); font-size:0.95rem; line-height:1.75; margin:0 auto 15px auto; font-weight:600; }
 .problems-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:22px; text-align:right; width:100%; }
+[dir="ltr"] .problems-grid { text-align: left; }
 .problem-card { background:var(--input-bg); padding:16px; border-radius:var(--radius-card); border:1px solid var(--border-color); width:100%; }
 .problem-card h4 { color:var(--header-color); font-size:15px; margin-bottom:6px; font-weight:800; display:flex; align-items:center; gap:6px; }
 .problem-card p { color:var(--text-muted); font-size:12.5px; line-height:1.6; margin:0; font-weight:600; }
 .contact-text, .policy-list { color:var(--text-muted); line-height:1.7; font-size:13px; margin-bottom:12px; font-weight:600; }
 .policy-list { text-align:right; padding-right:18px; }
+[dir="ltr"] .policy-list { text-align: left; padding-right: 0; padding-left: 18px; }
 .faq-box { width:100%; text-align:right; }
+[dir="ltr"] .faq-box { text-align: left; }
 .faq-item { margin-bottom:10px; border:1px solid var(--border-color); border-radius:var(--radius-card); background:var(--input-bg); overflow:hidden; transition:border-color 0.25s ease; }
 .faq-question { padding:15px; cursor:pointer; font-weight:800; color:var(--header-color); display:flex; justify-content:space-between; align-items:center; font-size:14px; gap:8px; }
 .faq-answer { padding:0 15px; max-height:0; overflow:hidden; transition:all 0.3s ease-out; color:var(--text-muted); font-size:13px; font-weight:600; line-height:1.7; opacity:0; }
@@ -293,6 +501,7 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .files-grid.list-view { display:flex; flex-direction:column; gap:14px; }
 .files-grid.list-view .file-card { flex-direction:row; flex-wrap:wrap; padding:18px 22px; align-items:center; justify-content:space-between; gap:16px; opacity:1; animation:none; }
 .files-grid.list-view .card-badge { display:none; }
+.files-grid.list-view .file-card.is-new::before { display: none; }
 .files-grid.list-view .badge-new { position:static; display:inline-block; margin-inline-start:10px; }
 .files-grid.list-view .file-card > div.content-area { flex:1 1 40%; min-width:250px; }
 .files-grid.list-view .file-card > div.meta-area { flex:1 1 20%; min-width:160px; border-inline-start:1px dashed var(--border-color); padding-inline-start:16px; }
@@ -307,6 +516,7 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .modal-overlay.show { opacity:1; }
 .modal-overlay.show .modal-content { transform:scale(1); }
 .close-modal { position:absolute; top:14px; right:14px; background:var(--input-bg); border:1.5px solid var(--border-color); width:34px; height:34px; border-radius:50%; font-size:15px; color:var(--text-muted); cursor:pointer; transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; }
+[dir="ltr"] .close-modal { right: auto; left: 14px; }
 .close-modal:hover { background:#ef4444; color:white; border-color:#ef4444; }
 #qrcode { margin:20px auto; display:flex; justify-content:center; padding:15px; background:white; border-radius:14px; border:1px solid var(--border-color); }
 .modal-title { font-size:16px; font-weight:800; color:var(--header-color); margin-bottom:6px; font-family:'El Messiri',sans-serif; }
@@ -316,6 +526,7 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .install-prompt-box { background:var(--card-bg); padding:28px 22px; border-radius:24px; width:100%; max-width:400px; box-shadow:0 -10px 50px rgba(0,0,0,0.25); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275); position:relative; text-align:center; border:2px solid var(--primary-color); }
 .install-prompt-overlay.show .install-prompt-box { transform:translateY(0); }
 .close-install { position:absolute; top:14px; right:14px; background:var(--input-bg); border:none; width:32px; height:32px; border-radius:50%; color:var(--text-muted); cursor:pointer; }
+[dir="ltr"] .close-install { right: auto; left: 14px; }
 .install-prompt-box h3 { margin:0 0 8px 0; font-size:19px; color:var(--header-color); font-weight:800; font-family:'El Messiri',sans-serif; }
 .install-prompt-box p { margin:0 0 15px 0; font-size:13px; color:var(--text-muted); line-height:1.65; font-weight:600; }
 .install-instructions { background:var(--input-bg); padding:14px; border-radius:var(--radius-input); font-size:13px; color:var(--text-color); border:1.5px dashed var(--border-color); font-weight:700; }
@@ -329,7 +540,8 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 #recentBody { display:none; margin-top:12px; }
 #recentBody.open { display:block; }
 .contributors-list { display:grid; grid-template-columns:1fr; gap:10px; }
-.contributor-item { display:flex; align-items:center; gap:12px; background:var(--input-bg); padding:13px 16px; border-radius:var(--radius-card); border:1px solid var(--border-color); }
+.contributor-item { display:flex; align-items:center; gap:12px; background:var(--input-bg); padding:13px 16px; border-radius:var(--radius-card); border:1px solid var(--border-color); transition: all 0.25s ease; }
+.contributor-item:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
 .contributor-item.top-1 { background:linear-gradient(135deg, rgba(251,191,36,0.15), rgba(251,191,36,0.04)); border-color:#fbbf24; }
 .contributor-item.top-2 { background:linear-gradient(135deg, rgba(148,163,184,0.15), rgba(148,163,184,0.04)); border-color:#94a3b8; }
 .contributor-item.top-3 { background:linear-gradient(135deg, rgba(217,119,6,0.15), rgba(217,119,6,0.04)); border-color:#d97706; }
@@ -379,8 +591,8 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 #settingsToggleBtn { position:relative; }
 .maker-credit { text-align: center; margin: 45px auto 25px; padding: 18px 20px; display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 700; opacity: 0.9; max-width: 500px; width: 100%; border-top: 1px dashed var(--border-color); }
 .maker-credit .maker-line { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
-.maker-credit .heart-icon { display: inline-block; color: #ef4444; font-size: 13px; animation: heartbeat 1.8s ease-in-out infinite; }
-@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
+.maker-credit .heart-icon { display: inline-block; color: #ef4444; font-size: 13px; animation: heartbeat-credit 1.8s ease-in-out infinite; }
+@keyframes heartbeat-credit { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
 .maker-credit .maker-name { font-family: 'El Messiri', sans-serif; font-weight: 800; font-size: 15px; color: var(--primary-color); letter-spacing: 0.6px; padding: 3px 12px; border-radius: 20px; background: rgba(var(--primary-rgb), 0.08); border: 1px solid rgba(var(--primary-rgb), 0.15); transition: all 0.3s ease; direction: ltr; display: inline-block; }
 .maker-credit .maker-name:hover { background: rgba(var(--primary-rgb), 0.15); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2); }
 .maker-credit .maker-sub { font-size: 11px; color: var(--text-muted); opacity: 0.75; font-weight: 600; letter-spacing: 0.3px; }
@@ -412,7 +624,7 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     .dynamic-greeting { font-size:15px; }
 }
 @media (min-width:1440px) {
-    .files-grid, .extras-container, .sticky-glass-bar { max-width:1300px; margin-left:auto; margin-right:auto; }
+    .files-grid, .extras-container, .sticky-glass-bar, .news-ticker { max-width:1300px; margin-left:auto; margin-right:auto; }
     .files-grid { grid-template-columns:repeat(4,1fr); }
     .filter-select { flex:1 1 auto; }
 }
@@ -450,15 +662,17 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     html { scroll-behavior:auto; }
     .file-card, .skeleton-pulse { animation:none; opacity:1 !important; }
     .file-card:hover, .tool-item-card:hover { transform:none !important; }
-    .maker-credit .heart-icon { animation:none; }
+    .maker-credit .heart-icon, .news-ticker, .news-ticker .ticker-track, .file-card.is-new::before { animation:none !important; }
 }
 @media print {
     .sticky-glass-bar, #scrollTopBtn, .card-actions, .icon-actions, .load-more-btn,
     #recentSection, .extras-container, #installPrompt, #qrModal, #exportModal,
     .card-badge, .badge-new, #toast, .hero-stats, .last-update-badge, #contributorsSection,
-    #settingsModal, .meta-row, .maker-credit { display:none !important; }
+    #settingsModal, .meta-row, .maker-credit, .news-ticker, .wave-divider, .header-topo,
+    .reading-progress-bar { display:none !important; }
     body { background:white; color:black; }
     .file-card { break-inside:avoid; border:1px solid #ccc; box-shadow:none; opacity:1 !important; animation:none !important; }
+    .file-card.is-new::before { display: none; }
 }
 body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important; }
 #customCursor { position:fixed; top:0; left:0; width:10px; height:10px; border-radius:50%; background:var(--primary-color); pointer-events:none; z-index:9999; transform:translate(-50%, -50%); transition:width 0.15s ease, height 0.15s ease, background 0.15s ease, opacity 0.2s ease; opacity:0; }
@@ -468,7 +682,21 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </style>
 </head>
 <body>
+<div class="reading-progress-bar" id="readingProgressBar"></div>
 <div id="customCursor"></div>
+
+<!-- 🎪 شريط الإعلانات المتحرك -->
+<div class="news-ticker" id="newsTicker" role="region" aria-label="News ticker">
+    <div class="ticker-track" id="tickerTrack">
+        <span class="ticker-item">🎉 <span data-i18n="ticker1">مرحباً بك في الأرشيف الأكاديمي</span></span>
+        <span class="ticker-item">📚 <span data-i18n="ticker2">تصفح أكثر من 50 ملخصاً جاهزاً</span></span>
+        <span class="ticker-item">❤️ <span data-i18n="ticker3">أضف ملفاتك المفضلة لمكتبتك</span></span>
+        <span class="ticker-item">🔥 <span data-i18n="ticker4">شارك ملخصك ليستفيد زملاؤك</span></span>
+        <span class="ticker-item">📥 <span data-i18n="ticker5">كل الملفات مجانية بشكل كامل</span></span>
+        <span class="ticker-item">🎓 <span data-i18n="ticker6">أدوات ذكية تساعدك على المذاكرة</span></span>
+    </div>
+</div>
+
 <div id="moreMenuPopup" class="more-menu-popup">
     <button onclick="moreMenuAction('qr')"><i class="fa-solid fa-qrcode"></i> <span data-i18n="menuQR">عرض رمز QR</span></button>
     <button onclick="moreMenuAction('report')"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="menuReport">إبلاغ عن رابط معطل</span></button>
@@ -516,8 +744,8 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                 <div class="settings-row">
                     <label data-i18n="setFontSize">حجم الخط</label>
                     <div style="display:flex;gap:6px;">
-                        <button class="btn-icon" style="width:36px;height:36px;" onclick="decreaseFontSize()"><i class="fa-solid fa-minus"></i></button>
-                        <button class="btn-icon" style="width:36px;height:36px;" onclick="increaseFontSize()"><i class="fa-solid fa-plus"></i></button>
+                        <button class="btn-icon ripple-btn" style="width:36px;height:36px;" onclick="decreaseFontSize()"><i class="fa-solid fa-minus"></i></button>
+                        <button class="btn-icon ripple-btn" style="width:36px;height:36px;" onclick="increaseFontSize()"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="settings-row">
@@ -541,6 +769,15 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                 <div class="settings-row"><label data-i18n="visAbout">🌟 قسم "عن المنصة"</label><div class="settings-switch" id="sw_hide_about" onclick="toggleSetting('hide_about', this)"></div></div>
                 <div class="settings-row"><label data-i18n="visFaq">❓ الأسئلة الشائعة</label><div class="settings-switch" id="sw_hide_faq" onclick="toggleSetting('hide_faq', this)"></div></div>
                 <div class="settings-row"><label data-i18n="visBadges">🏷️ الشارات</label><div class="settings-switch" id="sw_hide_badges" onclick="toggleSetting('hide_badges', this)"></div></div>
+            </div>
+            <div class="settings-section">
+                <h3><i class="fa-solid fa-sparkles"></i> <span data-i18n="setSectionVisual">إضافات جمالية</span></h3>
+                <div class="settings-row"><label data-i18n="visTicker">🎪 شريط الإعلانات المتحرك</label><div class="settings-switch" id="sw_hide_ticker" onclick="toggleSetting('hide_ticker', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visWaves">🌊 موجات SVG الفاصلة</label><div class="settings-switch" id="sw_hide_waves" onclick="toggleSetting('hide_waves', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visTopo">🌅 خلفية Hero الطبوغرافية</label><div class="settings-switch" id="sw_hide_topo" onclick="toggleSetting('hide_topo', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visTilt">✨ ميلان البطاقات 3D</label><div class="settings-switch" id="sw_hide_tilt" onclick="toggleSetting('hide_tilt', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visRipple">💧 تأثير Ripple الأزرار</label><div class="settings-switch" id="sw_hide_ripple" onclick="toggleSetting('hide_ripple', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visTypewriter">✍️ آلة كاتبة العنوان</label><div class="settings-switch" id="sw_hide_typewriter" onclick="toggleSetting('hide_typewriter', this)"></div></div>
             </div>
             <div class="settings-section">
                 <h3><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="setSectionEffects">الحركات والمؤثرات</span></h3>
@@ -572,12 +809,12 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             <div class="settings-section">
                 <h3><i class="fa-solid fa-gears"></i> <span data-i18n="setSectionAdvanced">متقدم</span></h3>
                 <div class="settings-actions">
-                    <button class="settings-action-btn" onclick="clearCache()"><i class="fa-solid fa-rotate"></i> <span data-i18n="advRefresh">تحديث البيانات</span></button>
-                    <button class="settings-action-btn" onclick="clearRecent()"><i class="fa-solid fa-eye-slash"></i> <span data-i18n="advClearRecent">مسح "شوهد مؤخراً"</span></button>
-                    <button class="settings-action-btn danger" onclick="clearFavoritesConfirm()"><i class="fa-solid fa-heart-crack"></i> <span data-i18n="advClearFav">مسح المفضلة</span></button>
-                    <button class="settings-action-btn" onclick="exportSettings()"><i class="fa-solid fa-file-export"></i> <span data-i18n="advExport">تصدير الإعدادات</span></button>
-                    <button class="settings-action-btn" onclick="document.getElementById('importSettingsInput').click()"><i class="fa-solid fa-file-import"></i> <span data-i18n="advImport">استيراد الإعدادات</span></button>
-                    <button class="settings-action-btn danger" onclick="resetSettingsConfirm()"><i class="fa-solid fa-undo"></i> <span data-i18n="advReset">إعادة الضبط</span></button>
+                    <button class="settings-action-btn ripple-btn" onclick="clearCache()"><i class="fa-solid fa-rotate"></i> <span data-i18n="advRefresh">تحديث البيانات</span></button>
+                    <button class="settings-action-btn ripple-btn" onclick="clearRecent()"><i class="fa-solid fa-eye-slash"></i> <span data-i18n="advClearRecent">مسح "شوهد مؤخراً"</span></button>
+                    <button class="settings-action-btn danger ripple-btn" onclick="clearFavoritesConfirm()"><i class="fa-solid fa-heart-crack"></i> <span data-i18n="advClearFav">مسح المفضلة</span></button>
+                    <button class="settings-action-btn ripple-btn" onclick="exportSettings()"><i class="fa-solid fa-file-export"></i> <span data-i18n="advExport">تصدير الإعدادات</span></button>
+                    <button class="settings-action-btn ripple-btn" onclick="document.getElementById('importSettingsInput').click()"><i class="fa-solid fa-file-import"></i> <span data-i18n="advImport">استيراد الإعدادات</span></button>
+                    <button class="settings-action-btn danger ripple-btn" onclick="resetSettingsConfirm()"><i class="fa-solid fa-undo"></i> <span data-i18n="advReset">إعادة الضبط</span></button>
                 </div>
                 <input type="file" id="importSettingsInput" accept=".json" style="display:none" onchange="importSettings(event)">
             </div>
@@ -585,14 +822,24 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
     </div>
 </div>
 
-<div class="header">
+<div class="header" id="pageHeader">
+    <div class="header-topo" aria-hidden="true">
+        <svg viewBox="0 0 1200 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 60 Q 150 10, 300 60 T 600 60 T 900 60 T 1200 60" fill="none" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M0 80 Q 150 30, 300 80 T 600 80 T 900 80 T 1200 80" fill="none" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M0 100 Q 150 50, 300 100 T 600 100 T 900 100 T 1200 100" fill="none" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M0 120 Q 150 70, 300 120 T 600 120 T 900 120 T 1200 120" fill="none" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M0 140 Q 150 90, 300 140 T 600 140 T 900 140 T 1200 140" fill="none" stroke="currentColor" stroke-width="0.7"/>
+            <path d="M0 160 Q 150 110, 300 160 T 600 160 T 900 160 T 1200 160" fill="none" stroke="currentColor" stroke-width="0.7"/>
+        </svg>
+    </div>
     <svg width="60" height="60" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="margin-bottom:12px; filter:drop-shadow(0 6px 12px rgba(59,130,246,0.2));">
         <defs><linearGradient id="gradBlue" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#3b82f6;stop-opacity:1" /><stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" /></linearGradient></defs>
         <path d="M50 20 L15 40 L50 60 L85 40 Z" fill="url(#gradBlue)" />
         <path d="M15 55 L50 75 L85 55" fill="none" stroke="#f59e0b" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M15 70 L50 90 L85 70" fill="none" stroke="#10b981" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
-    <h1 data-i18n="appTitle">الأرشيف الأكاديمي الرقمي والمكتبة الشاملة</h1>
+    <h1 id="mainTitle" data-i18n="appTitle">الأرشيف الأكاديمي الرقمي والمكتبة الشاملة</h1>
     <p class="dynamic-greeting" id="dynamicGreeting" data-i18n="greeting">مساحتك المخصصة لكل مواد التربوي والتخصص</p>
 </div>
 
@@ -620,7 +867,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </div>
 
 <div id="toast"></div>
-<button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Top"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="scrollTopBtn" class="ripple-btn" onclick="scrollToTop()" aria-label="Top"><i class="fa-solid fa-arrow-up"></i></button>
 
 <div id="installPrompt" class="install-prompt-overlay">
     <div class="install-prompt-box">
@@ -658,15 +905,15 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
         <div class="view-toggles">
-            <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')"><i class="fa-solid fa-table-cells-large"></i></button>
-            <button id="listViewBtn" class="view-btn" onclick="toggleView('list')"><i class="fa-solid fa-list-ul"></i></button>
-            <button id="settingsToggleBtn" class="view-btn" onclick="openSettingsModal()"><i class="fa-solid fa-sliders"></i></button>
+            <button id="gridViewBtn" class="view-btn active ripple-btn" onclick="toggleView('grid')"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button id="listViewBtn" class="view-btn ripple-btn" onclick="toggleView('list')"><i class="fa-solid fa-list-ul"></i></button>
+            <button id="settingsToggleBtn" class="view-btn ripple-btn" onclick="openSettingsModal()"><i class="fa-solid fa-sliders"></i></button>
         </div>
     </div>
     <div class="action-btns-group">
-        <button id="filtersToggleBtn" class="filters-toggle-btn" onclick="toggleFiltersPanel()"><i class="fa-solid fa-filter"></i> <span data-i18n="filtersBtn">الفلاتر</span></button>
-        <button id="favToggleBtn" class="fav-toggle-btn" onclick="toggleFavView()"><span data-i18n="favBtn">🤍 مكتبتي</span></button>
-        <button id="exportFavBtn" onclick="exportLibrary()" style="display:none; padding:0 15px; border-radius:var(--radius-input); border:none; background:linear-gradient(135deg, #10b981, #059669); color:white; cursor:pointer; font-family:inherit; font-weight:800; height:44px; display:flex; align-items:center; gap:6px;">
+        <button id="filtersToggleBtn" class="filters-toggle-btn ripple-btn" onclick="toggleFiltersPanel()"><i class="fa-solid fa-filter"></i> <span data-i18n="filtersBtn">الفلاتر</span></button>
+        <button id="favToggleBtn" class="fav-toggle-btn ripple-btn" onclick="toggleFavView()"><span data-i18n="favBtn">🤍 مكتبتي</span></button>
+        <button id="exportFavBtn" onclick="exportLibrary()" class="ripple-btn" style="display:none; padding:0 15px; border-radius:var(--radius-input); border:none; background:linear-gradient(135deg, #10b981, #059669); color:white; cursor:pointer; font-family:inherit; font-weight:800; height:44px; display:flex; align-items:center; gap:6px;">
             <i class="fa-solid fa-share-nodes"></i> <span data-i18n="shareBtn">مشاركة</span>
         </button>
     </div>
@@ -715,7 +962,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             </select>
         </div>
         <div style="text-align:center; margin-top:12px;">
-            <button id="resetFiltersBtn" class="reset-btn" onclick="resetAllFilters()" style="display:inline-flex;">🔄 <span data-i18n="resetFilters">تصفير الفلاتر</span></button>
+            <button id="resetFiltersBtn" class="reset-btn ripple-btn" onclick="resetAllFilters()" style="display:inline-flex;">🔄 <span data-i18n="resetFilters">تصفير الفلاتر</span></button>
         </div>
     </div>
 </div>
@@ -739,7 +986,14 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </div>
 
 <div id="loadMoreContainer" style="text-align:center; width:100%; display:none;">
-    <button class="load-more-btn" onclick="loadMore()"><i class="fa-solid fa-chevron-down"></i> <span data-i18n="loadMore">عرض المزيد</span></button>
+    <button class="load-more-btn ripple-btn" onclick="loadMore()"><i class="fa-solid fa-chevron-down"></i> <span data-i18n="loadMore">عرض المزيد</span></button>
+</div>
+
+<!-- 🌊 موجة فاصلة -->
+<div class="wave-divider" aria-hidden="true">
+    <svg viewBox="0 0 1200 50" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,25 C150,50 350,0 600,25 C850,50 1050,0 1200,25 L1200,50 L0,50 Z"/>
+    </svg>
 </div>
 
 <div id="contributorsSection" style="display:none; max-width:1200px; margin:40px auto 0 auto; width:100%;">
@@ -757,7 +1011,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
         <h3 class="section-tab" data-i18n="toolsTitle">🛠️ مكتبة الأدوات المساعدة</h3>
         <div style="text-align:center; padding:10px 0;">
             <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px; font-weight:600;" data-i18n="toolsDesc">جمعنا لك 50 موقعاً وأداة ذكية لمساعدتك.</p>
-            <button id="toggleToolsBtn" onclick="toggleToolsSection()" class="load-more-btn" style="margin:0 auto; display:inline-flex; justify-content:center; align-items:center; gap:8px;">
+            <button id="toggleToolsBtn" onclick="toggleToolsSection()" class="load-more-btn ripple-btn" style="margin:0 auto; display:inline-flex; justify-content:center; align-items:center; gap:8px;">
                 <i class="fa-solid fa-toolbox"></i> <span data-i18n="toolsExplore">استكشف مكتبة الأدوات</span>
             </button>
         </div>
@@ -791,8 +1045,8 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                 3. أرسل الملف عبر الإيميل المخصص، وسيتم مراجعته ورفعه باسمك.
             </div>
             <div class="tools-links" style="margin-top:15px; flex-direction:column; align-items:center;">
-                <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link" style="background:linear-gradient(135deg, #10b981, #059669); color:white; border:none; width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-file-circle-plus"></i> <span data-i18n="contributeFormBtn">املأ نموذج رفع الملف (الأسهل)</span></a>
-                <a href="#" id="contactEmailBtn" class="tool-link" style="background:var(--input-bg); color:var(--header-color); border:1.5px solid var(--border-color); width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-envelope"></i> <span data-i18n="contributeEmailBtn">أو أرسله عبر الجيميل</span></a>
+                <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link ripple-btn" style="background:linear-gradient(135deg, #10b981, #059669); color:white; border:none; width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-file-circle-plus"></i> <span data-i18n="contributeFormBtn">املأ نموذج رفع الملف (الأسهل)</span></a>
+                <a href="#" id="contactEmailBtn" class="tool-link ripple-btn" style="background:var(--input-bg); color:var(--header-color); border:1.5px solid var(--border-color); width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-envelope"></i> <span data-i18n="contributeEmailBtn">أو أرسله عبر الجيميل</span></a>
             </div>
         </div>
     </div>
@@ -865,6 +1119,7 @@ const I18N = {
         setLanguage:"اللغة",
         setSectionAppearance:"المظهر", setSectionDisplay:"العرض والقراءة",
         setSectionVisibility:"إظهار/إخفاء العناصر", setSectionEffects:"الحركات والمؤثرات",
+        setSectionVisual:"إضافات جمالية",
         setSectionPerf:"الأداء", setSectionLanguage:"اللغة", setSectionAdvanced:"متقدم",
         darkAuto:"🌗 تلقائي", darkOn:"🌙 مفعّل", darkOff:"☀️ معطّل",
         radiusSharp:"حادة", radiusNormal:"عادية", radiusRound:"دائرية",
@@ -873,6 +1128,9 @@ const I18N = {
         visRecent:'👁️ قسم "شوهد مؤخراً"', visContributors:"🏆 قسم أكثر المساهمين",
         visTools:"🛠️ مكتبة الأدوات", visAbout:'🌟 قسم "عن المنصة"',
         visFaq:"❓ الأسئلة الشائعة", visBadges:"🏷️ الشارات",
+        visTicker:"🎪 شريط الإعلانات المتحرك", visWaves:"🌊 موجات SVG الفاصلة",
+        visTopo:"🌅 خلفية Hero الطبوغرافية", visTilt:"✨ ميلان البطاقات 3D",
+        visRipple:"💧 تأثير Ripple الأزرار", visTypewriter:"✍️ آلة كاتبة العنوان",
         visAnimations:"✨ الحركات والانتقالات", visCursor:"🖱️ المؤشر المخصص",
         visShine:"💫 تأثير اللمعان على الأزرار", visShadows:"🌑 الظلال على البطاقات",
         visPerf:"⚡ وضع الأداء للأجهزة الضعيفة",
@@ -954,7 +1212,12 @@ const I18N = {
         unknown:"غير محدد", all:"الكل",
         todayLabel:"اليوم 🔥", yesterdayLabel:"أمس", twoDaysLabel:"منذ يومين",
         daysAgo:"منذ {n} أيام", weeksAgo:"منذ {n} أسابيع", monthsAgo:"منذ {n} شهور",
-        dateUploaded:"الرفع"
+        ticker1:"مرحباً بك في الأرشيف الأكاديمي",
+        ticker2:"تصفح أكثر من 50 ملخصاً جاهزاً",
+        ticker3:"أضف ملفاتك المفضلة لمكتبتك",
+        ticker4:"شارك ملخصك ليستفيد زملاؤك",
+        ticker5:"كل الملفات مجانية بشكل كامل",
+        ticker6:"أدوات ذكية تساعدك على المذاكرة"
     },
     en: {
         appTitle:"Academic Digital Archive & Comprehensive Library",
@@ -968,6 +1231,7 @@ const I18N = {
         setLanguage:"Language",
         setSectionAppearance:"Appearance", setSectionDisplay:"Display & Reading",
         setSectionVisibility:"Show/Hide Elements", setSectionEffects:"Animations & Effects",
+        setSectionVisual:"Visual Additions",
         setSectionPerf:"Performance", setSectionLanguage:"Language", setSectionAdvanced:"Advanced",
         darkAuto:"🌗 Auto", darkOn:"🌙 On", darkOff:"☀️ Off",
         radiusSharp:"Sharp", radiusNormal:"Normal", radiusRound:"Round",
@@ -976,6 +1240,9 @@ const I18N = {
         visRecent:"👁️ Recently Viewed Section", visContributors:"🏆 Top Contributors Section",
         visTools:"🛠️ Tools Library", visAbout:'🌟 "About" Section',
         visFaq:"❓ FAQ", visBadges:"🏷️ Badges",
+        visTicker:"🎪 News Ticker", visWaves:"🌊 SVG Waves",
+        visTopo:"🌅 Hero Topographic Background", visTilt:"✨ 3D Card Tilt",
+        visRipple:"💧 Ripple Button Effect", visTypewriter:"✍️ Typewriter Title",
         visAnimations:"✨ Animations & Transitions", visCursor:"🖱️ Custom Cursor",
         visShine:"💫 Button Shine Effect", visShadows:"🌑 Card Shadows",
         visPerf:"⚡ Performance Mode for Weak Devices",
@@ -1057,7 +1324,12 @@ const I18N = {
         unknown:"Unknown", all:"All",
         todayLabel:"Today 🔥", yesterdayLabel:"Yesterday", twoDaysLabel:"2 days ago",
         daysAgo:"{n} days ago", weeksAgo:"{n} weeks ago", monthsAgo:"{n} months ago",
-        dateUploaded:"Uploaded"
+        ticker1:"Welcome to the Academic Archive",
+        ticker2:"Browse over 50 ready-made summaries",
+        ticker3:"Add your favorite files to your library",
+        ticker4:"Share your summary to help colleagues",
+        ticker5:"All files are completely free",
+        ticker6:"Smart tools to help you study"
     }
 };
 
@@ -1100,6 +1372,12 @@ function applyAllSettingsOnLoad() {
         { id: 'sw_hide_badges', key: 'set_hide_badges', cls: 'hide-badges' },
         { id: 'sw_hide_cursor', key: 'set_hide_cursor', cls: 'no-custom-cursor' },
         { id: 'sw_hide_shine', key: 'set_hide_shine', cls: 'no-shine' },
+        { id: 'sw_hide_ticker', key: 'set_hide_ticker', cls: 'hide-ticker' },
+        { id: 'sw_hide_waves', key: 'set_hide_waves', cls: 'hide-waves' },
+        { id: 'sw_hide_topo', key: 'set_hide_topo', cls: 'hide-topo' },
+        { id: 'sw_hide_tilt', key: 'set_hide_tilt', cls: 'no-tilt' },
+        { id: 'sw_hide_ripple', key: 'set_hide_ripple', cls: 'no-ripple' },
+        { id: 'sw_hide_typewriter', key: 'set_hide_typewriter', cls: 'no-typewriter' },
         { id: 'sw_perf', key: 'set_perf', cls: 'perf-mode' }
     ];
     toggleKeys.forEach(item => {
@@ -1139,7 +1417,9 @@ function toggleSetting(key, el) {
     const clsMap = {
         'hide_stats':'hide-stats','hide_recent':'hide-recent','hide_contributors':'hide-contributors',
         'hide_tools':'hide-tools','hide_about':'hide-about','hide_faq':'hide-faq',
-        'hide_badges':'hide-badges','hide_cursor':'no-custom-cursor','hide_shine':'no-shine'
+        'hide_badges':'hide-badges','hide_cursor':'no-custom-cursor','hide_shine':'no-shine',
+        'hide_ticker':'hide-ticker','hide_waves':'hide-waves','hide_topo':'hide-topo',
+        'hide_tilt':'no-tilt','hide_ripple':'no-ripple','hide_typewriter':'no-typewriter'
     };
     if (key === 'hide_update') {
         storageSet('set_hide_update', isOn ? '1' : '0');
@@ -1255,7 +1535,6 @@ function resetSettingsConfirm() {
 function toggleSettingsMenu() { openSettingsModal(); }
 function closeSettingsMenu() { closeSettingsModal(); }
 
-/* ✅ دالة الترجمة الشاملة — تُطبَّق على كل [data-i18n] و [data-i18n-ph] */
 function applyLanguage(lang) {
     currentLang = lang;
     storageSet('lang', lang);
@@ -1289,7 +1568,6 @@ function setLanguage(lang) {
     showToast(I18N[lang].toastLangChanged);
 }
 
-/* ✅ ترجمة القيم داخل البطاقات (فرقة، تخصص، ترم، نوع، تعليم) */
 function translateValue(val) {
     if (!val) return val;
     const v = String(val).trim();
@@ -1425,6 +1703,80 @@ function initCustomCursor() {
         if (e.target.closest && e.target.closest('a, button, input, select, .file-card')) cursor.classList.remove('hovering');
     });
     document.addEventListener('mouseleave', function() { cursor.classList.remove('visible'); shown = false; });
+}
+function initTypewriter() {
+    if (document.documentElement.classList.contains('no-typewriter')) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.innerWidth < 769) return;
+    const title = document.getElementById('mainTitle');
+    if (!title) return;
+    title.classList.add('typewriter-once');
+    setTimeout(() => {
+        title.style.borderInlineEnd = 'none';
+    }, 3200);
+}
+function initSmartHeader() {
+    const header = document.getElementById('pageHeader');
+    if (!header) return;
+    let ticking = false;
+    const update = () => {
+        if (window.scrollY > 80) header.classList.add('header-scrolled');
+        else header.classList.remove('header-scrolled');
+        ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+}
+function initRipple() {
+    if (document.documentElement.classList.contains('no-ripple')) return;
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.ripple-btn, .btn-view, .btn-down, .btn-icon, .filters-toggle-btn, .fav-toggle-btn, .load-more-btn, .settings-action-btn, .reset-btn');
+        if (!btn) return;
+        const rect = btn.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = size + 'px';
+        ripple.style.left = (e.clientX - rect.left - size / 2) + 'px';
+        ripple.style.top = (e.clientY - rect.top - size / 2) + 'px';
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 700);
+    });
+}
+function initReadingProgress() {
+    const bar = document.getElementById('readingProgressBar');
+    if (!bar) return;
+    let ticking = false;
+    const update = () => {
+        const dh = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = dh > 0 ? (window.scrollY / dh) * 100 : 0;
+        bar.style.width = progress + '%';
+        ticking = false;
+    };
+    window.addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }, { passive: true });
+}
+/* 3D Tilt للبطاقات */
+function initCardTilt() {
+    if (document.documentElement.classList.contains('no-tilt')) return;
+    if (document.documentElement.classList.contains('perf-mode')) return;
+    if (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    document.addEventListener('mousemove', function(e) {
+        const card = e.target.closest('.file-card');
+        if (!card) return;
+        if (card.closest('.recent-scroll-grid')) return;
+        const rect = card.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        card.style.transform = `perspective(900px) rotateX(${-y * 4}deg) rotateY(${x * 4}deg) translateY(-4px)`;
+    });
+    document.addEventListener('mouseout', function(e) {
+        const card = e.target.closest('.file-card');
+        if (card) card.style.transform = '';
+    });
 }
 
 const MAJOR_COLORS = {
@@ -1801,12 +2153,12 @@ function renderRecent() {
             <h3 style="margin-top:20px; font-size:1rem;">${escapeHtml(f.title)}</h3>
             <div class="subject-name"><span style="color:${getMajorColor(f.major)}; margin-inline-end:4px;">${getMajorIcon(f.major)}</span>${t('subjectPrefix')}${escapeHtml(f.subjectName)}</div>
             <div class="card-actions" style="margin-top:auto;">
-                <a href="${escapeHtml(f.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
+                <a href="${escapeHtml(f.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view ripple-btn" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
             </div>
             <div class="icon-actions">
-                <button class="btn-icon ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
-                <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
-                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                <button class="btn-icon ripple-btn ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
+                <button class="btn-icon ripple-btn" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
+                <button class="btn-icon ripple-btn more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
             </div>
         </div>`;
     });
@@ -1948,7 +2300,7 @@ function renderFiles(append = false) {
         const majorColor = getMajorColor(file.major);
         const displayAuthor = file.author === 'غير محدد' ? t('noAuthor') : hl(file.author);
         const card = `
-            <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay:${animDelay}s; border-inline-end:4px solid ${majorColor};">
+            <div class="file-card ${isNewFile ? 'is-new' : ''}" data-major-color="${escapeHtml(file.major)}" style="--card-shadow-color: ${majorColor}40; animation-delay:${animDelay}s; border-inline-end:4px solid ${majorColor};">
                 <div class="${isEdu ? 'card-badge badge-edu' : 'card-badge'}">${isEdu ? (currentLang === 'ar' ? 'تربوي' : 'Edu') : (currentLang === 'ar' ? 'تخصص' : 'Spec')}</div>
                 ${isNewFile ? `<div class="badge-new">${currentLang === 'ar' ? 'جديد 🔥' : 'New 🔥'}</div>` : ''}
                 <div class="content-area">
@@ -1963,13 +2315,13 @@ function renderFiles(append = false) {
                 </div>
                 <div class="action-area">
                     <div class="card-actions">
-                        <a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
-                        <a href="${escapeHtml(dl)}" class="btn btn-down" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
+                        <a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view ripple-btn" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
+                        <a href="${escapeHtml(dl)}" class="btn btn-down ripple-btn" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
                     </div>
                     <div class="icon-actions">
-                        <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${isFav ? '❤️' : '🤍'}</button>
-                        <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
-                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <button class="btn-icon ripple-btn ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${isFav ? '❤️' : '🤍'}</button>
+                        <button class="btn-icon ripple-btn" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button class="btn-icon ripple-btn more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     </div>
                 </div>
             </div>`;
@@ -2028,7 +2380,7 @@ async function fetchFiles() {
     if (!ok && cached.length) showToast(currentLang === 'ar' ? '⚠️ تعذر التحديث — تم عرض آخر نسخة محفوظة' : '⚠️ Refresh failed — showing saved data');
     else if (!ok && !cached.length) {
         document.getElementById('fileCountContainer').innerHTML = '';
-        document.getElementById('filesContainer').innerHTML = `<div class="empty-state"><div class="empty-title">${t('loadingFiles')}</div><div class="empty-desc">${currentLang === 'ar' ? 'تحقق من اتصال الإنترنت ثم أعد المحاولة.' : 'Check your internet connection and try again.'}</div><button class="load-more-btn" style="margin-top:18px" onclick="fetchFiles()">${currentLang === 'ar' ? 'إعادة المحاولة' : 'Retry'}</button></div>`;
+        document.getElementById('filesContainer').innerHTML = `<div class="empty-state"><div class="empty-title">${t('loadingFiles')}</div><div class="empty-desc">${currentLang === 'ar' ? 'تحقق من اتصال الإنترنت ثم أعد المحاولة.' : 'Check your internet connection and try again.'}</div><button class="load-more-btn ripple-btn" style="margin-top:18px" onclick="fetchFiles()">${currentLang === 'ar' ? 'إعادة المحاولة' : 'Retry'}</button></div>`;
     }
     return !!ok || !!cached.length;
 }
@@ -2130,6 +2482,11 @@ document.getElementById('searchInput').addEventListener('focus', () => {
 document.addEventListener('DOMContentLoaded', () => {
     applyAllSettingsOnLoad();
     initCustomCursor();
+    initReadingProgress();
+    initSmartHeader();
+    initRipple();
+    initTypewriter();
+    initCardTilt();
     typeWriter();
     toggleView(currentViewStyle);
     renderToolsDOM(allToolsData);
