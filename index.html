@@ -8,30 +8,15 @@
 <meta name="author" content="M.A.Abdalhamid">
 <title>الأرشيف الأكاديمي الرقمي</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%231e3a8a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Cpath d='M50 20 L15 40 L50 60 L85 40 Z' fill='url(%23g)'/%3E%3Cpath d='M15 55 L50 75 L85 55' fill='none' stroke='%23f59e0b' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 70 L50 90 L85 70' fill='none' stroke='%2310b981' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g2' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%233b82f6'/%3E%3Cstop offset='100%25' stop-color='%231e3a8a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='22' fill='%23ffffff'/%3E%3Cpath d='M50 20 L15 40 L50 60 L85 40 Z' fill='url(%23g2)'/%3E%3Cpath d='M15 55 L50 75 L85 55' fill='none' stroke='%23f59e0b' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M15 70 L50 90 L85 70' fill='none' stroke='%2310b981' stroke-width='9' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="ar_EG">
-<meta property="og:title" content="الأرشيف الأكاديمي الرقمي">
-<meta property="og:description" content="أرشيف أكاديمي رقمي مجاني لطلاب كلية التربية.">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="الأرشيف الأكاديمي الرقمي">
-<meta name="twitter:description" content="أرشيف أكاديمي رقمي مجاني لطلاب كلية التربية.">
-<meta name="robots" content="index, follow">
 <script>
 (function() {
     try {
         var mode = localStorage.getItem('darkMode');
         var isDark = (mode === '1' || mode === 'on') || ((mode === null || mode === 'auto') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (isDark) {
-            document.documentElement.classList.add('dark-mode');
-            document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1220');
-        }
-        var color = localStorage.getItem('set_color') || 'blue';
-        document.documentElement.setAttribute('data-color', color);
-        var radius = localStorage.getItem('set_radius') || 'normal';
-        document.documentElement.setAttribute('data-radius', radius);
-        var cpr = localStorage.getItem('set_cards_per_row') || 'auto';
-        document.documentElement.setAttribute('data-cards', cpr);
+        if (isDark) { document.documentElement.classList.add('dark-mode'); document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0b1220'); }
+        var color = localStorage.getItem('set_color') || 'blue'; document.documentElement.setAttribute('data-color', color);
+        var radius = localStorage.getItem('set_radius') || 'normal'; document.documentElement.setAttribute('data-radius', radius);
+        var cpr = localStorage.getItem('set_cards_per_row') || 'auto'; document.documentElement.setAttribute('data-cards', cpr);
         if ((localStorage.getItem('set_shadows') || '1') === '0') document.documentElement.classList.add('no-shadows');
         if ((localStorage.getItem('set_animations') || '1') === '0') document.documentElement.classList.add('no-anim');
         if (localStorage.getItem('set_hide_stats') === '1') document.documentElement.classList.add('hide-stats');
@@ -66,11 +51,9 @@ html[data-color="orange"] { --primary-color:#ea580c; --primary-dark:#9a3412; --p
 html.dark-mode[data-color="orange"] { --primary-color:#f97316; --primary-dark:#9a3412; --primary-light:#fb923c; --primary-rgb:249,115,22; }
 html[data-color="gold"] { --primary-color:#d97706; --primary-dark:#92400e; --primary-light:#f59e0b; --primary-rgb:217,119,6; }
 html.dark-mode[data-color="gold"] { --primary-color:#f59e0b; --primary-dark:#92400e; --primary-light:#fbbf24; --primary-rgb:245,158,11; }
-
 html[data-radius="sharp"] { --radius-card:6px; --radius-box:10px; --radius-input:6px; --radius-pill:8px; }
 html[data-radius="normal"] { --radius-card:16px; --radius-box:18px; --radius-input:12px; --radius-pill:50px; }
 html[data-radius="round"] { --radius-card:26px; --radius-box:24px; --radius-input:18px; --radius-pill:50px; }
-
 :root {
     --bg-color:#ffffff; --text-color:#1e293b; --card-bg:#ffffff;
     --border-color:#e5e9f0; --border-soft:#eef2f8;
@@ -99,7 +82,6 @@ html.dark-mode {
     --shadow-md:0 2px 4px rgba(0,0,0,0.3), 0 8px 20px rgba(0,0,0,0.25);
     --shadow-lg:0 4px 8px rgba(0,0,0,0.35), 0 16px 40px rgba(0,0,0,0.3);
 }
-
 * { box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 html, body { font-family:'Cairo',sans-serif; background:var(--bg-gradient); background-attachment:fixed; color:var(--text-color); margin:0; scroll-behavior:smooth; width:100%; max-width:100%; overflow-x:hidden; transition:background-color 0.3s ease, color 0.3s ease; }
@@ -110,53 +92,16 @@ button:disabled, a[aria-disabled="true"] { opacity:.6; cursor:not-allowed !impor
 body::-webkit-scrollbar { display:none; }
 body { -ms-overflow-style:none; scrollbar-width:none; }
 img, svg { max-width:100%; height:auto; }
-
-/* ================================================================
-   إصلاحات شاملة لمشاكل الموبايل — منع الوميض الأبيض
-   ================================================================ */
-
-/* 1. إلغاء تأجيل الرسم الذي يسبب الوميض الأبيض */
-.file-card {
-    content-visibility: visible !important;
-    contain-intrinsic-size: auto !important;
-}
-
-/* 2. الحفاظ على خلفية ثابتة (بدون transform لعدم كسر position: fixed) */
-html, body {
-    background-attachment: fixed;
-}
-
-/* 3. الشريط اللاصق */
-.sticky-glass-bar {
-    background-color: var(--glass-bg) !important;
-}
-
-/* 4. الوضع الليلي */
-html.dark-mode,
-html.dark-mode body {
-    background-color: #0a1020 !important;
-}
-
-/* 5. على الموبايل: إلغاء الأنيميشن */
+.file-card { content-visibility: visible !important; contain-intrinsic-size: auto !important; }
+html, body { background-attachment: fixed; }
+.sticky-glass-bar { background-color: var(--glass-bg) !important; }
+html.dark-mode, html.dark-mode body { background-color: #0a1020 !important; }
 @media (max-width: 768px) {
-    .file-card {
-        animation: none !important;
-        opacity: 1 !important;
-    }
-    .file-card:hover {
-        transform: none !important;
-    }
-    .sticky-glass-bar {
-        transition: none !important;
-    }
+    .file-card { animation: none !important; opacity: 1 !important; }
+    .file-card:hover { transform: none !important; }
+    .sticky-glass-bar { transition: none !important; }
 }
-
-/* 6. حماية الطبقة الرسومية للشبكات فقط */
-.files-grid, .extras-container {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
+.files-grid, .extras-container { -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 html.no-shadows *, html.no-shadows *::before, html.no-shadows *::after { box-shadow:none !important; }
 html.no-anim *, html.no-anim *::before, html.no-anim *::after { animation:none !important; transition:none !important; }
 html.no-shine .btn-view::after, html.no-shine .btn-down::after { display:none !important; }
@@ -171,6 +116,14 @@ html.hide-about #aboutBox { display:none !important; }
 html.hide-faq #faqBox { display:none !important; }
 html.hide-badges .card-badge, html.hide-badges .badge-new { display:none !important; }
 
+/* ✅ إصلاح: البطاقات تظهر في وضع الأداء وإيقاف الأنيميشن */
+html.perf-mode .file-card,
+html.no-anim .file-card {
+    opacity: 1 !important;
+    animation: none !important;
+    transform: none !important;
+}
+
 html.perf-mode .sticky-glass-bar { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:var(--card-bg) !important; box-shadow:var(--shadow-sm) !important; }
 html.perf-mode *, html.perf-mode *::before, html.perf-mode *::after { box-shadow:none !important; animation:none !important; transition:none !important; }
 html.perf-mode .hero-stats::before { display:none !important; }
@@ -180,46 +133,21 @@ html.perf-mode body.custom-cursor-active, html.perf-mode body.custom-cursor-acti
 html.perf-mode .file-card { backdrop-filter:none !important; -webkit-backdrop-filter:none !important; background:var(--card-bg) !important; }
 html.perf-mode .file-card:hover { transform:none !important; }
 html.perf-mode .hero-stats { animation:none !important; }
-
 @media (min-width:640px) {
     html[data-cards="1"] .files-grid { grid-template-columns:1fr !important; }
     html[data-cards="2"] .files-grid { grid-template-columns:repeat(2,1fr) !important; }
     html[data-cards="3"] .files-grid { grid-template-columns:repeat(3,1fr) !important; }
     html[data-cards="4"] .files-grid { grid-template-columns:repeat(4,1fr) !important; }
 }
-
 .recent-scroll-grid { display:flex; gap:14px; overflow-x:auto; padding-bottom:14px; scroll-behavior:smooth; }
-.recent-scroll-grid .file-card { min-width:260px; flex:0 0 auto; animation:none; opacity:1; }
+.recent-scroll-grid .file-card { min-width:260px; flex:0 0 auto; animation:none !important; opacity:1 !important; }
 .recent-scroll-grid::-webkit-scrollbar { height:8px; }
 .recent-scroll-grid::-webkit-scrollbar-thumb { background:var(--border-color); border-radius:10px; }
-
-/* ============ HEADER ============ */
 .header { text-align:center; margin-bottom:14px; margin-top:8px; width:100%; padding:0 5px; }
-.header h1 {
-    color:var(--header-color); font-weight:900; font-size:clamp(20px,5.5vw,28px);
-    margin-bottom:6px; line-height:1.3; font-family:'El Messiri',sans-serif;
-    background:linear-gradient(135deg, var(--header-color) 0%, var(--primary-color) 100%);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-    letter-spacing:-0.3px;
-}
-html.dark-mode .header h1 {
-    background:linear-gradient(135deg, #f1f5f9 0%, var(--primary-light) 100%);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
-}
+.header h1 { color:var(--header-color); font-weight:900; font-size:clamp(20px,5.5vw,28px); margin-bottom:6px; line-height:1.3; font-family:'El Messiri',sans-serif; background:linear-gradient(135deg, var(--header-color) 0%, var(--primary-color) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; letter-spacing:-0.3px; }
+html.dark-mode .header h1 { background:linear-gradient(135deg, #f1f5f9 0%, var(--primary-light) 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
 .dynamic-greeting { color:var(--primary-color); font-size:clamp(12.5px,3.4vw,14px); font-weight:700; margin:0; opacity:0.9; }
-
-/* ============ META ROW ============ */
-.meta-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin: 16px auto 20px;
-    max-width: 1200px;
-}
-
-/* ============ HERO STATS ============ */
+.meta-row { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin: 16px auto 20px; max-width: 1200px; }
 .hero-stats { display:inline-flex; align-items:center; gap:4px; padding:6px 8px; background:var(--card-bg); border:1px solid var(--border-color); border-radius:50px; box-shadow:0 1px 3px rgba(15, 23, 42, 0.05) !important; width:fit-content; max-width:100%; position:relative; overflow:hidden; }
 .hero-stats .stat-item { display:flex; align-items:center; gap:9px; padding:7px 14px; border-radius:40px; position:relative; z-index:1; }
 .hero-stats .stat-icon { width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; box-shadow:none !important; }
@@ -231,71 +159,33 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
 .hero-stats .stat-number { font-size:15px; font-weight:800; color:var(--header-color); font-family:'El Messiri',sans-serif; }
 .hero-stats .stat-label { font-size:10.5px; color:var(--text-muted); font-weight:700; }
 .hero-stats .stat-divider { width:1px; height:26px; background:var(--border-color); margin:0 2px; flex-shrink:0; border-radius:2px; }
-
 .last-update-badge { display:inline-flex; align-items:center; justify-content:center; gap:6px; color:var(--text-muted); font-size:11.5px; font-weight:700; padding:6px 14px; background:var(--input-bg); border:1px dashed var(--border-color); border-radius:50px; width:fit-content; box-shadow:none !important; }
 .last-update-badge i { color:#10b981; font-size:8px; animation:clockPulse 2s ease-in-out infinite; }
 @keyframes clockPulse { 0%,100% { opacity:1; } 50% { opacity:0.4; } }
-
-/* ============ BOXES ============ */
 .extra-box { position:relative; background:var(--card-bg); padding:22px; border-radius:var(--radius-box); border:1px solid var(--border-color); box-shadow:var(--shadow-sm); margin-top:35px; width:100%; transition:background-color 0.4s ease, border-color 0.4s ease, box-shadow 0.3s ease; }
 .extra-box:hover { box-shadow:var(--shadow-md); }
-.section-tab {
-    position:absolute; bottom:100%; right:20px; margin:0;
-    background:linear-gradient(180deg, var(--border-color), color-mix(in srgb, var(--border-color) 80%, var(--primary-color)));
-    color:var(--header-color); padding:5px 18px; font-size:13px; font-weight:800;
-    border-radius:12px 12px 0 0; letter-spacing:0.3px; font-family:'El Messiri',sans-serif;
-    cursor:pointer; display:flex; align-items:center; gap:6px; user-select:none;
-}
+.section-tab { position:absolute; bottom:100%; right:20px; margin:0; background:linear-gradient(180deg, var(--border-color), color-mix(in srgb, var(--border-color) 80%, var(--primary-color))); color:var(--header-color); padding:5px 18px; font-size:13px; font-weight:800; border-radius:12px 12px 0 0; letter-spacing:0.3px; font-family:'El Messiri',sans-serif; cursor:pointer; display:flex; align-items:center; gap:6px; user-select:none; }
 .extra-box-content { display:none; padding-top:6px; }
 .extra-box.open .extra-box-content { display:block; }
-
-/* ============ STICKY BAR ============ */
-.sticky-glass-bar {
-    position:sticky; top:max(10px, env(safe-area-inset-top)); z-index:100;
-    background:var(--glass-bg); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%);
-    padding:14px; border-radius:var(--radius-box);
-    border:1px solid var(--border-color);
-    box-shadow:0 1px 3px rgba(15, 23, 42, 0.05) !important;
-    margin:0 auto 24px auto; width:100%; max-width:1050px;
-    display:flex; flex-direction:column; gap:12px;
-}
+.sticky-glass-bar { position:sticky; top:max(10px, env(safe-area-inset-top)); z-index:100; background:var(--glass-bg); backdrop-filter:blur(20px) saturate(180%); -webkit-backdrop-filter:blur(20px) saturate(180%); padding:14px; border-radius:var(--radius-box); border:1px solid var(--border-color); box-shadow:0 1px 3px rgba(15, 23, 42, 0.05) !important; margin:0 auto 24px auto; width:100%; max-width:1050px; display:flex; flex-direction:column; gap:12px; }
 .top-row { display:flex; gap:10px; align-items:center; width:100%; flex-wrap:nowrap; }
 .search-wrapper { position:relative; flex:1; min-width:0; }
-.search-box {
-    width:100%;
-    padding:13px 44px 13px 16px;
-    font-size:15px; font-family:'Cairo',sans-serif; font-weight:600;
-    border-radius:var(--radius-input);
-    border:1.5px solid var(--input-border);
-    background-color:var(--input-bg); color:var(--text-color);
-    transition:all 0.25s ease;
-    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>");
-    background-repeat:no-repeat; background-position:right 15px center;
-}
+.search-box { width:100%; padding:13px 44px 13px 16px; font-size:15px; font-family:'Cairo',sans-serif; font-weight:600; border-radius:var(--radius-input); border:1.5px solid var(--input-border); background-color:var(--input-bg); color:var(--text-color); transition:all 0.25s ease; background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><circle cx='11' cy='11' r='7'/><line x1='21' y1='21' x2='16.65' y2='16.65'/></svg>"); background-repeat:no-repeat; background-position:right 15px center; }
 [dir="ltr"] .search-box { padding:13px 16px 13px 44px; background-position:left 15px center; }
 .search-box:focus { outline:none; border-color:var(--primary-color); background-color:var(--card-bg); box-shadow:0 0 0 4px rgba(var(--primary-rgb),0.1); }
 .search-box::placeholder { color:var(--text-muted); font-weight:500; }
-
 .search-suggestions { position:absolute; top:calc(100% + 6px); left:0; right:0; background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-input); box-shadow:var(--shadow-lg); z-index:300; max-height:320px; overflow-y:auto; display:none; }
 .search-suggestions.show { display:block; }
 .suggestion-item { padding:11px 15px; cursor:pointer; border-bottom:1px solid var(--border-soft); font-size:13px; font-weight:600; display:flex; align-items:center; gap:10px; }
 .suggestion-item:last-child { border-bottom:none; }
 .suggestion-item:hover { background:var(--input-bg); color:var(--primary-color); }
 .suggestion-icon { color:var(--primary-color); font-size:13px; flex-shrink:0; }
-
 .view-toggles { display:flex; gap:4px; background:var(--input-bg); padding:4px; border-radius:var(--radius-input); border:1.5px solid var(--border-color); flex-shrink:0; }
 .view-btn { background:transparent; border:none; color:var(--text-muted); width:38px; height:38px; border-radius:calc(var(--radius-input) - 3px); cursor:pointer; transition:all 0.25s ease; font-size:15px; display:flex; justify-content:center; align-items:center; }
 .view-btn:hover { color:var(--primary-color); background:rgba(var(--primary-rgb),0.06); }
 .view-btn.active { background:var(--card-bg); color:var(--primary-color); box-shadow:0 1px 3px rgba(var(--primary-rgb),0.15); }
-
 .action-btns-group { display:flex; gap:8px; width:100%; flex-wrap:wrap; }
-.fav-toggle-btn, .filters-toggle-btn, .reset-btn {
-    flex:1; padding:0 15px; border-radius:var(--radius-input);
-    border:1.5px solid; background:transparent; font-family:'Cairo',sans-serif;
-    font-weight:800; cursor:pointer; transition:all 0.25s ease;
-    display:flex; align-items:center; justify-content:center; gap:7px;
-    font-size:13px; height:44px; min-width:100px;
-}
+.fav-toggle-btn, .filters-toggle-btn, .reset-btn { flex:1; padding:0 15px; border-radius:var(--radius-input); border:1.5px solid; background:transparent; font-family:'Cairo',sans-serif; font-weight:800; cursor:pointer; transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:7px; font-size:13px; height:44px; min-width:100px; }
 .fav-toggle-btn { border-color:#ef4444; color:#ef4444; }
 .fav-toggle-btn:hover { background:rgba(239,68,68,0.06); }
 .filters-toggle-btn { border-color:var(--primary-color); color:var(--primary-color); }
@@ -304,34 +194,24 @@ html.dark-mode .hero-stats .stat-item:nth-child(3) .stat-icon { background:linea
 .fav-toggle-btn.active { background:#ef4444; color:white; }
 .reset-btn { border-color:var(--border-color); color:var(--text-muted); flex:0; padding:0 22px; }
 .reset-btn:hover { background:var(--input-bg); color:var(--text-color); border-color:var(--text-muted); }
-
 .filter-select { flex:1 1 100%; min-width:0; padding:11px 14px; font-size:14px; font-family:'Cairo',sans-serif; border-radius:var(--radius-input); border:1.5px solid var(--input-border); background-color:var(--input-bg); color:var(--text-color); cursor:pointer; font-weight:600; transition:all 0.25s ease; width:100%; }
 .filter-select:hover { border-color:var(--text-muted); }
 .filter-select:focus { outline:none; border-color:var(--primary-color); box-shadow:0 0 0 4px rgba(var(--primary-rgb),0.1); }
 .sort-select { border-color:var(--primary-color); color:var(--primary-color); background-color:rgba(var(--primary-rgb),0.06); }
-
-/* ============ FILE COUNTER ============ */
 .file-counter { text-align:center; font-size:14px; font-weight:800; color:var(--text-muted); margin-bottom:16px; display:flex; justify-content:center; align-items:center; gap:6px; width:100%; }
 .count-number { color:var(--primary-color); font-size:18px; font-weight:900; }
 .count-number.fav-color { color:#ef4444; }
-
-/* ============ FILES GRID ============ */
 .files-grid { display:grid; grid-template-columns:1fr; gap:18px; max-width:1200px; margin:auto; width:100%; }
-
 @keyframes fadeInUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-
 .file-card { background:var(--card-glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); display:flex; flex-direction:column; position:relative; overflow:hidden; opacity:0; animation:fadeInUp 0.45s cubic-bezier(0.16,1,0.3,1) forwards; width:100%; box-shadow:none !important; transition:border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease; }
 .file-card:hover { border-color: rgba(var(--primary-rgb), 0.4) !important; transform:translateY(-4px); box-shadow:var(--shadow-md) !important; }
 .file-card.is-new { border-color: rgba(239, 68, 68, 0.4) !important; }
-
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible { outline:2px solid var(--primary-color); outline-offset:2px; }
 .btn, .btn-icon, .view-btn, .tool-filter-btn, .load-more-btn { cursor:pointer; }
 .btn:active, .btn-icon:active, .view-btn:active { transform:scale(0.94); }
-
 .card-badge { position:absolute; top:18px; left:-36px; background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; padding:5px 42px; font-size:10.5px; font-weight:800; transform:rotate(-45deg); letter-spacing:0.3px; box-shadow:none !important; }
 .badge-edu { background:linear-gradient(135deg, #fbbf24, #f59e0b); }
 .badge-new { position:absolute; top:14px; right:14px; background:linear-gradient(135deg, #f87171, #ef4444); color:white; padding:4px 10px; border-radius:20px; font-size:10px; font-weight:800; box-shadow:none !important; }
-
 .file-card h3 { margin:22px 0 8px 0; font-size:17px; color:var(--header-color); line-height:1.45; font-weight:800; word-break:break-word; }
 .subject-name { color:var(--primary-color); font-weight:800; font-size:13px; margin-bottom:14px; display:flex; align-items:center; gap:5px; }
 .file-info { font-size:12px; color:var(--text-muted); margin-bottom:8px; display:flex; align-items:center; border-bottom:1px dashed var(--border-soft); padding-bottom:7px; font-weight:500; word-break:break-word; }
@@ -341,40 +221,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .download-count-pill { display:inline-flex; align-items:center; gap:4px; background:rgba(239,68,68,0.1); color:#ef4444; padding:3px 9px; border-radius:20px; font-size:10px; font-weight:800; }
 .popularity-bar { width:100%; height:4px; background:var(--input-bg); border-radius:4px; overflow:hidden; margin-top:-4px; margin-bottom:14px; }
 .popularity-bar-fill { height:100%; background:linear-gradient(90deg, #f59e0b, #ef4444); border-radius:4px; transition:width 0.6s ease; }
-
 .highlight { background-color:var(--highlight-bg); color:var(--highlight-text); padding:0 3px; border-radius:4px; font-weight:800; }
-
 .card-actions { display:flex; gap:8px; margin-top:auto; width:100%; }
 .btn { flex:1; text-align:center; padding:11px 8px; border-radius:calc(var(--radius-input) - 2px); text-decoration:none; font-weight:800; font-size:13px; font-family:'Cairo',sans-serif; transition:filter 0.25s ease; border:none; display:flex; align-items:center; justify-content:center; gap:6px; cursor:pointer; box-shadow:none !important; }
 .btn-view { background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; }
 .btn-down { background:linear-gradient(135deg, #10b981, #059669); color:white; }
 .btn-view:hover, .btn-down:hover { filter: brightness(1.08); }
 .btn-view::after, .btn-down::after { display:none; }
-
 .icon-actions { display:flex; gap:8px; margin-top:10px; justify-content:center; width:100%; }
 .btn-icon { background:var(--input-bg); color:var(--text-muted); border:1.5px solid var(--border-color); width:42px; height:42px; flex-shrink:0; display:flex; justify-content:center; align-items:center; border-radius:calc(var(--radius-input) - 2px); cursor:pointer; text-decoration:none; font-size:15px; transition:all 0.25s ease; }
 .btn-icon:hover { color:var(--primary-color); border-color:var(--primary-color); background:rgba(var(--primary-rgb),0.06); }
 .fav-active { color:#ef4444 !important; border-color:#ef4444 !important; background:rgba(239,68,68,0.08) !important; }
-
 .more-menu-popup { display:none; position:fixed; background:var(--card-bg); border:1px solid var(--border-color); border-radius:var(--radius-input); box-shadow:var(--shadow-lg); z-index:500; overflow:hidden; min-width:220px; }
 .more-menu-popup.show { display:block; }
 .more-menu-popup button { display:flex; align-items:center; gap:8px; width:100%; padding:13px 15px; background:transparent; border:none; text-align:right; font-family:'Cairo',sans-serif; font-size:13px; font-weight:700; color:var(--text-color); cursor:pointer; transition:background 0.15s; }
 .more-menu-popup button:hover { background:var(--input-bg); }
-
 #scrollTopBtn { position:fixed; bottom:28px; right:28px; background:linear-gradient(135deg, var(--primary-light), var(--primary-color)); color:white; border:none; width:50px; height:50px; border-radius:50%; cursor:pointer; font-size:19px; box-shadow:0 2px 6px rgba(15, 23, 42, 0.15) !important; display:none; justify-content:center; align-items:center; z-index:1000; transition:transform 0.25s ease; }
 #scrollTopBtn:hover { transform:translateY(-2px) !important; }
 @media (max-width:768px) { #scrollTopBtn { bottom:20px; right:20px; width:46px; height:46px; font-size:17px; } }
-
 .load-more-btn { display:block; margin:26px auto 10px auto; padding:12px 28px; background:transparent; color:var(--primary-color); border:2px solid var(--primary-color); border-radius:50px; font-family:'Cairo',sans-serif; font-size:14px; font-weight:800; cursor:pointer; text-align:center; width:100%; max-width:260px; transition:all 0.25s ease; display:flex; align-items:center; justify-content:center; gap:8px; }
 .load-more-btn:hover { background:var(--primary-color); color:white; }
-
 .empty-state { text-align:center; padding:50px 20px; background:var(--input-bg); border-radius:var(--radius-box); border:2px dashed var(--border-color); width:100%; }
 .empty-title { font-size:18px; color:var(--header-color); font-weight:800; margin-bottom:8px; font-family:'El Messiri',sans-serif; }
 .empty-desc { color:var(--text-muted); font-size:13px; font-weight:600; line-height:1.6; max-width:350px; margin:0 auto; }
-
 #toast { visibility:hidden; max-width:calc(100vw - 40px); min-width:220px; background:linear-gradient(135deg, #1e293b, #0f172a); color:#fff; text-align:center; border-radius:50px; padding:12px 22px; position:fixed; z-index:1001; left:50%; bottom:max(20px, env(safe-area-inset-bottom)); transform:translateX(-50%); font-size:13px; font-weight:700; box-shadow:0 12px 30px rgba(0,0,0,0.3); opacity:0; font-family:'Cairo',sans-serif; border:1px solid rgba(255,255,255,0.1); transition:opacity 0.3s, bottom 0.3s, transform 0.3s; }
 #toast.show { visibility:visible; opacity:1; bottom:max(30px, calc(env(safe-area-inset-bottom) + 10px)); }
-
 .skeleton-card { background:var(--card-bg); padding:20px; border-radius:var(--radius-card); border:1px solid var(--border-color); height:270px; width:100%; }
 .skeleton-pulse { animation:skeleton-loading 1.4s ease-in-out infinite; border-radius:8px; background:linear-gradient(90deg, var(--skeleton-a), var(--skeleton-b), var(--skeleton-a)); background-size:200% 100%; }
 @keyframes skeleton-loading { 0% { background-position:200% 0; } 100% { background-position:-200% 0; } }
@@ -384,7 +255,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .sk-line { height:12px; width:90%; margin-bottom:10px; }
 .sk-btns { height:40px; width:100%; margin-top:26px; display:flex; gap:8px; }
 .sk-btn { flex:1; height:100%; }
-
 .extras-container { display:grid; grid-template-columns:1fr; gap:20px; max-width:1200px; margin:30px auto 0 auto; width:100%; }
 .tools-search-wrapper { position:relative; max-width:500px; margin:0 auto 20px auto; width:100%; }
 .tools-search-icon { position:absolute; right:15px; top:50%; transform:translateY(-50%); color:var(--text-muted); font-size:15px; }
@@ -402,14 +272,12 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .tool-title { font-size:1rem; font-weight:800; color:var(--header-color); margin-bottom:6px; }
 .tool-desc { font-size:0.85rem; color:var(--text-muted); line-height:1.55; margin-bottom:10px; flex-grow:1; font-weight:500; }
 .tool-link-text { color:var(--primary-color); font-size:0.8rem; font-weight:800; display:flex; align-items:center; gap:5px; }
-
 .about-box { text-align:center; width:100%; }
 .about-desc { color:var(--text-muted); font-size:0.95rem; line-height:1.75; margin:0 auto 15px auto; font-weight:600; }
 .problems-grid { display:grid; grid-template-columns:1fr; gap:14px; margin-top:22px; text-align:right; width:100%; }
 .problem-card { background:var(--input-bg); padding:16px; border-radius:var(--radius-card); border:1px solid var(--border-color); width:100%; }
 .problem-card h4 { color:var(--header-color); font-size:15px; margin-bottom:6px; font-weight:800; display:flex; align-items:center; gap:6px; }
 .problem-card p { color:var(--text-muted); font-size:12.5px; line-height:1.6; margin:0; font-weight:600; }
-
 .contact-text, .policy-list { color:var(--text-muted); line-height:1.7; font-size:13px; margin-bottom:12px; font-weight:600; }
 .policy-list { text-align:right; padding-right:18px; }
 .faq-box { width:100%; text-align:right; }
@@ -422,9 +290,8 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .tools-links { display:flex; justify-content:center; gap:8px; flex-wrap:wrap; margin-top:14px; width:100%; }
 .tool-link { padding:11px 18px; border-radius:50px; text-decoration:none; font-size:13px; font-weight:800; font-family:'Cairo',sans-serif; transition:all 0.25s ease; }
 .tool-link:hover { transform:translateY(-2px); }
-
 .files-grid.list-view { display:flex; flex-direction:column; gap:14px; }
-.files-grid.list-view .file-card { flex-direction:row; flex-wrap:wrap; padding:18px 22px; align-items:center; justify-content:space-between; gap:16px; }
+.files-grid.list-view .file-card { flex-direction:row; flex-wrap:wrap; padding:18px 22px; align-items:center; justify-content:space-between; gap:16px; opacity:1; animation:none; }
 .files-grid.list-view .card-badge { display:none; }
 .files-grid.list-view .badge-new { position:static; display:inline-block; margin-inline-start:10px; }
 .files-grid.list-view .file-card > div.content-area { flex:1 1 40%; min-width:250px; }
@@ -435,7 +302,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .files-grid.list-view .file-info { margin-bottom:4px; padding:0; border:none; }
 .files-grid.list-view .file-date { margin:0; }
 .files-grid.list-view .card-actions, .files-grid.list-view .icon-actions { margin:0; width:auto; justify-content:flex-end; }
-
 .modal-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.65); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); z-index:2000; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; padding:15px; }
 .modal-content { background:var(--card-bg); padding:30px 22px; border-radius:24px; text-align:center; max-width:340px; width:90%; box-shadow:var(--shadow-lg); transform:scale(0.9); transition:transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275); position:relative; border:1px solid var(--border-color); }
 .modal-overlay.show { opacity:1; }
@@ -445,7 +311,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 #qrcode { margin:20px auto; display:flex; justify-content:center; padding:15px; background:white; border-radius:14px; border:1px solid var(--border-color); }
 .modal-title { font-size:16px; font-weight:800; color:var(--header-color); margin-bottom:6px; font-family:'El Messiri',sans-serif; }
 .modal-desc { font-size:12.5px; color:var(--text-muted); font-weight:600; }
-
 .install-prompt-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.75); backdrop-filter:blur(6px); z-index:3000; align-items:flex-end; justify-content:center; opacity:0; transition:opacity 0.4s; padding:15px; }
 .install-prompt-overlay.show { display:flex; opacity:1; }
 .install-prompt-box { background:var(--card-bg); padding:28px 22px; border-radius:24px; width:100%; max-width:400px; box-shadow:0 -10px 50px rgba(0,0,0,0.25); transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275); position:relative; text-align:center; border:2px solid var(--primary-color); }
@@ -454,10 +319,7 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .install-prompt-box h3 { margin:0 0 8px 0; font-size:19px; color:var(--header-color); font-weight:800; font-family:'El Messiri',sans-serif; }
 .install-prompt-box p { margin:0 0 15px 0; font-size:13px; color:var(--text-muted); line-height:1.65; font-weight:600; }
 .install-instructions { background:var(--input-bg); padding:14px; border-radius:var(--radius-input); font-size:13px; color:var(--text-color); border:1.5px dashed var(--border-color); font-weight:700; }
-
 .search-row { display:flex; flex-wrap:wrap; gap:10px; width:100%; align-items:center; }
-
-/* ============ RECENT SECTION ============ */
 #recentSection { display:none; margin-bottom:18px; }
 .recent-header { display:flex; align-items:center; justify-content:space-between; padding:11px 16px; background:var(--card-bg); border:1.5px solid var(--border-color); border-radius:var(--radius-box); cursor:pointer; user-select:none; transition:border-color 0.25s ease; }
 .recent-header:hover { border-color:var(--primary-color); }
@@ -466,8 +328,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .recent-header.open .recent-toggle-icon { transform:rotate(180deg); }
 #recentBody { display:none; margin-top:12px; }
 #recentBody.open { display:block; }
-
-/* ============ CONTRIBUTORS ============ */
 .contributors-list { display:grid; grid-template-columns:1fr; gap:10px; }
 .contributor-item { display:flex; align-items:center; gap:12px; background:var(--input-bg); padding:13px 16px; border-radius:var(--radius-card); border:1px solid var(--border-color); }
 .contributor-item.top-1 { background:linear-gradient(135deg, rgba(251,191,36,0.15), rgba(251,191,36,0.04)); border-color:#fbbf24; }
@@ -479,8 +339,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .contributor-item.top-1 .contributor-count { background:#f59e0b; }
 .contributor-item.top-2 .contributor-count { background:#64748b; }
 .contributor-item.top-3 .contributor-count { background:#d97706; }
-
-/* ============ SETTINGS MODAL ============ */
 .settings-modal-overlay { display:none; position:fixed; inset:0; background:rgba(15,23,42,0.72); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:5000; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s ease; padding:12px; }
 .settings-modal-overlay.show { display:flex; opacity:1; }
 .settings-modal-box { background:var(--card-bg); border-radius:20px; width:100%; max-width:540px; max-height:92vh; min-height:420px; display:flex; flex-direction:column; transform:scale(0.92) translateY(10px); transition:transform 0.3s cubic-bezier(0.175,0.885,0.32,1.275); border:1px solid var(--border-color); box-shadow:var(--shadow-lg); overflow:hidden; }
@@ -518,81 +376,15 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
 .settings-action-btn:hover { border-color:var(--primary-color); color:var(--primary-color); }
 .settings-action-btn.danger { color:#ef4444; }
 .settings-action-btn.danger:hover { border-color:#ef4444; background:rgba(239,68,68,0.05); }
-
 #settingsToggleBtn { position:relative; }
-
-/* ============ MAKER CREDIT ============ */
-.maker-credit {
-    text-align: center;
-    margin: 45px auto 25px;
-    padding: 18px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    color: var(--text-muted);
-    font-size: 12.5px;
-    font-weight: 700;
-    opacity: 0.9;
-    max-width: 500px;
-    width: 100%;
-    border-top: 1px dashed var(--border-color);
-    animation: makerFadeIn 0.6s ease-out;
-}
-@keyframes makerFadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 0.9; transform: translateY(0); } }
-.maker-credit .maker-line {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.maker-credit .heart-icon {
-    display: inline-block;
-    color: #ef4444;
-    font-size: 13px;
-    animation: heartbeat 1.8s ease-in-out infinite;
-}
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.22); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.15); }
-    60% { transform: scale(1); }
-}
-.maker-credit .maker-name {
-    font-family: 'El Messiri', sans-serif;
-    font-weight: 800;
-    font-size: 15px;
-    color: var(--primary-color);
-    letter-spacing: 0.6px;
-    padding: 3px 12px;
-    border-radius: 20px;
-    background: rgba(var(--primary-rgb), 0.08);
-    border: 1px solid rgba(var(--primary-rgb), 0.15);
-    transition: all 0.3s ease;
-    direction: ltr;
-    display: inline-block;
-}
-.maker-credit .maker-name:hover {
-    background: rgba(var(--primary-rgb), 0.15);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2);
-}
-.maker-credit .maker-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    opacity: 0.75;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-}
-@media (max-width: 500px) {
-    .maker-credit { margin: 35px auto 20px; padding: 15px 12px; font-size: 11.5px; }
-    .maker-credit .maker-name { font-size: 14px; padding: 2px 10px; }
-    .maker-credit .maker-sub { font-size: 10.5px; }
-}
-
-/* ============ RESPONSIVE ============ */
+.maker-credit { text-align: center; margin: 45px auto 25px; padding: 18px 20px; display: flex; flex-direction: column; align-items: center; gap: 6px; color: var(--text-muted); font-size: 12.5px; font-weight: 700; opacity: 0.9; max-width: 500px; width: 100%; border-top: 1px dashed var(--border-color); }
+.maker-credit .maker-line { display: inline-flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+.maker-credit .heart-icon { display: inline-block; color: #ef4444; font-size: 13px; animation: heartbeat 1.8s ease-in-out infinite; }
+@keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.22); } 30% { transform: scale(1); } 45% { transform: scale(1.15); } 60% { transform: scale(1); } }
+.maker-credit .maker-name { font-family: 'El Messiri', sans-serif; font-weight: 800; font-size: 15px; color: var(--primary-color); letter-spacing: 0.6px; padding: 3px 12px; border-radius: 20px; background: rgba(var(--primary-rgb), 0.08); border: 1px solid rgba(var(--primary-rgb), 0.15); transition: all 0.3s ease; direction: ltr; display: inline-block; }
+.maker-credit .maker-name:hover { background: rgba(var(--primary-rgb), 0.15); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(var(--primary-rgb), 0.2); }
+.maker-credit .maker-sub { font-size: 11px; color: var(--text-muted); opacity: 0.75; font-weight: 600; letter-spacing: 0.3px; }
+@media (max-width: 500px) { .maker-credit { margin: 35px auto 20px; padding: 15px 12px; font-size: 11.5px; } .maker-credit .maker-name { font-size: 14px; padding: 2px 10px; } .maker-credit .maker-sub { font-size: 10.5px; } }
 @media (min-width:640px) {
     .files-grid, .tools-grid { grid-template-columns:repeat(2,1fr); }
     .filter-select { flex:1 1 calc(50% - 10px); }
@@ -609,7 +401,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     .filter-select { flex:1 1 calc(25% - 10px); }
     html, body { padding:20px; }
     .contributors-list { grid-template-columns:repeat(3,1fr); }
-    
     .hero-stats { padding:8px 12px; gap:6px; }
     .hero-stats .stat-item { padding:9px 18px; gap:11px; }
     .hero-stats .stat-icon { width:36px; height:36px; font-size:14px; }
@@ -617,7 +408,6 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     .hero-stats .stat-label { font-size:11.5px; }
     .hero-stats .stat-divider { height:32px; }
     .last-update-badge { padding:8px 16px; font-size:12.5px; }
-    
     .header h1 { font-size:32px; }
     .dynamic-greeting { font-size:15px; }
 }
@@ -656,10 +446,9 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     .hero-stats .stat-label { font-size:9px; }
     .last-update-badge { font-size:10.5px; padding:4px 11px; }
 }
-
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior:auto; }
-    .file-card, .skeleton-pulse { animation:none; opacity:1; }
+    .file-card, .skeleton-pulse { animation:none; opacity:1 !important; }
     .file-card:hover, .tool-item-card:hover { transform:none !important; }
     .maker-credit .heart-icon { animation:none; }
 }
@@ -671,75 +460,70 @@ html.perf-mode .tool-item-card:hover, html.no-anim .tool-item-card:hover { trans
     body { background:white; color:black; }
     .file-card { break-inside:avoid; border:1px solid #ccc; box-shadow:none; opacity:1 !important; animation:none !important; }
 }
-
 body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important; }
 #customCursor { position:fixed; top:0; left:0; width:10px; height:10px; border-radius:50%; background:var(--primary-color); pointer-events:none; z-index:9999; transform:translate(-50%, -50%); transition:width 0.15s ease, height 0.15s ease, background 0.15s ease, opacity 0.2s ease; opacity:0; }
 #customCursor.visible { opacity:1; }
 #customCursor.hovering { width:26px; height:26px; background:rgba(var(--primary-rgb),0.25); border:2px solid var(--primary-color); }
-
 @supports (scrollbar-width:thin) { html { scrollbar-width:thin; scrollbar-color:var(--border-color) transparent; } }
 </style>
 </head>
 <body>
 <div id="customCursor"></div>
-
 <div id="moreMenuPopup" class="more-menu-popup">
-    <button onclick="moreMenuAction('qr')"><i class="fa-solid fa-qrcode"></i> عرض رمز QR</button>
-    <button onclick="moreMenuAction('report')"><i class="fa-solid fa-triangle-exclamation"></i> إبلاغ عن رابط معطل</button>
+    <button onclick="moreMenuAction('qr')"><i class="fa-solid fa-qrcode"></i> <span data-i18n="menuQR">عرض رمز QR</span></button>
+    <button onclick="moreMenuAction('report')"><i class="fa-solid fa-triangle-exclamation"></i> <span data-i18n="menuReport">إبلاغ عن رابط معطل</span></button>
 </div>
 
 <div id="settingsModal" class="settings-modal-overlay" onclick="if(event.target===this)closeSettingsModal()">
     <div class="settings-modal-box">
         <div class="settings-modal-header">
             <h2><i class="fa-solid fa-sliders"></i> <span data-i18n="settingsTitle">الإعدادات</span></h2>
-            <button class="settings-close-btn" onclick="closeSettingsModal()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+            <button class="settings-close-btn" onclick="closeSettingsModal()" title="إغلاق"><i class="fa-solid fa-xmark"></i></button>
         </div>
         <div class="settings-modal-body">
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-palette"></i> المظهر</h3>
+                <h3><i class="fa-solid fa-palette"></i> <span data-i18n="setSectionAppearance">المظهر</span></h3>
                 <div class="settings-row">
                     <label data-i18n="setTheme">الوضع</label>
                     <select class="settings-select" id="setDarkMode" onchange="applySetting('darkMode', this.value)">
-                        <option value="auto">🌗 تلقائي</option>
-                        <option value="on">🌙 مفعّل</option>
-                        <option value="off">☀️ معطّل</option>
+                        <option value="auto" data-i18n="darkAuto">🌗 تلقائي</option>
+                        <option value="on" data-i18n="darkOn">🌙 مفعّل</option>
+                        <option value="off" data-i18n="darkOff">☀️ معطّل</option>
                     </select>
                 </div>
                 <div class="settings-row">
                     <label data-i18n="setColor">اللون الأساسي</label>
                     <div class="color-swatches" id="colorSwatches">
-                        <div class="color-swatch" data-color="blue" style="background:#2563eb;" onclick="setColor('blue')" title="أزرق"></div>
-                        <div class="color-swatch" data-color="green" style="background:#059669;" onclick="setColor('green')" title="أخضر"></div>
-                        <div class="color-swatch" data-color="purple" style="background:#7c3aed;" onclick="setColor('purple')" title="بنفسجي"></div>
-                        <div class="color-swatch" data-color="red" style="background:#dc2626;" onclick="setColor('red')" title="أحمر"></div>
-                        <div class="color-swatch" data-color="orange" style="background:#ea580c;" onclick="setColor('orange')" title="برتقالي"></div>
-                        <div class="color-swatch" data-color="gold" style="background:#d97706;" onclick="setColor('gold')" title="ذهبي"></div>
+                        <div class="color-swatch" data-color="blue" style="background:#2563eb;" onclick="setColor('blue')"></div>
+                        <div class="color-swatch" data-color="green" style="background:#059669;" onclick="setColor('green')"></div>
+                        <div class="color-swatch" data-color="purple" style="background:#7c3aed;" onclick="setColor('purple')"></div>
+                        <div class="color-swatch" data-color="red" style="background:#dc2626;" onclick="setColor('red')"></div>
+                        <div class="color-swatch" data-color="orange" style="background:#ea580c;" onclick="setColor('orange')"></div>
+                        <div class="color-swatch" data-color="gold" style="background:#d97706;" onclick="setColor('gold')"></div>
                     </div>
                 </div>
                 <div class="settings-row">
                     <label data-i18n="setRadius">استدارة الحواف</label>
                     <div class="radius-buttons" id="radiusButtons">
-                        <button class="radius-btn" data-radius="sharp" onclick="setRadius('sharp')">حادة</button>
-                        <button class="radius-btn" data-radius="normal" onclick="setRadius('normal')">عادية</button>
-                        <button class="radius-btn" data-radius="round" onclick="setRadius('round')">دائرية</button>
+                        <button class="radius-btn" data-radius="sharp" onclick="setRadius('sharp')" data-i18n="radiusSharp">حادة</button>
+                        <button class="radius-btn" data-radius="normal" onclick="setRadius('normal')" data-i18n="radiusNormal">عادية</button>
+                        <button class="radius-btn" data-radius="round" onclick="setRadius('round')" data-i18n="radiusRound">دائرية</button>
                     </div>
                 </div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-eye"></i> العرض والقراءة</h3>
+                <h3><i class="fa-solid fa-eye"></i> <span data-i18n="setSectionDisplay">العرض والقراءة</span></h3>
                 <div class="settings-row">
                     <label data-i18n="setFontSize">حجم الخط</label>
                     <div style="display:flex;gap:6px;">
-                        <button class="btn-icon" style="width:36px;height:36px;" onclick="decreaseFontSize()" title="تصغير"><i class="fa-solid fa-minus"></i></button>
-                        <button class="btn-icon" style="width:36px;height:36px;" onclick="increaseFontSize()" title="تكبير"><i class="fa-solid fa-plus"></i></button>
+                        <button class="btn-icon" style="width:36px;height:36px;" onclick="decreaseFontSize()"><i class="fa-solid fa-minus"></i></button>
+                        <button class="btn-icon" style="width:36px;height:36px;" onclick="increaseFontSize()"><i class="fa-solid fa-plus"></i></button>
                     </div>
                 </div>
                 <div class="settings-row">
                     <label data-i18n="setCardsPerRow">عدد البطاقات في الصف</label>
                     <select class="settings-select" id="setCardsPerRow" onchange="applySetting('cards', this.value)">
-                        <option value="auto">تلقائي</option>
+                        <option value="auto" data-i18n="cardsAuto">تلقائي</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -747,40 +531,36 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                     </select>
                 </div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-list-check"></i> إظهار/إخفاء العناصر</h3>
-                <div class="settings-row"><label>📊 شريط الإحصائيات</label><div class="settings-switch" id="sw_hide_stats" onclick="toggleSetting('hide_stats', this)"></div></div>
-                <div class="settings-row"><label>🕒 شارة آخر تحديث</label><div class="settings-switch" id="sw_hide_update" onclick="toggleSetting('hide_update', this)"></div></div>
-                <div class="settings-row"><label>👁️ قسم "شوهد مؤخراً"</label><div class="settings-switch" id="sw_hide_recent" onclick="toggleSetting('hide_recent', this)"></div></div>
-                <div class="settings-row"><label>🏆 قسم أكثر المساهمين</label><div class="settings-switch" id="sw_hide_contributors" onclick="toggleSetting('hide_contributors', this)"></div></div>
-                <div class="settings-row"><label>🛠️ مكتبة الأدوات</label><div class="settings-switch" id="sw_hide_tools" onclick="toggleSetting('hide_tools', this)"></div></div>
-                <div class="settings-row"><label>🌟 قسم "عن المنصة"</label><div class="settings-switch" id="sw_hide_about" onclick="toggleSetting('hide_about', this)"></div></div>
-                <div class="settings-row"><label>❓ الأسئلة الشائعة</label><div class="settings-switch" id="sw_hide_faq" onclick="toggleSetting('hide_faq', this)"></div></div>
-                <div class="settings-row"><label>🏷️ الشارات</label><div class="settings-switch" id="sw_hide_badges" onclick="toggleSetting('hide_badges', this)"></div></div>
+                <h3><i class="fa-solid fa-list-check"></i> <span data-i18n="setSectionVisibility">إظهار/إخفاء العناصر</span></h3>
+                <div class="settings-row"><label data-i18n="visStats">📊 شريط الإحصائيات</label><div class="settings-switch" id="sw_hide_stats" onclick="toggleSetting('hide_stats', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visUpdate">🕒 شارة آخر تحديث</label><div class="settings-switch" id="sw_hide_update" onclick="toggleSetting('hide_update', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visRecent">👁️ قسم "شوهد مؤخراً"</label><div class="settings-switch" id="sw_hide_recent" onclick="toggleSetting('hide_recent', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visContributors">🏆 قسم أكثر المساهمين</label><div class="settings-switch" id="sw_hide_contributors" onclick="toggleSetting('hide_contributors', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visTools">🛠️ مكتبة الأدوات</label><div class="settings-switch" id="sw_hide_tools" onclick="toggleSetting('hide_tools', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visAbout">🌟 قسم "عن المنصة"</label><div class="settings-switch" id="sw_hide_about" onclick="toggleSetting('hide_about', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visFaq">❓ الأسئلة الشائعة</label><div class="settings-switch" id="sw_hide_faq" onclick="toggleSetting('hide_faq', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visBadges">🏷️ الشارات</label><div class="settings-switch" id="sw_hide_badges" onclick="toggleSetting('hide_badges', this)"></div></div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> الحركات والمؤثرات</h3>
-                <div class="settings-row"><label>✨ الحركات والانتقالات</label><div class="settings-switch" id="sw_animations" onclick="toggleSetting('animations', this)"></div></div>
-                <div class="settings-row"><label>🖱️ المؤشر المخصص</label><div class="settings-switch" id="sw_hide_cursor" onclick="toggleSetting('hide_cursor', this)"></div></div>
-                <div class="settings-row"><label>💫 تأثير اللمعان على الأزرار</label><div class="settings-switch" id="sw_hide_shine" onclick="toggleSetting('hide_shine', this)"></div></div>
-                <div class="settings-row"><label>🌑 الظلال على البطاقات</label><div class="settings-switch" id="sw_shadows" onclick="toggleSetting('shadows', this)"></div></div>
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> <span data-i18n="setSectionEffects">الحركات والمؤثرات</span></h3>
+                <div class="settings-row"><label data-i18n="visAnimations">✨ الحركات والانتقالات</label><div class="settings-switch" id="sw_animations" onclick="toggleSetting('animations', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visCursor">🖱️ المؤشر المخصص</label><div class="settings-switch" id="sw_hide_cursor" onclick="toggleSetting('hide_cursor', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visShine">💫 تأثير اللمعان على الأزرار</label><div class="settings-switch" id="sw_hide_shine" onclick="toggleSetting('hide_shine', this)"></div></div>
+                <div class="settings-row"><label data-i18n="visShadows">🌑 الظلال على البطاقات</label><div class="settings-switch" id="sw_shadows" onclick="toggleSetting('shadows', this)"></div></div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-bolt"></i> الأداء</h3>
+                <h3><i class="fa-solid fa-bolt"></i> <span data-i18n="setSectionPerf">الأداء</span></h3>
                 <div class="settings-row">
                     <label style="display:flex; flex-direction:column; gap:2px;">
-                        <span>⚡ وضع الأداء للأجهزة الضعيفة</span>
-                        <small style="font-size:10.5px; color:var(--text-muted); font-weight:600;">يعطّل الظلال والحركات والشفافية لتحسين السرعة</small>
+                        <span data-i18n="visPerf">⚡ وضع الأداء للأجهزة الضعيفة</span>
+                        <small style="font-size:10.5px; color:var(--text-muted); font-weight:600;" data-i18n="visPerfDesc">يعطّل الظلال والحركات والشفافية لتحسين السرعة</small>
                     </label>
                     <div class="settings-switch" id="sw_perf" onclick="toggleSetting('perf', this)"></div>
                 </div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-globe"></i> اللغة</h3>
+                <h3><i class="fa-solid fa-globe"></i> <span data-i18n="setSectionLanguage">اللغة</span></h3>
                 <div class="settings-row">
                     <label data-i18n="setLanguage">اللغة</label>
                     <select class="settings-select" id="setLanguage" onchange="setLanguage(this.value)">
@@ -789,20 +569,18 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                     </select>
                 </div>
             </div>
-
             <div class="settings-section">
-                <h3><i class="fa-solid fa-gears"></i> متقدم</h3>
+                <h3><i class="fa-solid fa-gears"></i> <span data-i18n="setSectionAdvanced">متقدم</span></h3>
                 <div class="settings-actions">
-                    <button class="settings-action-btn" onclick="clearCache()"><i class="fa-solid fa-rotate"></i> تحديث البيانات</button>
-                    <button class="settings-action-btn" onclick="clearRecent()"><i class="fa-solid fa-eye-slash"></i> مسح "شوهد مؤخراً"</button>
-                    <button class="settings-action-btn danger" onclick="clearFavoritesConfirm()"><i class="fa-solid fa-heart-crack"></i> مسح المفضلة</button>
-                    <button class="settings-action-btn" onclick="exportSettings()"><i class="fa-solid fa-file-export"></i> تصدير الإعدادات</button>
-                    <button class="settings-action-btn" onclick="document.getElementById('importSettingsInput').click()"><i class="fa-solid fa-file-import"></i> استيراد الإعدادات</button>
-                    <button class="settings-action-btn danger" onclick="resetSettingsConfirm()"><i class="fa-solid fa-undo"></i> إعادة الضبط</button>
+                    <button class="settings-action-btn" onclick="clearCache()"><i class="fa-solid fa-rotate"></i> <span data-i18n="advRefresh">تحديث البيانات</span></button>
+                    <button class="settings-action-btn" onclick="clearRecent()"><i class="fa-solid fa-eye-slash"></i> <span data-i18n="advClearRecent">مسح "شوهد مؤخراً"</span></button>
+                    <button class="settings-action-btn danger" onclick="clearFavoritesConfirm()"><i class="fa-solid fa-heart-crack"></i> <span data-i18n="advClearFav">مسح المفضلة</span></button>
+                    <button class="settings-action-btn" onclick="exportSettings()"><i class="fa-solid fa-file-export"></i> <span data-i18n="advExport">تصدير الإعدادات</span></button>
+                    <button class="settings-action-btn" onclick="document.getElementById('importSettingsInput').click()"><i class="fa-solid fa-file-import"></i> <span data-i18n="advImport">استيراد الإعدادات</span></button>
+                    <button class="settings-action-btn danger" onclick="resetSettingsConfirm()"><i class="fa-solid fa-undo"></i> <span data-i18n="advReset">إعادة الضبط</span></button>
                 </div>
                 <input type="file" id="importSettingsInput" accept=".json" style="display:none" onchange="importSettings(event)">
             </div>
-
         </div>
     </div>
 </div>
@@ -842,11 +620,11 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 </div>
 
 <div id="toast"></div>
-<button id="scrollTopBtn" onclick="scrollToTop()" title="العودة للأعلى" aria-label="العودة للأعلى"><i class="fa-solid fa-arrow-up"></i></button>
+<button id="scrollTopBtn" onclick="scrollToTop()" aria-label="Top"><i class="fa-solid fa-arrow-up"></i></button>
 
 <div id="installPrompt" class="install-prompt-overlay">
     <div class="install-prompt-box">
-        <button class="close-install" onclick="closeInstallPrompt()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-install" onclick="closeInstallPrompt()"><i class="fa-solid fa-xmark"></i></button>
         <div style="font-size:35px; color:var(--primary-color); margin-bottom:10px;"><i class="fa-solid fa-arrow-down-to-bracket"></i></div>
         <h3 data-i18n="installTitle">أضف الأرشيف لهاتفك!</h3>
         <p data-i18n="installDesc">للوصول السريع لجميع المواد والملخصات بدون الحاجة للمتصفح.</p>
@@ -856,7 +634,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 
 <div id="qrModal" class="modal-overlay">
     <div class="modal-content">
-        <button class="close-modal" onclick="closeQR()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-modal" onclick="closeQR()"><i class="fa-solid fa-xmark"></i></button>
         <h3 class="modal-title" id="qrTitle">—</h3>
         <p class="modal-desc" data-i18n="qrDesc">امسح الباركود بكاميرا الهاتف 📱</p>
         <div id="qrcode"></div>
@@ -865,7 +643,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 
 <div id="exportModal" class="modal-overlay">
     <div class="modal-content" style="max-width:380px;">
-        <button class="close-modal" onclick="closeExportModal()" title="إغلاق" aria-label="إغلاق"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-modal" onclick="closeExportModal()"><i class="fa-solid fa-xmark"></i></button>
         <h3 class="modal-title" data-i18n="exportTitle">📚 شارك مكتبتك الخاصة</h3>
         <p class="modal-desc" style="margin-bottom:15px;" data-i18n="exportDesc">اختر الطريقة الأنسب</p>
         <div id="exportShareOptions" style="display:flex; flex-direction:column; gap:10px;"></div>
@@ -880,20 +658,18 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             <div id="searchSuggestions" class="search-suggestions"></div>
         </div>
         <div class="view-toggles">
-            <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')" title="عرض بطاقات" aria-label="عرض بطاقات"><i class="fa-solid fa-table-cells-large"></i></button>
-            <button id="listViewBtn" class="view-btn" onclick="toggleView('list')" title="عرض قائمة" aria-label="عرض قائمة"><i class="fa-solid fa-list-ul"></i></button>
-            <button id="settingsToggleBtn" class="view-btn" onclick="openSettingsModal()" title="الإعدادات" aria-label="الإعدادات"><i class="fa-solid fa-sliders"></i></button>
+            <button id="gridViewBtn" class="view-btn active" onclick="toggleView('grid')"><i class="fa-solid fa-table-cells-large"></i></button>
+            <button id="listViewBtn" class="view-btn" onclick="toggleView('list')"><i class="fa-solid fa-list-ul"></i></button>
+            <button id="settingsToggleBtn" class="view-btn" onclick="openSettingsModal()"><i class="fa-solid fa-sliders"></i></button>
         </div>
     </div>
-
     <div class="action-btns-group">
-        <button id="filtersToggleBtn" class="filters-toggle-btn" onclick="toggleFiltersPanel()" title="الفلاتر"><i class="fa-solid fa-filter"></i> <span data-i18n="filtersBtn">الفلاتر</span></button>
+        <button id="filtersToggleBtn" class="filters-toggle-btn" onclick="toggleFiltersPanel()"><i class="fa-solid fa-filter"></i> <span data-i18n="filtersBtn">الفلاتر</span></button>
         <button id="favToggleBtn" class="fav-toggle-btn" onclick="toggleFavView()"><span data-i18n="favBtn">🤍 مكتبتي</span></button>
         <button id="exportFavBtn" onclick="exportLibrary()" style="display:none; padding:0 15px; border-radius:var(--radius-input); border:none; background:linear-gradient(135deg, #10b981, #059669); color:white; cursor:pointer; font-family:inherit; font-weight:800; height:44px; display:flex; align-items:center; gap:6px;">
             <i class="fa-solid fa-share-nodes"></i> <span data-i18n="shareBtn">مشاركة</span>
         </button>
     </div>
-
     <div id="filtersPanel" style="display:none;">
         <div class="search-row">
             <select id="sortFilter" class="filter-select sort-select">
@@ -917,15 +693,15 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
             </select>
             <select id="majorFilter" class="filter-select">
                 <option value="الكل" data-i18n="filterMajor">📚 التخصص</option>
-                <option value="لغة عربية">لغة عربية</option>
-                <option value="لغة إنجليزية">لغة إنجليزية</option>
-                <option value="رياضيات">رياضيات</option>
-                <option value="رياضيات باللغة الإنجليزية">رياضيات بالإنجليزية</option>
-                <option value="كيمياء">كيمياء</option>
-                <option value="كيمياء باللغة الإنجليزية">كيمياء بالإنجليزية</option>
-                <option value="فيزياء">فيزياء</option>
-                <option value="بيولوجي">بيولوجي</option>
-                <option value="بيولوجي باللغة الإنجليزية">بيولوجي بالإنجليزية</option>
+                <option value="لغة عربية" data-i18n="majorArabic">لغة عربية</option>
+                <option value="لغة إنجليزية" data-i18n="majorEnglish">لغة إنجليزية</option>
+                <option value="رياضيات" data-i18n="majorMath">رياضيات</option>
+                <option value="رياضيات باللغة الإنجليزية" data-i18n="majorMathEn">رياضيات بالإنجليزية</option>
+                <option value="كيمياء" data-i18n="majorChemistry">كيمياء</option>
+                <option value="كيمياء باللغة الإنجليزية" data-i18n="majorChemistryEn">كيمياء بالإنجليزية</option>
+                <option value="فيزياء" data-i18n="majorPhysics">فيزياء</option>
+                <option value="بيولوجي" data-i18n="majorBiology">بيولوجي</option>
+                <option value="بيولوجي باللغة الإنجليزية" data-i18n="majorBiologyEn">بيولوجي بالإنجليزية</option>
             </select>
             <select id="typeFilter" class="filter-select">
                 <option value="الكل" data-i18n="filterType">🏷️ النوع</option>
@@ -968,7 +744,7 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
 
 <div id="contributorsSection" style="display:none; max-width:1200px; margin:40px auto 0 auto; width:100%;">
     <div class="extra-box open">
-        <h3 class="section-tab" data-i18n="contributorsTitle">🏆 أكثر المساهمين (شكراً لكم)</h3>
+        <h3 class="section-tab" data-i18n="contributorsTitle">🏆 أكثر المساهمين</h3>
         <div class="extra-box-content">
             <p style="color:var(--text-muted); font-size:13px; margin:0 0 15px 0; font-weight:600; line-height:1.6;" data-i18n="contributorsDesc">هؤلاء الطلاب أثروا الأرشيف بأكبر عدد من الملخصات — تكريماً لجهودهم 💙</p>
             <div id="contributorsList" class="contributors-list"></div>
@@ -988,26 +764,26 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
         <div id="toolsContentWrapper" style="display:none; margin-top:25px; border-top:1px dashed var(--border-color); padding-top:25px;">
             <div class="tools-search-wrapper">
                 <i class="fa-solid fa-search tools-search-icon"></i>
-                <input type="text" id="toolsSearchInput" class="tools-search-box" onkeyup="searchTools()">
+                <input type="text" id="toolsSearchInput" class="tools-search-box" onkeyup="searchTools()" data-i18n-ph="toolsSearchPh" placeholder="ابحث في 50 أداة...">
             </div>
             <div class="tools-filters">
-                <button class="tool-filter-btn active" onclick="filterTools('all', this)">الكل (50)</button>
-                <button class="tool-filter-btn" onclick="filterTools('math', this)">📐 رياضيات وعلوم</button>
-                <button class="tool-filter-btn" onclick="filterTools('edu', this)">🧠 تربية وعلم نفس</button>
-                <button class="tool-filter-btn" onclick="filterTools('research', this)">📚 بحث ومراجع</button>
-                <button class="tool-filter-btn" onclick="filterTools('writing', this)">✍️ كتابة</button>
-                <button class="tool-filter-btn" onclick="filterTools('design', this)">🎨 تصميم وعروض</button>
-                <button class="tool-filter-btn" onclick="filterTools('productivity', this)">⏱️ إنتاجية</button>
-                <button class="tool-filter-btn" onclick="filterTools('utilities', this)">🛠️ عامة</button>
+                <button class="tool-filter-btn active" onclick="filterTools('all', this)" data-i18n="toolsAll">الكل (50)</button>
+                <button class="tool-filter-btn" onclick="filterTools('math', this)" data-i18n="toolsMath">📐 رياضيات وعلوم</button>
+                <button class="tool-filter-btn" onclick="filterTools('edu', this)" data-i18n="toolsEdu">🧠 تربية وعلم نفس</button>
+                <button class="tool-filter-btn" onclick="filterTools('research', this)" data-i18n="toolsResearch">📚 بحث ومراجع</button>
+                <button class="tool-filter-btn" onclick="filterTools('writing', this)" data-i18n="toolsWriting">✍️ كتابة</button>
+                <button class="tool-filter-btn" onclick="filterTools('design', this)" data-i18n="toolsDesign">🎨 تصميم وعروض</button>
+                <button class="tool-filter-btn" onclick="filterTools('productivity', this)" data-i18n="toolsProductivity">⏱️ إنتاجية</button>
+                <button class="tool-filter-btn" onclick="filterTools('utilities', this)" data-i18n="toolsUtilities">🛠️ عامة</button>
             </div>
             <div class="tools-grid" id="toolsGrid"></div>
         </div>
     </div>
 
     <div class="extra-box open" id="contributeBox">
-        <h3 class="section-tab">🤝 كيف تساهم معنا؟ (صدقة جارية)</h3>
+        <h3 class="section-tab" data-i18n="contributeTitle">🤝 كيف تساهم معنا؟</h3>
         <div class="extra-box-content">
-            <div class="contact-text">
+            <div class="contact-text" data-i18n="contributeText">
                 الأرشيف يُبنى بجهود الطلاب ولأجل الطلاب. إذا قمت بكتابة ملخص مميز، أو جمعت أسئلة سنوات سابقة، فلا تدعها حبيسة هاتفك! شاركها لتكون صدقة جارية لعلمك وتنقذ بها زميلاً ليلة الامتحان.<br><br>
                 <strong>خطوات المشاركة بسيطة:</strong><br>
                 1. تأكد أن الملف بصيغة PDF أو صور واضحة.<br>
@@ -1015,49 +791,56 @@ body.custom-cursor-active, body.custom-cursor-active * { cursor:none !important;
                 3. أرسل الملف عبر الإيميل المخصص، وسيتم مراجعته ورفعه باسمك.
             </div>
             <div class="tools-links" style="margin-top:15px; flex-direction:column; align-items:center;">
-                <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link" style="background:linear-gradient(135deg, #10b981, #059669); color:white; border:none; width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-file-circle-plus"></i> املأ نموذج رفع الملف (الأسهل)</a>
-                <a href="#" id="contactEmailBtn" class="tool-link" style="background:var(--input-bg); color:var(--header-color); border:1.5px solid var(--border-color); width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-envelope"></i> أو أرسله عبر الجيميل</a>
+                <a href="#" id="contactFormBtn" target="_blank" rel="noopener noreferrer" class="tool-link" style="background:linear-gradient(135deg, #10b981, #059669); color:white; border:none; width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-file-circle-plus"></i> <span data-i18n="contributeFormBtn">املأ نموذج رفع الملف (الأسهل)</span></a>
+                <a href="#" id="contactEmailBtn" class="tool-link" style="background:var(--input-bg); color:var(--header-color); border:1.5px solid var(--border-color); width:100%; max-width:320px; text-align:center; display:block;"><i class="fa-solid fa-envelope"></i> <span data-i18n="contributeEmailBtn">أو أرسله عبر الجيميل</span></a>
             </div>
         </div>
     </div>
 
     <div class="extra-box open" id="policyBox">
-        <h3 class="section-tab">🛡️ سياسة النشر وشروط الإضافة</h3>
+        <h3 class="section-tab" data-i18n="policyTitle">🛡️ سياسة النشر وشروط الإضافة</h3>
         <div class="extra-box-content">
-            <div class="contact-text" style="margin-bottom:8px;">للحفاظ على جودة المنصة وقانونيتها:</div>
+            <div class="contact-text" style="margin-bottom:8px;" data-i18n="policyIntro">للحفاظ على جودة المنصة وقانونيتها:</div>
             <ul class="policy-list">
-                <li><strong>✅ ما يُسمح بإضافته:</strong><br> - الملخصات الشخصية المكتوبة بخط اليد أو المطبوعة.<br> - الخرائط الذهنية وتبسيط القوانين والنظريات.<br> - تجميعات أسئلة الامتحانات السابقة.<br> - العروض التقديمية التي صممها الطلاب كأنشطة.</li>
-                <li style="margin-top:10px;"><strong>❌ ما نعتذر عن نشره:</strong><br> - الكتب الجامعية الرسمية للدكاترة.<br> - المذكرات التجارية الخاصة بالسناتر.<br> - الملفات غير الواضحة أو التي تفتقد لاسم المادة والفرقة.</li>
+                <li>
+                    <strong data-i18n="policyAllowedTitle">✅ ما يُسمح بإضافته:</strong>
+                    <br>
+                    <span data-i18n="policyAllowedList">- الملخصات الشخصية المكتوبة بخط اليد أو المطبوعة.<br>- الخرائط الذهنية وتبسيط القوانين والنظريات.<br>- تجميعات أسئلة الامتحانات السابقة.<br>- العروض التقديمية التي صممها الطلاب كأنشطة.</span>
+                </li>
+                <li style="margin-top:10px;">
+                    <strong data-i18n="policyDeniedTitle">❌ ما نعتذر عن نشره:</strong>
+                    <br>
+                    <span data-i18n="policyDeniedList">- الكتب الجامعية الرسمية للدكاترة.<br>- المذكرات التجارية الخاصة بالسناتر.<br>- الملفات غير الواضحة أو التي تفتقد لاسم المادة والفرقة.</span>
+                </li>
             </ul>
         </div>
     </div>
 
     <div class="extra-box about-box open" id="aboutBox" style="text-align:right;">
-        <h3 class="section-tab">🌟 عن المنصة: الفكرة والواقع</h3>
+        <h3 class="section-tab" data-i18n="aboutTitle">🌟 عن المنصة</h3>
         <div class="extra-box-content">
-            <p class="about-desc" style="text-align:right;">بدأت الفكرة من معاناة حقيقية نعيشها كطلاب؛ حيث تتوه الملفات المهمة وسط آلاف الرسائل في جروبات الواتساب، وتضيع الملخصات قبل الامتحانات. لذلك، تم بناء "الأرشيف الأكاديمي الرقمي" ليكون الذاكرة الدائمة.</p>
+            <p class="about-desc" style="text-align:right;" data-i18n="aboutDesc">بدأت الفكرة من معاناة حقيقية نعيشها كطلاب؛ حيث تتوه الملفات المهمة وسط آلاف الرسائل في جروبات الواتساب، وتضيع الملخصات قبل الامتحانات. لذلك، تم بناء "الأرشيف الأكاديمي الرقمي" ليكون الذاكرة الدائمة.</p>
             <div class="problems-grid">
-                <div class="problem-card"><h4><i class="fa-solid fa-search" style="color:var(--primary-color)"></i> وداعاً للبحث العشوائي</h4><p>فلترة المواد بضغطة زر حسب الفرقة، التخصص، أو الترم لتجد ما تريده في ثانية.</p></div>
-                <div class="problem-card"><h4><i class="fa-solid fa-cloud" style="color:#10b981"></i> روابط دائمة لا تموت</h4><p>جميع الملفات مرفوعة على خوادم سحابية آمنة.</p></div>
-                <div class="problem-card"><h4><i class="fa-solid fa-sd-card" style="color:#f59e0b"></i> توفير مساحة هاتفك</h4><p>يمكنك عرض الملفات مباشرة من المنصة، أو إضافتها لمكتبتك.</p></div>
+                <div class="problem-card"><h4><i class="fa-solid fa-search" style="color:var(--primary-color)"></i> <span data-i18n="prob1Title">وداعاً للبحث العشوائي</span></h4><p data-i18n="prob1Desc">فلترة المواد بضغطة زر حسب الفرقة، التخصص، أو الترم لتجد ما تريده في ثانية.</p></div>
+                <div class="problem-card"><h4><i class="fa-solid fa-cloud" style="color:#10b981"></i> <span data-i18n="prob2Title">روابط دائمة لا تموت</span></h4><p data-i18n="prob2Desc">جميع الملفات مرفوعة على خوادم سحابية آمنة.</p></div>
+                <div class="problem-card"><h4><i class="fa-solid fa-sd-card" style="color:#f59e0b"></i> <span data-i18n="prob3Title">توفير مساحة هاتفك</span></h4><p data-i18n="prob3Desc">يمكنك عرض الملفات مباشرة من المنصة، أو إضافتها لمكتبتك.</p></div>
             </div>
         </div>
     </div>
 
     <div class="extra-box faq-box open" id="faqBox">
-        <h3 class="section-tab">❓ الأسئلة الشائعة (FAQ)</h3>
+        <h3 class="section-tab" data-i18n="faqTitle">❓ الأسئلة الشائعة</h3>
         <div class="extra-box-content">
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">يمكنك رؤية آخر نسخة محفوظة من البيانات عند انقطاع الاتصال، لكن تحديث الملفات والروابط الجديدة يحتاج إلى الإنترنت.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>كيف أصل للمنصة بسرعة دون البحث عن الرابط؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">يمكنك تثبيت المنصة كتطبيق! في الأندرويد: النقاط الثلاث ثم "إضافة للشاشة الرئيسية".</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>لم أجد المادة التي أبحث عنها، ماذا أفعل؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">تأكد أولاً من تصفير الفلاتر. إذا لم تجدها، فهذا يعني أن أحداً لم يقم برفع ملخص لها بعد.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل "مكتبتي الخاصة" تُحفظ إذا غيرت هاتفي؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">نظام المفضلة يعمل بـ Local Storage، فتُحفظ على متصفح جهازك الحالي فقط.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>الرابط لا يعمل أو الملف لا يفتح، ما الحل؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">أحياناً يحدث ضغط على خوادم جوجل. ننصحك بنسخ الرابط وفتحه في متصفح آخر.</div></div>
-            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span>هل يمكنني طباعة هذه الملخصات في أي مكتبة؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">بكل تأكيد. جميع الملفات المرفوعة مجهزة بصيغة PDF القياسية.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ1">هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA1">يمكنك رؤية آخر نسخة محفوظة من البيانات عند انقطاع الاتصال، لكن تحديث الملفات والروابط الجديدة يحتاج إلى الإنترنت.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ2">كيف أصل للمنصة بسرعة دون البحث عن الرابط؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA2">يمكنك تثبيت المنصة كتطبيق! في الأندرويد: النقاط الثلاث ثم "إضافة للشاشة الرئيسية".</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ3">لم أجد المادة التي أبحث عنها، ماذا أفعل؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA3">تأكد أولاً من تصفير الفلاتر. إذا لم تجدها، فهذا يعني أن أحداً لم يقم برفع ملخص لها بعد.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ4">هل "مكتبتي الخاصة" تُحفظ إذا غيرت هاتفي؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA4">نظام المفضلة يعمل بـ Local Storage، فتُحفظ على متصفح جهازك الحالي فقط.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ5">الرابط لا يعمل أو الملف لا يفتح، ما الحل؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA5">أحياناً يحدث ضغط على خوادم جوجل. ننصحك بنسخ الرابط وفتحه في متصفح آخر.</div></div>
+            <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)"><span data-i18n="faqQ6">هل يمكنني طباعة هذه الملخصات في أي مكتبة؟</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer" data-i18n="faqA6">بكل تأكيد. جميع الملفات المرفوعة مجهزة بصيغة PDF القياسية.</div></div>
         </div>
     </div>
 </div>
 
-<!-- ✨ حقوق الصانع -->
 <div class="maker-credit" id="makerCredit">
     <div class="maker-line">
         <span data-i18n="madeWith">صُنع بـ</span>
@@ -1080,6 +863,23 @@ const I18N = {
         settingsTitle:"الإعدادات", setTheme:"الوضع", setColor:"اللون الأساسي",
         setRadius:"استدارة الحواف", setFontSize:"حجم الخط", setCardsPerRow:"عدد البطاقات في الصف",
         setLanguage:"اللغة",
+        setSectionAppearance:"المظهر", setSectionDisplay:"العرض والقراءة",
+        setSectionVisibility:"إظهار/إخفاء العناصر", setSectionEffects:"الحركات والمؤثرات",
+        setSectionPerf:"الأداء", setSectionLanguage:"اللغة", setSectionAdvanced:"متقدم",
+        darkAuto:"🌗 تلقائي", darkOn:"🌙 مفعّل", darkOff:"☀️ معطّل",
+        radiusSharp:"حادة", radiusNormal:"عادية", radiusRound:"دائرية",
+        cardsAuto:"تلقائي",
+        visStats:"📊 شريط الإحصائيات", visUpdate:"🕒 شارة آخر تحديث",
+        visRecent:'👁️ قسم "شوهد مؤخراً"', visContributors:"🏆 قسم أكثر المساهمين",
+        visTools:"🛠️ مكتبة الأدوات", visAbout:'🌟 قسم "عن المنصة"',
+        visFaq:"❓ الأسئلة الشائعة", visBadges:"🏷️ الشارات",
+        visAnimations:"✨ الحركات والانتقالات", visCursor:"🖱️ المؤشر المخصص",
+        visShine:"💫 تأثير اللمعان على الأزرار", visShadows:"🌑 الظلال على البطاقات",
+        visPerf:"⚡ وضع الأداء للأجهزة الضعيفة",
+        visPerfDesc:"يعطّل الظلال والحركات والشفافية لتحسين السرعة",
+        advRefresh:"تحديث البيانات", advClearRecent:'مسح "شوهد مؤخراً"',
+        advClearFav:"مسح المفضلة", advExport:"تصدير الإعدادات",
+        advImport:"استيراد الإعدادات", advReset:"إعادة الضبط",
         menuQR:"عرض رمز QR", menuReport:"إبلاغ عن رابط معطل",
         qrDesc:"امسح الباركود بكاميرا الهاتف 📱",
         filtersBtn:"الفلاتر", favBtn:"🤍 مكتبتي", favBtnActive:"❤️ مكتبتي الخاصة", shareBtn:"مشاركة",
@@ -1089,15 +889,43 @@ const I18N = {
         year1:"الفرقة الأولى", year2:"الفرقة الثانية", year3:"الفرقة الثالثة", year4:"الفرقة الرابعة",
         eduGeneral:"عام", eduBasic:"تعليم أساسي", typeSpec:"مادة تخصص", typeEdu:"مادة تربوية",
         sem1:"الفصل الأول", sem2:"الفصل الثاني", resetFilters:"تصفير الفلاتر",
+        majorArabic:"لغة عربية", majorEnglish:"لغة إنجليزية", majorMath:"رياضيات",
+        majorMathEn:"رياضيات بالإنجليزية", majorChemistry:"كيمياء", majorChemistryEn:"كيمياء بالإنجليزية",
+        majorPhysics:"فيزياء", majorBiology:"بيولوجي", majorBiologyEn:"بيولوجي بالإنجليزية",
         loading:"جاري الاتصال بقاعدة البيانات...",
         recentTitle:"شوهد مؤخراً", loadMore:"عرض المزيد",
-        contributorsTitle:"🏆 أكثر المساهمين (شكراً لكم)",
+        contributorsTitle:"🏆 أكثر المساهمين",
         contributorsDesc:"هؤلاء الطلاب أثروا الأرشيف بأكبر عدد من الملخصات — تكريماً لجهودهم 💙",
         toolsTitle:"🛠️ مكتبة الأدوات المساعدة", toolsDesc:"جمعنا لك 50 موقعاً وأداة ذكية لمساعدتك.",
         toolsExplore:"استكشف مكتبة الأدوات",
-        installTitle:"أضف الأرشيف لهاتفك!", installDesc:"للوصول السريع لجميع المواد والملخصات.",
-        installIOS:"📱 اضغط على <strong>المشاركة</strong> ثم <strong>'إضافة إلى الشاشة الرئيسية'</strong>.",
-        installAndroid:"📱 اضغط على <strong>النقاط الثلاث ⋮</strong> ثم <strong>'إضافة إلى الشاشة الرئيسية'</strong>.",
+        toolsSearchPh:"ابحث في 50 أداة...",
+        toolsAll:"الكل (50)", toolsMath:"📐 رياضيات وعلوم", toolsEdu:"🧠 تربية وعلم نفس",
+        toolsResearch:"📚 بحث ومراجع", toolsWriting:"✍️ كتابة", toolsDesign:"🎨 تصميم وعروض",
+        toolsProductivity:"⏱️ إنتاجية", toolsUtilities:"🛠️ عامة",
+        contributeTitle:"🤝 كيف تساهم معنا؟",
+        contributeText:'الأرشيف يُبنى بجهود الطلاب ولأجل الطلاب. إذا قمت بكتابة ملخص مميز، أو جمعت أسئلة سنوات سابقة، فلا تدعها حبيسة هاتفك! شاركها لتكون صدقة جارية لعلمك وتنقذ بها زميلاً ليلة الامتحان.<br><br><strong>خطوات المشاركة بسيطة:</strong><br>1. تأكد أن الملف بصيغة PDF أو صور واضحة.<br>2. سمّ الملف بوضوح (مثال: ملخص جبر مجرد - فرقة ثانية - إعداد فلان).<br>3. أرسل الملف عبر الإيميل المخصص، وسيتم مراجعته ورفعه باسمك.',
+        contributeFormBtn:"املأ نموذج رفع الملف (الأسهل)", contributeEmailBtn:"أو أرسله عبر الجيميل",
+        policyTitle:"🛡️ سياسة النشر وشروط الإضافة",
+        policyIntro:"للحفاظ على جودة المنصة وقانونيتها:",
+        policyAllowedTitle:"✅ ما يُسمح بإضافته:",
+        policyAllowedList:"- الملخصات الشخصية المكتوبة بخط اليد أو المطبوعة.<br>- الخرائط الذهنية وتبسيط القوانين والنظريات.<br>- تجميعات أسئلة الامتحانات السابقة.<br>- العروض التقديمية التي صممها الطلاب كأنشطة.",
+        policyDeniedTitle:"❌ ما نعتذر عن نشره:",
+        policyDeniedList:"- الكتب الجامعية الرسمية للدكاترة.<br>- المذكرات التجارية الخاصة بالسناتر.<br>- الملفات غير الواضحة أو التي تفتقد لاسم المادة والفرقة.",
+        aboutTitle:"🌟 عن المنصة",
+        aboutDesc:'بدأت الفكرة من معاناة حقيقية نعيشها كطلاب؛ حيث تتوه الملفات المهمة وسط آلاف الرسائل في جروبات الواتساب، وتضيع الملخصات قبل الامتحانات. لذلك، تم بناء "الأرشيف الأكاديمي الرقمي" ليكون الذاكرة الدائمة.',
+        prob1Title:"وداعاً للبحث العشوائي", prob1Desc:"فلترة المواد بضغطة زر حسب الفرقة، التخصص، أو الترم لتجد ما تريده في ثانية.",
+        prob2Title:"روابط دائمة لا تموت", prob2Desc:"جميع الملفات مرفوعة على خوادم سحابية آمنة.",
+        prob3Title:"توفير مساحة هاتفك", prob3Desc:"يمكنك عرض الملفات مباشرة من المنصة، أو إضافتها لمكتبتك.",
+        faqTitle:"❓ الأسئلة الشائعة",
+        faqQ1:"هل أحتاج للإنترنت في كل مرة أفتح فيها الموقع؟", faqA1:"يمكنك رؤية آخر نسخة محفوظة من البيانات عند انقطاع الاتصال، لكن تحديث الملفات والروابط الجديدة يحتاج إلى الإنترنت.",
+        faqQ2:"كيف أصل للمنصة بسرعة دون البحث عن الرابط؟", faqA2:'يمكنك تثبيت المنصة كتطبيق! في الأندرويد: النقاط الثلاث ثم "إضافة للشاشة الرئيسية".',
+        faqQ3:"لم أجد المادة التي أبحث عنها، ماذا أفعل؟", faqA3:"تأكد أولاً من تصفير الفلاتر. إذا لم تجدها، فهذا يعني أن أحداً لم يقم برفع ملخص لها بعد.",
+        faqQ4:'هل "مكتبتي الخاصة" تُحفظ إذا غيرت هاتفي؟', faqA4:"نظام المفضلة يعمل بـ Local Storage، فتُحفظ على متصفح جهازك الحالي فقط.",
+        faqQ5:"الرابط لا يعمل أو الملف لا يفتح، ما الحل؟", faqA5:"أحياناً يحدث ضغط على خوادم جوجل. ننصحك بنسخ الرابط وفتحه في متصفح آخر.",
+        faqQ6:"هل يمكنني طباعة هذه الملخصات في أي مكتبة؟", faqA6:"بكل تأكيد. جميع الملفات المرفوعة مجهزة بصيغة PDF القياسية.",
+        installTitle:"أضف الأرشيف لهاتفك!", installDesc:"للوصول السريع لجميع المواد والملخصات بدون الحاجة للمتصفح.",
+        installIOS:'📱 اضغط على <strong>المشاركة</strong> ثم <strong>\'إضافة إلى الشاشة الرئيسية\'</strong>.',
+        installAndroid:'📱 اضغط على <strong>النقاط الثلاث ⋮</strong> ثم <strong>\'إضافة إلى الشاشة الرئيسية\'</strong>.',
         exportTitle:"📚 شارك مكتبتك", exportDesc:"اختر الطريقة الأنسب",
         exportNative:"مشاركة عبر التطبيقات", exportWhatsapp:"واتساب", exportTelegram:"تليجرام", exportCopy:"نسخ كنص",
         displayBtn:"عرض", downloadBtn:"تحميل",
@@ -1121,7 +949,12 @@ const I18N = {
         searchPlaceholder:"ابحث عن اسم المادة أو المؤلف...",
         noTools:"لا توجد أدوات مطابقة", loadingFiles:"جاري تحميل الملفات...",
         madeWith:"صُنع بـ", by:"بواسطة",
-        makerSub:"لخدمة طلاب كلية التربية · جميع الحقوق محفوظة"
+        makerSub:"لخدمة طلاب كلية التربية · جميع الحقوق محفوظة",
+        aboutAuthor:"إعداد", noAuthor:"غير محدد",
+        unknown:"غير محدد", all:"الكل",
+        todayLabel:"اليوم 🔥", yesterdayLabel:"أمس", twoDaysLabel:"منذ يومين",
+        daysAgo:"منذ {n} أيام", weeksAgo:"منذ {n} أسابيع", monthsAgo:"منذ {n} شهور",
+        dateUploaded:"الرفع"
     },
     en: {
         appTitle:"Academic Digital Archive & Comprehensive Library",
@@ -1133,6 +966,23 @@ const I18N = {
         settingsTitle:"Settings", setTheme:"Theme", setColor:"Primary Color",
         setRadius:"Corner Radius", setFontSize:"Font Size", setCardsPerRow:"Cards per Row",
         setLanguage:"Language",
+        setSectionAppearance:"Appearance", setSectionDisplay:"Display & Reading",
+        setSectionVisibility:"Show/Hide Elements", setSectionEffects:"Animations & Effects",
+        setSectionPerf:"Performance", setSectionLanguage:"Language", setSectionAdvanced:"Advanced",
+        darkAuto:"🌗 Auto", darkOn:"🌙 On", darkOff:"☀️ Off",
+        radiusSharp:"Sharp", radiusNormal:"Normal", radiusRound:"Round",
+        cardsAuto:"Auto",
+        visStats:"📊 Stats Bar", visUpdate:"🕒 Last Update Badge",
+        visRecent:"👁️ Recently Viewed Section", visContributors:"🏆 Top Contributors Section",
+        visTools:"🛠️ Tools Library", visAbout:'🌟 "About" Section',
+        visFaq:"❓ FAQ", visBadges:"🏷️ Badges",
+        visAnimations:"✨ Animations & Transitions", visCursor:"🖱️ Custom Cursor",
+        visShine:"💫 Button Shine Effect", visShadows:"🌑 Card Shadows",
+        visPerf:"⚡ Performance Mode for Weak Devices",
+        visPerfDesc:"Disables shadows, animations, and transparency for better speed",
+        advRefresh:"Refresh Data", advClearRecent:"Clear Recently Viewed",
+        advClearFav:"Clear Favorites", advExport:"Export Settings",
+        advImport:"Import Settings", advReset:"Reset All",
         menuQR:"Show QR Code", menuReport:"Report Broken Link",
         qrDesc:"Scan QR with your phone camera 📱",
         filtersBtn:"Filters", favBtn:"🤍 My Library", favBtnActive:"❤️ My Library", shareBtn:"Share",
@@ -1142,13 +992,41 @@ const I18N = {
         year1:"First Year", year2:"Second Year", year3:"Third Year", year4:"Fourth Year",
         eduGeneral:"General", eduBasic:"Basic Education", typeSpec:"Specialty", typeEdu:"Educational",
         sem1:"First Semester", sem2:"Second Semester", resetFilters:"Reset Filters",
+        majorArabic:"Arabic", majorEnglish:"English", majorMath:"Mathematics",
+        majorMathEn:"Mathematics (EN)", majorChemistry:"Chemistry", majorChemistryEn:"Chemistry (EN)",
+        majorPhysics:"Physics", majorBiology:"Biology", majorBiologyEn:"Biology (EN)",
         loading:"Connecting to database...",
         recentTitle:"Recently Viewed", loadMore:"Load More",
-        contributorsTitle:"🏆 Top Contributors (Thank You)",
-        contributorsDesc:"These students enriched the archive with the most summaries.",
-        toolsTitle:"🛠️ Tools Library", toolsDesc:"50 smart sites and tools for you.",
+        contributorsTitle:"🏆 Top Contributors",
+        contributorsDesc:"These students enriched the archive with the most summaries — honoring their efforts 💙",
+        toolsTitle:"🛠️ Tools Library", toolsDesc:"50 smart sites and tools to help you.",
         toolsExplore:"Explore Tools Library",
-        installTitle:"Add the Archive to your phone!", installDesc:"Quick access to all materials.",
+        toolsSearchPh:"Search 50 tools...",
+        toolsAll:"All (50)", toolsMath:"📐 Math & Science", toolsEdu:"🧠 Education & Psychology",
+        toolsResearch:"📚 Research & References", toolsWriting:"✍️ Writing", toolsDesign:"🎨 Design & Presentations",
+        toolsProductivity:"⏱️ Productivity", toolsUtilities:"🛠️ Utilities",
+        contributeTitle:"🤝 How to Contribute?",
+        contributeText:'The archive is built by students, for students. If you wrote a great summary or collected past exams, don\'t keep it locked on your phone! Share it as ongoing charity for your knowledge and save a colleague.<br><br><strong>Steps are simple:</strong><br>1. Make sure the file is PDF or clear images.<br>2. Name it clearly (e.g., Abstract Algebra Summary - Year 2 - By John).<br>3. Send via the dedicated email, and it will be reviewed and uploaded with your name.',
+        contributeFormBtn:"Fill the Upload Form (Easiest)", contributeEmailBtn:"Or Send via Gmail",
+        policyTitle:"🛡️ Publishing Policy & Terms",
+        policyIntro:"To maintain platform quality and legality:",
+        policyAllowedTitle:"✅ What we allow:",
+        policyAllowedList:"- Personal handwritten or printed summaries.<br>- Mind maps and simplified laws & theories.<br>- Collections of past exam questions.<br>- Student-made presentations as activities.",
+        policyDeniedTitle:"❌ What we refuse to publish:",
+        policyDeniedList:"- Official university textbooks by professors.<br>- Commercial notes from private tutoring centers.<br>- Unclear files missing subject name and year.",
+        aboutTitle:"🌟 About the Platform",
+        aboutDesc:'The idea started from a real struggle we face as students; important files get lost among thousands of messages in WhatsApp and Telegram groups, summaries get lost before exams. Therefore, the "Digital Academic Archive" was built to be the permanent memory.',
+        prob1Title:"No More Random Search", prob1Desc:"Filter materials with one click by year, major, or semester to find what you need in a second.",
+        prob2Title:"Permanent Links", prob2Desc:"All files are uploaded to secure cloud servers.",
+        prob3Title:"Save Your Phone Storage", prob3Desc:"You can preview files directly on the platform, or add them to your library.",
+        faqTitle:"❓ Frequently Asked Questions",
+        faqQ1:"Do I need internet every time I open the site?", faqA1:"You can see the last saved version of data when offline, but refreshing files and new links requires internet.",
+        faqQ2:"How do I reach the platform quickly without searching for the link?", faqA2:'You can install it as an app! On Android: three dots menu then "Add to Home Screen".',
+        faqQ3:"I can't find the material I'm looking for, what should I do?", faqA3:"First make sure to reset filters. If you still can't find it, no one has uploaded a summary for it yet.",
+        faqQ4:'Will "My Library" be saved if I change my phone?', faqA4:"Favorites use Local Storage, so they're saved only on your current browser.",
+        faqQ5:"The link doesn't work or file won't open, what's the solution?", faqA5:"Sometimes Google servers are overloaded. We recommend copying the link and opening in another browser.",
+        faqQ6:"Can I print these summaries at any print shop?", faqA6:"Absolutely. All uploaded files are standard PDF.",
+        installTitle:"Add the Archive to your phone!", installDesc:"Quick access to all materials without the browser.",
         installIOS:"📱 Tap <strong>Share</strong> then <strong>'Add to Home Screen'</strong>.",
         installAndroid:"📱 Tap <strong>⋮ menu</strong> then <strong>'Add to Home Screen'</strong>.",
         exportTitle:"📚 Share Your Library", exportDesc:"Choose your preferred method",
@@ -1174,7 +1052,12 @@ const I18N = {
         searchPlaceholder:"Search by subject or author...",
         noTools:"No matching tools", loadingFiles:"Loading files...",
         madeWith:"Made with", by:"by",
-        makerSub:"Serving Faculty of Education students · All rights reserved"
+        makerSub:"Serving Faculty of Education students · All rights reserved",
+        aboutAuthor:"By", noAuthor:"Unknown",
+        unknown:"Unknown", all:"All",
+        todayLabel:"Today 🔥", yesterdayLabel:"Yesterday", twoDaysLabel:"2 days ago",
+        daysAgo:"{n} days ago", weeksAgo:"{n} weeks ago", monthsAgo:"{n} months ago",
+        dateUploaded:"Uploaded"
     }
 };
 
@@ -1196,20 +1079,16 @@ function applyAllSettingsOnLoad() {
     if (mode === 'on') { document.documentElement.classList.add('dark-mode'); }
     else if (mode === 'off') { document.documentElement.classList.remove('dark-mode'); }
     else { const h = new Date().getHours(); document.documentElement.classList.toggle('dark-mode', (h >= 19 || h < 6)); }
-
     const color = localStorage.getItem('set_color') || 'blue';
     document.documentElement.setAttribute('data-color', color);
     document.querySelectorAll('.color-swatch').forEach(s => s.classList.toggle('active', s.dataset.color === color));
-
     const radius = localStorage.getItem('set_radius') || 'normal';
     document.documentElement.setAttribute('data-radius', radius);
     document.querySelectorAll('.radius-btn').forEach(b => b.classList.toggle('active', b.dataset.radius === radius));
-
     const cards = localStorage.getItem('set_cards_per_row') || 'auto';
     document.documentElement.setAttribute('data-cards', cards);
     const cardsSel = document.getElementById('setCardsPerRow');
     if (cardsSel) cardsSel.value = cards;
-
     const toggleKeys = [
         { id: 'sw_hide_stats', key: 'set_hide_stats', cls: 'hide-stats' },
         { id: 'sw_hide_update', key: 'set_hide_update', cls: 'hide-update' },
@@ -1229,17 +1108,14 @@ function applyAllSettingsOnLoad() {
         if (el) el.classList.toggle('on', isOn);
         document.documentElement.classList.toggle(item.cls, isOn);
     });
-
     const shadowsEl = document.getElementById('sw_shadows');
     const shadowsOff = (localStorage.getItem('set_shadows') || '1') === '0';
     if (shadowsEl) shadowsEl.classList.toggle('on', !shadowsOff);
     document.documentElement.classList.toggle('no-shadows', shadowsOff);
-
     const animEl = document.getElementById('sw_animations');
     const animOff = (localStorage.getItem('set_animations') || '1') === '0';
     if (animEl) animEl.classList.toggle('on', !animOff);
     document.documentElement.classList.toggle('no-anim', animOff);
-
     initFontScale();
     const langSel = document.getElementById('setLanguage');
     if (langSel) langSel.value = currentLang;
@@ -1315,7 +1191,12 @@ async function clearCache() {
     storageRemove(CACHE_KEY); storageRemove(CACHE_TIME_KEY);
     showToast(t('toastCacheCleared'));
     const ok = await fetchFilesSilently();
-    if (!ok && oldData) { storageSet(CACHE_KEY, oldData); if (oldTime) storageSet(CACHE_TIME_KEY, oldTime); try { allFiles = normalizeFiles(JSON.parse(oldData)); populateSubjectDropdown(allFiles); filterAndSortData(); } catch(e) {} showToast(currentLang === 'ar' ? '⚠️ فشل التحديث وتمت استعادة النسخة السابقة' : '⚠️ Refresh failed; previous data restored'); }
+    if (!ok && oldData) {
+        storageSet(CACHE_KEY, oldData);
+        if (oldTime) storageSet(CACHE_TIME_KEY, oldTime);
+        try { allFiles = normalizeFiles(JSON.parse(oldData)); populateSubjectDropdown(allFiles); filterAndSortData(); } catch(e) {}
+        showToast(currentLang === 'ar' ? '⚠️ فشل التحديث وتمت استعادة النسخة السابقة' : '⚠️ Refresh failed; previous data restored');
+    }
     closeSettingsModal();
 }
 function clearRecent() {
@@ -1355,7 +1236,7 @@ function importSettings(event) {
             Object.keys(data).forEach(k => localStorage.setItem(k, data[k]));
             showToast(t('toastSettingsImported'));
             setTimeout(() => location.reload(), 800);
-        } catch (err) { showToast('❌ ملف غير صالح'); }
+        } catch (err) { showToast('❌ Invalid file'); }
     };
     reader.readAsText(file);
     event.target.value = '';
@@ -1374,6 +1255,7 @@ function resetSettingsConfirm() {
 function toggleSettingsMenu() { openSettingsModal(); }
 function closeSettingsMenu() { closeSettingsModal(); }
 
+/* ✅ دالة الترجمة الشاملة — تُطبَّق على كل [data-i18n] و [data-i18n-ph] */
 function applyLanguage(lang) {
     currentLang = lang;
     storageSet('lang', lang);
@@ -1387,10 +1269,16 @@ function applyLanguage(lang) {
             else el.textContent = val;
         }
     });
+    document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+        const key = el.getAttribute('data-i18n-ph');
+        const val = I18N[lang] && I18N[lang][key];
+        if (val) el.setAttribute('placeholder', val);
+    });
     document.title = I18N[lang].appTitle || document.title;
     const searchEl = document.getElementById('searchInput');
     if (searchEl) searchEl.placeholder = t('searchPlaceholder');
     setDynamicGreeting();
+    populateSubjectDropdown(allFiles);
     if (allFiles && allFiles.length) { filterAndSortData(); renderRecent(); }
     renderToolsDOM(currentToolsFilter === 'all' ? allToolsData : allToolsData.filter(t => t.cat === currentToolsFilter));
     phraseIndex = 0; charIndex = 0; isDeleting = false;
@@ -1399,6 +1287,36 @@ function setLanguage(lang) {
     if (lang === currentLang) return;
     applyLanguage(lang);
     showToast(I18N[lang].toastLangChanged);
+}
+
+/* ✅ ترجمة القيم داخل البطاقات (فرقة، تخصص، ترم، نوع، تعليم) */
+function translateValue(val) {
+    if (!val) return val;
+    const v = String(val).trim();
+    const map = {
+        'الكل': t('all'),
+        'الفرقة الأولى': t('year1'),
+        'الفرقة الثانية': t('year2'),
+        'الفرقة الثالثة': t('year3'),
+        'الفرقة الرابعة': t('year4'),
+        'عام': t('eduGeneral'),
+        'تعليم أساسي': t('eduBasic'),
+        'مادة تخصص': t('typeSpec'),
+        'مادة تربوية': t('typeEdu'),
+        'الفصل الأول': t('sem1'),
+        'الفصل الثاني': t('sem2'),
+        'لغة عربية': t('majorArabic'),
+        'لغة إنجليزية': t('majorEnglish'),
+        'رياضيات': t('majorMath'),
+        'رياضيات باللغة الإنجليزية': t('majorMathEn'),
+        'كيمياء': t('majorChemistry'),
+        'كيمياء باللغة الإنجليزية': t('majorChemistryEn'),
+        'فيزياء': t('majorPhysics'),
+        'بيولوجي': t('majorBiology'),
+        'بيولوجي باللغة الإنجليزية': t('majorBiologyEn'),
+        'غير محدد': t('unknown')
+    };
+    return map[v] || val;
 }
 
 const SHEET_ID = '11_V1kRj55brAU_Sz7G8sATPNS_tKHaT9G9NoTEiVudY';
@@ -1435,7 +1353,7 @@ function reportBrokenLink(url, title) {
     const body = encodeURIComponent(`الملف: ${title}\nالرابط: ${url}`);
     window.location.href = `mailto:${ADMIN_EMAIL}?subject=${sub}&body=${body}`;
     copyToClipboard(`🚩 رابط معطل - ${title}\n${url}`);
-    showToast('📧 تم فتح البريد ونسخ التفاصيل');
+    showToast(currentLang === 'ar' ? '📧 تم فتح البريد ونسخ التفاصيل' : '📧 Email opened and details copied');
 }
 function toggleMoreMenu(btn, url, title) {
     const popup = document.getElementById('moreMenuPopup');
@@ -1535,10 +1453,10 @@ function getMajorIcon(m) {
     return '';
 }
 function getFileIcon(s) {
-    const t = s.toLowerCase();
-    if (t.includes('word') || t.includes('doc')) return '<i class="fa-solid fa-file-word file-icon" style="color:#2563eb"></i>';
-    if (t.includes('عرض') || t.includes('ppt') || t.includes('تقديم') || t.includes('بوربوينت')) return '<i class="fa-solid fa-file-powerpoint file-icon" style="color:#f59e0b"></i>';
-    if (t.includes('صورة') || t.includes('خريطة') || t.includes('رسم')) return '<i class="fa-solid fa-file-image file-icon" style="color:#10b981"></i>';
+    const tt = s.toLowerCase();
+    if (tt.includes('word') || tt.includes('doc')) return '<i class="fa-solid fa-file-word file-icon" style="color:#2563eb"></i>';
+    if (tt.includes('عرض') || tt.includes('ppt') || tt.includes('تقديم') || tt.includes('بوربوينت')) return '<i class="fa-solid fa-file-powerpoint file-icon" style="color:#f59e0b"></i>';
+    if (tt.includes('صورة') || tt.includes('خريطة') || tt.includes('رسم')) return '<i class="fa-solid fa-file-image file-icon" style="color:#10b981"></i>';
     return '<i class="fa-solid fa-file-pdf file-icon" style="color:#ef4444"></i>';
 }
 function showQRCode(url, title) {
@@ -1579,7 +1497,7 @@ window.onclick = function(e) {
 };
 function copyToClipboard(text) {
     if (navigator.clipboard && window.isSecureContext) {
-        navigator.clipboard.writeText(text).then(() => showToast(t('toastCopied'))).catch(() => showToast('❌ خطأ'));
+        navigator.clipboard.writeText(text).then(() => showToast(t('toastCopied'))).catch(() => showToast('❌ Error'));
     } else {
         const ta = document.createElement("textarea");
         ta.value = text; ta.style.position = "fixed"; ta.style.left = "-9999px";
@@ -1698,14 +1616,14 @@ function filterTools(cat, btn) {
 function searchTools() {
     const q = document.getElementById('toolsSearchInput').value.toLowerCase();
     const base = currentToolsFilter === 'all' ? allToolsData : allToolsData.filter(t => t.cat === currentToolsFilter);
-    renderToolsDOM(base.filter(t => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q)));
+    renderToolsDOM(base.filter(t => t.title.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || (t.descEn || '').toLowerCase().includes(q)));
 }
 function toggleToolsSection() {
     const w = document.getElementById('toolsContentWrapper');
     const b = document.getElementById('toggleToolsBtn');
     if (w.style.display === 'none' || !w.style.display) {
         w.style.display = 'block';
-        b.innerHTML = '<i class="fa-solid fa-chevron-up"></i> إغلاق';
+        b.innerHTML = '<i class="fa-solid fa-chevron-up"></i> ' + (currentLang === 'ar' ? 'إغلاق' : 'Close');
         b.style.background = 'var(--primary-color)'; b.style.color = 'white';
     } else {
         w.style.display = 'none';
@@ -1798,17 +1716,17 @@ function formatSmartDate(d) {
     const diff = Math.floor((today - f) / 86400000);
     if (diff < 0) return currentLang === 'en' ? 'Upcoming' : 'قادم';
     if (currentLang === 'en') {
-        if (diff === 0) return 'Today 🔥';
-        if (diff === 1) return 'Yesterday';
-        if (diff <= 7) return `${diff} days ago`;
-        if (diff <= 30) return `${Math.floor(diff/7)} weeks ago`;
-        return `${Math.floor(diff/30)} months ago`;
+        if (diff === 0) return t('todayLabel');
+        if (diff === 1) return t('yesterdayLabel');
+        if (diff <= 7) return t('daysAgo').replace('{n}', diff);
+        if (diff <= 30) return t('weeksAgo').replace('{n}', Math.floor(diff/7));
+        return t('monthsAgo').replace('{n}', Math.floor(diff/30));
     }
-    if (diff === 0) return 'اليوم 🔥';
-    if (diff === 1) return 'أمس';
-    if (diff <= 7) return `منذ ${diff} أيام`;
-    if (diff <= 30) return `منذ ${Math.floor(diff/7)} أسابيع`;
-    return `${Math.floor(diff/30)} شهور`;
+    if (diff === 0) return t('todayLabel');
+    if (diff === 1) return t('yesterdayLabel');
+    if (diff <= 7) return t('daysAgo').replace('{n}', diff);
+    if (diff <= 30) return t('weeksAgo').replace('{n}', Math.floor(diff/7));
+    return t('monthsAgo').replace('{n}', Math.floor(diff/30));
 }
 function toggleFav(url, btn) {
     let cur = readJSON('eduFavorites_v3', []);
@@ -1879,47 +1797,37 @@ function renderRecent() {
         const sU = escapeForOnclick(f.url);
         const isEdu = f.subjectType && f.subjectType.includes('تربوي');
         html += `<div class="file-card" style="border-inline-end:4px solid ${getMajorColor(f.major)}; min-width:260px;">
-            <div class="${isEdu ? 'card-badge badge-edu' : 'card-badge'}">${isEdu ? 'تربوي' : 'تخصص'}</div>
+            <div class="${isEdu ? 'card-badge badge-edu' : 'card-badge'}">${isEdu ? (currentLang === 'ar' ? 'تربوي' : 'Edu') : (currentLang === 'ar' ? 'تخصص' : 'Spec')}</div>
             <h3 style="margin-top:20px; font-size:1rem;">${escapeHtml(f.title)}</h3>
             <div class="subject-name"><span style="color:${getMajorColor(f.major)}; margin-inline-end:4px;">${getMajorIcon(f.major)}</span>${t('subjectPrefix')}${escapeHtml(f.subjectName)}</div>
             <div class="card-actions" style="margin-top:auto;">
                 <a href="${escapeHtml(f.url)}" target="_blank" rel="noopener noreferrer" class="btn btn-view" onclick="addToRecent('${sU}')"><i class="fa-solid fa-eye"></i> ${t('displayBtn')}</a>
             </div>
             <div class="icon-actions">
-                <button class="btn-icon ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)" aria-label="${favorites.includes(f.url) ? (currentLang==='ar'?'إزالة من المفضلة':'Remove from favorites') : (currentLang==='ar'?'إضافة للمفضلة':'Add to favorites')}">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
-                <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')" aria-label="${currentLang==='ar'?'مشاركة':'Share'}"><i class="fa-solid fa-share-nodes"></i></button>
-                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')" aria-label="${currentLang==='ar'?'خيارات إضافية':'More options'}"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                <button class="btn-icon ${favorites.includes(f.url) ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${favorites.includes(f.url) ? '❤️' : '🤍'}</button>
+                <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
+                <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
             </div>
         </div>`;
     });
     container.innerHTML = html;
 }
 
-/* ============================================================
-   الإحصائيات — نسخة بسيطة وموثوقة 100%
-   ============================================================ */
-
 function updateHeroStats() {
     const sF = document.getElementById('statFilesCount');
     const sS = document.getElementById('statStudentsCount');
     const badge = document.getElementById('lastUpdateBadge');
-    
     if (!sF || !sS) return;
-    
     const files = Array.isArray(allFiles) ? allFiles : [];
     const filesCount = files.length;
-    
     let totalDownloads = 0;
     for (let i = 0; i < files.length; i++) {
         const d = parseInt(files[i].downloads, 10);
         if (!isNaN(d) && d > 0) totalDownloads += d;
     }
-    
     const studentsCount = Math.max(totalDownloads, filesCount * 5);
-    
     sF.textContent = String(filesCount);
     sS.textContent = String(studentsCount);
-    
     if (badge) {
         const dates = files.map(f => parseFileDate(f.date)).filter(d => d && !isNaN(d));
         if (dates.length) {
@@ -1934,7 +1842,7 @@ function updateHeroStats() {
             else txt = currentLang === 'ar' ? `منذ ${Math.floor(diff/30)} شهر` : `${Math.floor(diff/30)} months ago`;
             badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${txt}`;
         } else {
-            badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${currentLang === 'ar' ? 'غير محدد' : 'Unknown'}`;
+            badge.innerHTML = `<i class="fa-solid fa-circle"></i> ${currentLang === 'ar' ? 'آخر تحديث:' : 'Last update:'} ${t('unknown')}`;
         }
     }
 }
@@ -2038,6 +1946,7 @@ function renderFiles(append = false) {
         const sT = escapeForOnclick(file.title);
         const sU = escapeForOnclick(file.url);
         const majorColor = getMajorColor(file.major);
+        const displayAuthor = file.author === 'غير محدد' ? t('noAuthor') : hl(file.author);
         const card = `
             <div class="file-card ${isNewFile ? 'is-new' : ''}" style="animation-delay:${animDelay}s; border-inline-end:4px solid ${majorColor};">
                 <div class="${isEdu ? 'card-badge badge-edu' : 'card-badge'}">${isEdu ? (currentLang === 'ar' ? 'تربوي' : 'Edu') : (currentLang === 'ar' ? 'تخصص' : 'Spec')}</div>
@@ -2047,8 +1956,8 @@ function renderFiles(append = false) {
                     <div class="subject-name"><span style="color:${majorColor}; margin-inline-end:4px;">${getMajorIcon(file.major)}</span>${t('subjectPrefix')}${hl(file.subjectName)}</div>
                 </div>
                 <div class="meta-area">
-                    <div class="file-info">${escapeHtml(file.year)} · ${escapeHtml(file.semester)} · ${escapeHtml(file.major)} · ${escapeHtml(file.eduType)}</div>
-                    <div class="file-info"><strong>${t('authorPrefix')}</strong> <span class="author-name">${hl(file.author)}</span></div>
+                    <div class="file-info">${escapeHtml(translateValue(file.year))} · ${escapeHtml(translateValue(file.semester))} · ${escapeHtml(translateValue(file.major))} · ${escapeHtml(translateValue(file.eduType))}</div>
+                    <div class="file-info"><strong>${t('authorPrefix')}</strong> <span class="author-name">${displayAuthor}</span></div>
                     <div class="file-date"><i class="fa-regular fa-calendar"></i> ${t('datePrefix')}${formatSmartDate(file.date)}${file.downloads > 0 ? ` <span class="download-count-pill"><i class="fa-solid fa-fire"></i> ${file.downloads}</span>` : ''}</div>
                     ${file.downloads > 0 ? `<div class="popularity-bar"><div class="popularity-bar-fill" style="width:${Math.round((file.downloads/maxDL)*100)}%"></div></div>` : ''}
                 </div>
@@ -2058,9 +1967,9 @@ function renderFiles(append = false) {
                         <a href="${escapeHtml(dl)}" class="btn btn-down" target="_blank" rel="noopener noreferrer" onclick="trackDownload('${escapeForOnclick(file.id || file.url)}'); addToRecent('${sU}')"><i class="fa-solid fa-download"></i> ${t('downloadBtn')}</a>
                     </div>
                     <div class="icon-actions">
-                        <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)" aria-label="${isFav ? (currentLang==='ar'?'إزالة من المفضلة':'Remove from favorites') : (currentLang==='ar'?'إضافة للمفضلة':'Add to favorites')}">${isFav ? '❤️' : '🤍'}</button>
-                        <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')" aria-label="${currentLang==='ar'?'مشاركة':'Share'}"><i class="fa-solid fa-share-nodes"></i></button>
-                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')" aria-label="${currentLang==='ar'?'خيارات إضافية':'More options'}"><i class="fa-solid fa-ellipsis-vertical"></i></button>
+                        <button class="btn-icon ${isFav ? 'fav-active' : ''}" onclick="toggleFav('${sU}', this)">${isFav ? '❤️' : '🤍'}</button>
+                        <button class="btn-icon" onclick="nativeShare('${sT}', '', '${sU}')"><i class="fa-solid fa-share-nodes"></i></button>
+                        <button class="btn-icon more-menu-btn" onclick="toggleMoreMenu(this, '${sU}', '${sT}')"><i class="fa-solid fa-ellipsis-vertical"></i></button>
                     </div>
                 </div>
             </div>`;
